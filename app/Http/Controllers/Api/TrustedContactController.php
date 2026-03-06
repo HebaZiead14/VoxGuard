@@ -97,21 +97,29 @@ class TrustedContactController extends Controller
         return response()->json(['status' => true, 'message' => 'Deleted successfully'], 200);
     }
 
-
+    /**
+     * 5. رفع وسائط الـ SOS (فيديو أو أوديو)
+     * يتم استخدامه لتسجيل الدليل وقت وقوع حادثة
+     */
     public function uploadSosMedia(Request $request)
-{
-    // التأكد من وجود فيديو أو أوديو
-    $request->validate([
-        'video' => 'nullable|file|mimes:mp4,mov,avi',
-        'audio' => 'nullable|file|mimes:mp3,wav',
-    ]);
+    {
+        // التأكد من وجود فيديو أو أوديو
+        $request->validate([
+            'video' => 'nullable|file|mimes:mp4,mov,avi',
+            'audio' => 'nullable|file|mimes:mp3,wav',
+        ]);
 
-    // كود حفظ الملفات (مثال بسيط)
-    if ($request->hasFile('video')) {
-        $path = $request->file('video')->store('sos_videos', 'public');
-        return response()->json(['status' => true, 'message' => 'Video Uploaded!', 'path' => $path]);
+        // كود حفظ الملفات
+        if ($request->hasFile('video')) {
+            $path = $request->file('video')->store('sos_videos', 'public');
+            return response()->json(['status' => true, 'message' => 'Video Uploaded!', 'path' => $path]);
+        }
+
+        if ($request->hasFile('audio')) {
+            $path = $request->file('audio')->store('sos_audios', 'public');
+            return response()->json(['status' => true, 'message' => 'Audio Uploaded!', 'path' => $path]);
+        }
+
+        return response()->json(['status' => false, 'message' => 'No media uploaded']);
     }
-
-    return response()->json(['status' => false, 'message' => 'No media uploaded']);
-}
 }
