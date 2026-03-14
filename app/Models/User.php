@@ -17,13 +17,12 @@ class User extends Authenticatable
 
     /**
      * الحقول المسموح بتعديلها (Mass Assignable)
-     * تشمل بيانات الملف الشخصي، المعلومات الطبية، وإعدادات التطبيق
      */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'phone_number',              // تعديل: غيريها من phone_number لـ phone
+        'phone_number', 
         'first_name',
         'last_name',
         'profile_image',
@@ -38,7 +37,11 @@ class User extends Authenticatable
         'wearable_device_id', 
         'wearable_active',
         'current_heart_rate',
-        'current_motion'
+        'current_motion',
+        // --- حقول تسجيل الدخول الاجتماعي المضافة ---
+        'google_id',
+        'facebook_id',
+        'social_type'
     ];
 
     /**
@@ -51,14 +54,15 @@ class User extends Authenticatable
 
     /**
      * تحويل البيانات (Casting)
-     * نضمن هنا أن القيم المنطقية ترجع كـ Boolean وليس أرقام
      */
     protected function casts(): array {
         return [
+            'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'fake_call_enabled' => 'boolean',
             'panic_button_enabled' => 'boolean',
             'notifications_enabled' => 'boolean',
+            'wearable_active' => 'boolean',
         ];
     }
 
@@ -77,7 +81,6 @@ class User extends Authenticatable
 
     /**
      * الحصول على سجل الاستغاثات (SOS Alerts)
-     * قمت بتعديل الاسم ليتوافق مع جداول نظام الاستغاثة
      */
     public function sosAlerts()
     {

@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\TripController;
 /* 1. المسارات العامة (Public Routes) */
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/social-login', [AuthController::class, 'socialLogin']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
