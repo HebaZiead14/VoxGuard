@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2026 at 07:30 AM
+-- Generation Time: Mar 17, 2026 at 05:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -154,7 +154,8 @@ INSERT INTO `fake_calls` (`id`, `user_id`, `caller_name`, `scheduled_at`, `ringt
 (11, 8, 'Emergency Security', '2026-02-25 01:47:42', 'Default Ringtone', 'pending', '2026-02-24 23:47:37', '2026-02-24 23:47:37', 'general'),
 (12, 8, 'Police', '2026-02-25 01:54:35', 'Urgent', 'pending', '2026-02-24 23:52:35', '2026-02-24 23:52:35', 'security_check'),
 (13, 13, 'Emergency Security', '2026-03-03 08:13:51', 'Default Ringtone', 'pending', '2026-03-03 06:13:46', '2026-03-03 06:13:46', 'general'),
-(14, 13, 'Police', '2026-03-03 08:17:07', 'Urgent', 'pending', '2026-03-03 06:15:07', '2026-03-03 06:15:07', 'security_check');
+(14, 13, 'Police', '2026-03-03 08:17:07', 'Urgent', 'pending', '2026-03-03 06:15:07', '2026-03-03 06:15:07', 'security_check'),
+(15, 16, 'Police', '2026-03-06 02:46:58', 'Urgent', 'pending', '2026-03-06 00:44:58', '2026-03-06 00:44:58', 'security_check');
 
 -- --------------------------------------------------------
 
@@ -208,7 +209,8 @@ CREATE TABLE `incidents` (
 INSERT INTO `incidents` (`id`, `user_id`, `type`, `description`, `location_text`, `latitude`, `longitude`, `media_path`, `status`, `created_at`, `updated_at`) VALUES
 (1, 6, 'Harassment', 'Someone is following me', '123 Main street', NULL, NULL, 'uploads/incidents/1770397648_heba.jpg', 'pending', '2026-02-06 17:07:28', '2026-02-06 17:07:28'),
 (2, 7, 'Harassment', 'I saw a blue car following me near the park', 'Main street, Anytown', NULL, NULL, 'uploads/incidents/1770767546_Fruit Classifier 2025-12-02 00-32-18.mp4', 'pending', '2026-02-10 23:52:26', '2026-02-10 23:52:26'),
-(3, 9, 'Harassment', 'I saw a blue car following me near the park', 'Main street, Anytown', NULL, NULL, 'uploads/incidents/1771977838_Fruit Classifier 2025-12-02 00-32-18.mp4', 'pending', '2026-02-25 00:03:58', '2026-02-25 00:03:58');
+(3, 9, 'Harassment', 'I saw a blue car following me near the park', 'Main street, Anytown', NULL, NULL, 'uploads/incidents/1771977838_Fruit Classifier 2025-12-02 00-32-18.mp4', 'pending', '2026-02-25 00:03:58', '2026-02-25 00:03:58'),
+(4, 16, 'Harassment', 'I saw a blue car following me near the park', 'Main street, Anytown', NULL, NULL, NULL, 'pending', '2026-03-06 00:42:59', '2026-03-06 00:42:59');
 
 -- --------------------------------------------------------
 
@@ -273,7 +275,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2026_02_05_042202_add_profile_fields_to_users_table', 7),
 (10, '2026_02_05_082422_add_location_to_trusted_contacts_table', 8),
 (12, '2026_02_05_214455_add_heart_rate_monitoring_to_users', 9),
-(13, '2026_02_24_222643_create_global_zones_table', 10);
+(13, '2026_02_24_222643_create_global_zones_table', 10),
+(14, '2026_03_14_050638_add_social_ids_to_users_table', 11);
 
 -- --------------------------------------------------------
 
@@ -286,6 +289,14 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('Aya@gmail.com', '7869', '2026-03-14 23:48:37'),
+('salz@gmail.com', '3515', '2026-03-14 23:38:14');
 
 -- --------------------------------------------------------
 
@@ -333,8 +344,22 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (34, 'App\\Models\\User', 11, 'api-token', 'd1d2360ce9e5450f6ccce4b9a3662fbbea4ad8067c243cecc1d3e1eac116d815', '[\"*\"]', '2026-03-03 01:07:17', NULL, '2026-03-03 00:29:57', '2026-03-03 01:07:17'),
 (35, 'App\\Models\\User', 12, 'api-token', 'bc435fcee03f547548fe61fea8a39cd8aeb4d5de381680c5d6f893513054ea70', '[\"*\"]', NULL, NULL, '2026-03-03 01:13:23', '2026-03-03 01:13:23'),
 (36, 'App\\Models\\User', 12, 'api-token', 'df7ee2e9a8be8822662429ad53283808c41ef7f1a85859bcdf61843fca40bef1', '[\"*\"]', '2026-03-03 06:11:09', NULL, '2026-03-03 01:13:35', '2026-03-03 06:11:09'),
-(37, 'App\\Models\\User', 13, 'api-token', '132aa4d47994949b4fcde2d01770eab8a2b17a9fc6187ff04556e5f8e3d1c6ac', '[\"*\"]', '2026-03-03 06:15:58', NULL, '2026-03-03 05:17:11', '2026-03-03 06:15:58'),
-(38, 'App\\Models\\User', 13, 'api-token', 'b411414becca17453bde996ae2ee16abfff48f859307612c3368bcad50bbc0d1', '[\"*\"]', '2026-03-03 06:16:55', NULL, '2026-03-03 06:09:52', '2026-03-03 06:16:55');
+(37, 'App\\Models\\User', 13, 'api-token', '132aa4d47994949b4fcde2d01770eab8a2b17a9fc6187ff04556e5f8e3d1c6ac', '[\"*\"]', '2026-03-05 18:46:49', NULL, '2026-03-03 05:17:11', '2026-03-05 18:46:49'),
+(38, 'App\\Models\\User', 13, 'api-token', 'b411414becca17453bde996ae2ee16abfff48f859307612c3368bcad50bbc0d1', '[\"*\"]', '2026-03-03 06:16:55', NULL, '2026-03-03 06:09:52', '2026-03-03 06:16:55'),
+(39, 'App\\Models\\User', 14, 'api-token', '1587fc1c43aa6885fb45f2113acd6e934d2ba1afdd1bc1f0a55ccdcb42867fcb', '[\"*\"]', NULL, NULL, '2026-03-05 17:53:21', '2026-03-05 17:53:21'),
+(40, 'App\\Models\\User', 14, 'api-token', 'fd951456c0a06e4c8e033acd01aac44785e50eef3e82c8302e47bb94e5315522', '[\"*\"]', '2026-03-05 18:57:24', NULL, '2026-03-05 17:53:43', '2026-03-05 18:57:24'),
+(41, 'App\\Models\\User', 15, 'api-token', 'cd04e966458fefdf6fb631362a1e17bb606d9ef6f882c17bfa6c2551b27c4376', '[\"*\"]', NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41'),
+(42, 'App\\Models\\User', 15, 'api-token', '20a4fbd5ec177e1775c34bbaceaa656db2cff28a51bd63de26ef3664d50f74ef', '[\"*\"]', '2026-03-06 00:35:09', NULL, '2026-03-05 19:00:57', '2026-03-06 00:35:09'),
+(43, 'App\\Models\\User', 15, 'api-token', '48cbd50bac86602b4af2ae280bd8960e0d92fa0d03841613a7ee4c82a71f1ddc', '[\"*\"]', '2026-03-05 19:15:49', NULL, '2026-03-05 19:15:20', '2026-03-05 19:15:49'),
+(44, 'App\\Models\\User', 15, 'api-token', '1d1a8a1a28ffe1a6c3dc81327cb09acbb4c282f78ce4a6567093ea3a3260b8f4', '[\"*\"]', '2026-03-05 19:54:50', NULL, '2026-03-05 19:17:08', '2026-03-05 19:54:50'),
+(45, 'App\\Models\\User', 15, 'api-token', 'cfe7ab59950868e9877e61c47a4cc6e7e67fe0dd8ed91f6e077349284f233034', '[\"*\"]', '2026-03-05 19:55:43', NULL, '2026-03-05 19:55:25', '2026-03-05 19:55:43'),
+(46, 'App\\Models\\User', 15, 'api-token', '6364989694dc4fa4c3bea97acb2ecc8a565665ac1ad30932857221f1f52ea8bc', '[\"*\"]', NULL, NULL, '2026-03-05 20:12:13', '2026-03-05 20:12:13'),
+(47, 'App\\Models\\User', 16, 'api-token', '16f9e3f2cb2000769df63828584a7d91632144e95b8ad8faa9a02e3f90a90d79', '[\"*\"]', NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08'),
+(48, 'App\\Models\\User', 16, 'api-token', '4c937bb659dbafc4d49fc416ca60a3297ca70df4909c6b1fb0d2a847764a35ff', '[\"*\"]', '2026-03-06 00:45:45', NULL, '2026-03-05 20:13:29', '2026-03-06 00:45:45'),
+(49, 'App\\Models\\User', 17, 'api-token', 'b4c891fc8fd1eb9cf4c8aedc0e16179c5761be9f44f3878a863434e1b75661a5', '[\"*\"]', NULL, NULL, '2026-03-14 03:29:31', '2026-03-14 03:29:31'),
+(50, 'App\\Models\\User', 16, 'api-token', '83374defdc869cb924626ec47a8d03ae3144bf6fd16273b5d8c665760f26ce7b', '[\"*\"]', NULL, NULL, '2026-03-14 03:42:52', '2026-03-14 03:42:52'),
+(51, 'App\\Models\\User', 18, 'api-token', '9c1f3750d153a26fb02035d45f0195ae891401d7ce530285d5739875fc92039e', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:30', '2026-03-14 23:42:30'),
+(52, 'App\\Models\\User', 18, 'api-token', 'c4e42c98cb6021372ccfbf654dbcc5cb462c1092c53898d975ddbb38b7d34e60', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:49', '2026-03-14 23:42:49');
 
 -- --------------------------------------------------------
 
@@ -359,8 +384,8 @@ INSERT INTO `safety_timers` (`id`, `user_id`, `expires_at`, `status`, `created_a
 (2, 4, '2026-02-06 03:16:04', 'canceled', '2026-02-06 01:15:04', '2026-02-06 01:17:10'),
 (3, 6, '2026-02-06 17:47:23', 'active', '2026-02-06 15:46:23', '2026-02-06 15:46:23'),
 (4, 7, '2026-02-10 21:51:07', 'canceled', '2026-02-10 19:50:07', '2026-02-10 19:50:57'),
-(6, 12, '2026-03-03 04:17:57', 'active', '2026-03-03 02:16:57', '2026-03-03 02:16:57'),
-(7, 13, '2026-03-03 08:15:24', 'canceled', '2026-03-03 06:14:24', '2026-03-03 06:14:37');
+(7, 13, '2026-03-03 08:15:24', 'canceled', '2026-03-03 06:14:24', '2026-03-03 06:14:37'),
+(8, 16, '2026-03-06 02:46:31', 'canceled', '2026-03-06 00:45:31', '2026-03-06 00:45:45');
 
 -- --------------------------------------------------------
 
@@ -382,6 +407,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('51qJvvxMd20BIziQOK9MhWRsKiqM1bVU6uUztR8M', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWDBZb214NW5seThHVWQ5WktkY0hyMXhpcHMxWFZPZk1ZQVNhQmhvQSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772524734),
 ('5jAjGgGZMhDP2exWCUBVYaujfkqLyFBwj3WmHixW', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOWRubWtqaE9sNjl3ekdBU0Y1VmtuY0lVSVRJckx1N01JemNVM3JQWCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1769745343),
 ('6zcXeAVdJ4m95bHRaY92kFb2oWR1HINF2gADBLnb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiampidFp3YUx0dWR4bW5DTTBPZ3dTbWh5THlkaUoxaG1rTFFvU09KWCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770752416),
 ('AHvfYyGWsOZHrm4qAwHM4V1WvjcnB9xxoy2I1IsB', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYk55ak1LaDJtenRVUWZmd1h3MEZiZm0xZFdSMjdnTlRDYTdGV2xxTSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1771599114),
@@ -391,6 +417,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('cKgZR6H6T7141GZRmu1uGBhL1LSi4wUYt2so9Kbl', NULL, '127.0.0.1', 'WhatsApp/2.23.20.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMW80UHVnbHNFT3ZncFJVMXoxYjBJc3Y4TGhhV3J5MWhVd2JEYkRiMCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2IjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1770179816),
 ('DnZQGVrAcAGpxkurGQs2stBSqU3HwwCKTCbAEWYZ', NULL, '127.0.0.1', 'PostmanRuntime/7.51.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiM0R6M2VhWnluYkxlclFjd214eFI1TEZDa3l6UkhvRzF5UmdrTlVvaCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770392411),
 ('GC82KRTGYXPlON5mwFgwf7qWxPs86vGBCTeV3Tgn', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU1NpeVVyTGZYZ0lyRmlDSk13empRM0JiYW9LNEIyTzdHY083Z2UyQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770169859),
+('gNbLicMM3AIhViPmzdpwnDgezLG48ytj6vf9gz9X', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiS3h6SjE5Q3ROOUxtU1dER2hTNE1hcjBWbjVOb1JwM0N4S3lseWRiUSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772733010),
 ('Ij5ZPMbUW4GMIK5V2VHrx6dugyXIr1CTK6cQYv3y', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWmxmQnB2aFJPRjN1MkVsS3VUUWYyR2tsTHpqSHc5UUVST1FORnM2cCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772497689),
 ('kqohBFYNoUFoR1SvxuZpTCPyEwaI6mfNPxqfLqjd', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidU9UTmVaYkFPaENEaFdYNzNHc1BhOTdrRTgwcFIzV0Q5dTQwcVVPUiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770387682),
 ('s7cBLwX00oPGtm2F3zBnyFLaJ1EF5crmhoGA90Nj', NULL, '127.0.0.1', 'PostmanRuntime/7.51.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUDNkeWw5YVMxUmlrSXRScVRmZkIwOFB2eUtncHJQdnlxNkxmWTFJNyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770166614),
@@ -469,7 +496,37 @@ INSERT INTO `sos_alerts` (`id`, `user_id`, `status`, `latitude`, `longitude`, `t
 (46, 12, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-03 05:15:35', '2026-03-03 05:15:35'),
 (47, 13, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-03 05:19:26', '2026-03-03 05:19:26'),
 (48, 13, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-03 05:23:12', '2026-03-03 05:23:12'),
-(49, 13, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-03 06:15:27', '2026-03-03 06:15:27');
+(49, 13, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-03 06:15:27', '2026-03-03 06:15:27'),
+(50, 14, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-05 18:56:00', '2026-03-05 18:56:00'),
+(51, 15, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-05 19:01:21', '2026-03-05 19:01:21'),
+(52, 16, 'active', 31.04090000, 31.37850000, 'manual', NULL, '2026-03-06 00:34:29', '2026-03-06 00:34:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trips`
+--
+
+CREATE TABLE `trips` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `destination_name` varchar(255) NOT NULL,
+  `destination_lat` decimal(10,8) NOT NULL,
+  `destination_long` decimal(11,8) NOT NULL,
+  `estimated_time` int(11) NOT NULL,
+  `safety_notes` text DEFAULT NULL,
+  `trusted_contact_id` bigint(20) UNSIGNED NOT NULL,
+  `status` enum('started','reached','stopped','emergency') NOT NULL DEFAULT 'started',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `trips`
+--
+
+INSERT INTO `trips` (`id`, `user_id`, `destination_name`, `destination_lat`, `destination_long`, `estimated_time`, `safety_notes`, `trusted_contact_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 16, 'نادي جزيرة الورد', 31.04090000, 31.37850000, 15, 'راكبة ميكروباص أبيض، رقم اللوحة 1234', 1, 'emergency', '2026-03-06 00:08:40', '2026-03-06 00:34:29');
 
 -- --------------------------------------------------------
 
@@ -518,7 +575,12 @@ INSERT INTO `trusted_contacts` (`id`, `user_id`, `name`, `phone`, `lat`, `lng`, 
 (21, 12, 'shahd', '201141503945', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:12:41', '2026-03-03 05:12:41'),
 (22, 12, 'Mohamed gamal', '201275858680', NULL, NULL, 'Brother', 0, 'offline', '2026-03-03 05:15:29', '2026-03-03 05:15:29'),
 (23, 13, 'Amira', '201092773039', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:19:04', '2026-03-03 05:19:04'),
-(24, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:23:04', '2026-03-03 05:23:04');
+(24, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:23:04', '2026-03-03 05:23:04'),
+(25, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 18:35:28', '2026-03-05 18:35:28'),
+(26, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 18:46:49', '2026-03-05 18:46:49'),
+(27, 15, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 19:11:34', '2026-03-05 19:11:34'),
+(28, 15, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 19:15:42', '2026-03-05 19:15:42'),
+(29, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 20:14:51', '2026-03-05 20:14:51');
 
 -- --------------------------------------------------------
 
@@ -534,6 +596,9 @@ CREATE TABLE `users` (
   `phone_number` varchar(255) DEFAULT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `google_id` varchar(255) DEFAULT NULL,
+  `facebook_id` varchar(255) DEFAULT NULL,
+  `social_type` varchar(255) DEFAULT NULL,
   `blood_type` varchar(255) DEFAULT NULL,
   `allergies` text DEFAULT NULL,
   `medical_conditions` text DEFAULT NULL,
@@ -555,16 +620,19 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_number`, `profile_image`, `password`, `blood_type`, `allergies`, `medical_conditions`, `remember_token`, `created_at`, `updated_at`, `language`, `fake_call_enabled`, `panic_button_enabled`, `notifications_enabled`, `phone_numder`, `voice_password_enabled`, `current_heart_rate`, `current_motion`, `emergency_threshold`) VALUES
-(1, 'Heba', 'Ziad', 'heba@voxguard.com', NULL, NULL, '$2y$12$Eqtvjus6zhXg0ROIQhun6.gNGoHpD73zt.i/bDKuNZTzlURReekIO', NULL, NULL, NULL, NULL, '2026-01-29 23:48:08', '2026-01-30 00:05:43', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(3, 'Heba', 'Ziad', 'final.success@gmail.com', NULL, NULL, '$2y$12$vzt081ztR/S1DDG5z847F.xru8kHIUSrFSuN5huhwy8KzfmEL.6Ia', NULL, NULL, NULL, NULL, '2026-02-05 04:43:56', '2026-02-05 04:43:56', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(4, 'Heba', 'Ziad', 'final@gmail.com', '+201551471741', NULL, '$2y$12$IAKNV4tf3Ai8YIE.cVrY4ueSRPaRZbx1aM2VfTFz6yqCgS1Djgohy', 'O Positive', 'Peanuts', 'None', NULL, '2026-02-05 04:54:42', '2026-02-05 23:31:09', 'Egypt', 1, 1, 0, NULL, 1, 135, 'Still', 120),
-(6, 'Heba', 'Ziad', 'mero@gmail.com', '+201551471741', NULL, '$2y$12$.YoQ4s/OZMal0WuC7im5DeAhebItLz.48MbKcQFw.VIkeg9R628gq', 'O Positive', 'Peanuts', 'None', NULL, '2026-02-06 15:35:03', '2026-02-06 19:09:59', 'Egypt', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(7, 'Heba', 'Ziad', 'heba@gmail.com', '+201551471741', NULL, '$2y$12$s1Wop9YkLs1sNsFg6e/kvOOyhn3qKXGtWaNTnkGfryGJUaUucgXYC', 'O Positive', 'Peanuts', 'None', NULL, '2026-02-10 19:40:38', '2026-02-10 20:33:11', 'Egypt', 0, 1, 1, NULL, 1, 135, 'Still', 120),
-(9, 'Heba', 'Ziad', 'sara@gmail.com', '+201551471741', NULL, '$2y$12$nu3gcIzhuGbLqrOlSMvij.pYkRgVEL97GNMXd1bx6VHDhzPVyf9Lm', 'O Positive', 'Peanuts', 'None', NULL, '2026-02-24 23:57:00', '2026-02-25 01:25:49', 'en', 0, 1, 1, NULL, 1, 135, 'Still', 120),
-(10, 'may', 'Mohamed', 'MAY@gmail.com', '01272289099', NULL, '$2y$12$cj6eGjeO3LFHtNXyyeBFaOPWXk2UHISU0TAmSKfGULoL8aEaupVKO', NULL, NULL, NULL, NULL, '2026-02-25 01:24:31', '2026-02-25 01:24:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(12, 'Roaa', 'ELmetwaly', 'roaa@gmail.com', '01014826185', NULL, '$2y$12$ds7MzR3chEs0wd3R9lxVTePj1E192vAje8rwr0vfppr0bF6O7ROFi', 'O+', 'None', 'Healthy', NULL, '2026-03-03 01:13:22', '2026-03-03 02:30:29', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(13, 'Roaa', 'ELmetwaly', 'sally@gmail.com', '+201551471741', NULL, '$2y$12$RxGvOeVymAIka64J8QMZue104GDlus.xqyPzZRK7gO0mJQgoLLbhS', 'O Positive', 'Peanuts', 'None', NULL, '2026-03-03 05:17:10', '2026-03-03 06:12:30', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_number`, `profile_image`, `password`, `google_id`, `facebook_id`, `social_type`, `blood_type`, `allergies`, `medical_conditions`, `remember_token`, `created_at`, `updated_at`, `language`, `fake_call_enabled`, `panic_button_enabled`, `notifications_enabled`, `phone_numder`, `voice_password_enabled`, `current_heart_rate`, `current_motion`, `emergency_threshold`) VALUES
+(1, 'Heba', 'Ziad', 'heba@voxguard.com', NULL, NULL, '$2y$12$Eqtvjus6zhXg0ROIQhun6.gNGoHpD73zt.i/bDKuNZTzlURReekIO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-01-29 23:48:08', '2026-01-30 00:05:43', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(3, 'Heba', 'Ziad', 'final.success@gmail.com', NULL, NULL, '$2y$12$vzt081ztR/S1DDG5z847F.xru8kHIUSrFSuN5huhwy8KzfmEL.6Ia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-05 04:43:56', '2026-02-05 04:43:56', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(4, 'Heba', 'Ziad', 'final@gmail.com', '+201551471741', NULL, '$2y$12$IAKNV4tf3Ai8YIE.cVrY4ueSRPaRZbx1aM2VfTFz6yqCgS1Djgohy', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-05 04:54:42', '2026-02-05 23:31:09', 'Egypt', 1, 1, 0, NULL, 1, 135, 'Still', 120),
+(6, 'Heba', 'Ziad', 'mero@gmail.com', '+201551471741', NULL, '$2y$12$.YoQ4s/OZMal0WuC7im5DeAhebItLz.48MbKcQFw.VIkeg9R628gq', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-06 15:35:03', '2026-02-06 19:09:59', 'Egypt', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(7, 'Heba', 'Ziad', 'heba@gmail.com', '+201551471741', NULL, '$2y$12$s1Wop9YkLs1sNsFg6e/kvOOyhn3qKXGtWaNTnkGfryGJUaUucgXYC', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-10 19:40:38', '2026-02-10 20:33:11', 'Egypt', 0, 1, 1, NULL, 1, 135, 'Still', 120),
+(9, 'Heba', 'Ziad', 'sara@gmail.com', '+201551471741', NULL, '$2y$12$nu3gcIzhuGbLqrOlSMvij.pYkRgVEL97GNMXd1bx6VHDhzPVyf9Lm', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-24 23:57:00', '2026-02-25 01:25:49', 'en', 0, 1, 1, NULL, 1, 135, 'Still', 120),
+(10, 'may', 'Mohamed', 'MAY@gmail.com', '01272289099', NULL, '$2y$12$cj6eGjeO3LFHtNXyyeBFaOPWXk2UHISU0TAmSKfGULoL8aEaupVKO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-25 01:24:31', '2026-02-25 01:24:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(13, 'Roaa', 'ELmetwaly', 'sally@gmail.com', '+201551471741', NULL, '$2y$12$RxGvOeVymAIka64J8QMZue104GDlus.xqyPzZRK7gO0mJQgoLLbhS', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-03-03 05:17:10', '2026-03-03 06:12:30', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(15, 'Sally', 'Ziead', 'sallyz@gmail.com', '01014826185', NULL, '$2y$12$0YXGE0bBrDzbtjWfNEt/QOqhdjQpL0QswZq/Xfmg603t53tFzXyBW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(16, 'Eally', 'Ziead', 'salz@gmail.com', '01014826189', NULL, '$2y$12$3hF.e3Kc7eF3IMzcyRM8JO6ZUBU605ocuw.CCqCjyPAIuLY7F99X2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(17, 'Heba', 'Ziad', 'heba_test@gmail.com', NULL, NULL, '$2y$12$an9im9bJiSo614Edl4jaPO4lcaWuL5iAXVn0WjyTxkIJR5iYyxoba', '109876543210123456', NULL, 'google', NULL, NULL, NULL, NULL, '2026-03-14 03:29:31', '2026-03-14 03:29:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
+(18, 'Aya', 'Ziead', 'Aya@gmail.com', '01272289429', NULL, '$2y$12$DbE.wYS5gmk1e5SH8I7qlutD5QMmAhu8MhM2xg98LCxZzwnxA5eES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-14 23:42:30', '2026-03-14 23:42:30', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120);
 
 -- --------------------------------------------------------
 
@@ -593,6 +661,49 @@ INSERT INTO `voice_passwords` (`id`, `user_id`, `phrase`, `sensitivity`, `timer_
 (4, 7, 'Help Me Now', 85, 5, '2026-02-10 19:48:19', '2026-02-10 19:48:19'),
 (5, 8, 'Help Me Now', 85, 5, '2026-02-24 23:47:37', '2026-02-24 23:47:37'),
 (6, 13, 'Help Me Now', 85, 5, '2026-03-03 06:13:46', '2026-03-03 06:13:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `zones`
+--
+
+CREATE TABLE `zones` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `latitude` decimal(10,8) NOT NULL,
+  `longitude` decimal(11,8) NOT NULL,
+  `radius` int(11) NOT NULL DEFAULT 250,
+  `type` enum('safe','moderate','high_alert') NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `crowd_level` varchar(255) NOT NULL DEFAULT 'medium',
+  `lighting` varchar(255) NOT NULL DEFAULT 'medium',
+  `is_automatic` tinyint(1) NOT NULL DEFAULT 0,
+  `notify_family` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `zones`
+--
+
+INSERT INTO `zones` (`id`, `user_id`, `name`, `latitude`, `longitude`, `radius`, `type`, `category`, `crowd_level`, `lighting`, `is_automatic`, `notify_family`, `created_at`, `updated_at`) VALUES
+(26, NULL, 'Zamalek', 30.06680000, 31.22430000, 700, 'safe', 'Residential', 'medium', 'good', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(27, NULL, 'Maadi', 29.96530000, 31.27610000, 900, 'safe', 'Residential', 'medium', 'good', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(28, NULL, 'New Cairo', 30.01690000, 31.46070000, 1200, 'safe', 'Residential', 'low', 'good', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(29, NULL, 'Helwan Industrial Area', 29.84480000, 31.29610000, 1000, 'high_alert', 'Industrial', 'low', 'poor', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(30, NULL, 'Ezbet El Haggana', 30.04500000, 31.27650000, 900, 'high_alert', 'High-Density', 'high', 'poor', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(31, NULL, 'Garden City', 30.04650000, 31.23420000, 600, 'safe', 'Residential', 'low', 'good', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(32, NULL, 'Mansoura Downtown', 31.04040000, 31.37850000, 700, 'moderate', 'Commercial', 'high', 'medium', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(33, NULL, 'Mansoura University Area', 31.04210000, 31.35860000, 800, 'safe', 'Commercial', 'high', 'good', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(34, NULL, 'Talkha Area', 31.05390000, 31.37780000, 900, 'moderate', 'Residential', 'medium', 'medium', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(35, NULL, 'Industrial Mansoura', 31.05650000, 31.36300000, 1000, 'high_alert', 'Industrial', 'low', 'poor', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(36, NULL, 'Mansoura Popular Area', 31.03800000, 31.37900000, 900, 'high_alert', 'High-Density', 'high', 'poor', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(37, NULL, 'Mansoura Residential District', 31.04100000, 31.37700000, 700, 'safe', 'Residential', 'medium', 'good', 1, 1, '2026-03-05 21:19:02', '2026-03-05 21:19:02'),
+(38, 16, 'My University', 31.04210000, 31.35860000, 500, 'safe', 'Personal', 'medium', 'medium', 0, 1, '2026-03-05 21:44:31', '2026-03-05 21:44:31'),
+(39, 16, 'My University', 31.04210000, 31.35860000, 500, 'safe', 'Personal', 'medium', 'medium', 0, 1, '2026-03-05 21:45:26', '2026-03-05 21:45:26');
 
 --
 -- Indexes for dumped tables
@@ -703,6 +814,12 @@ ALTER TABLE `sos_alerts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `trips`
+--
+ALTER TABLE `trips`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `trusted_contacts`
 --
 ALTER TABLE `trusted_contacts`
@@ -719,6 +836,12 @@ ALTER TABLE `users`
 -- Indexes for table `voice_passwords`
 --
 ALTER TABLE `voice_passwords`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `zones`
+--
+ALTER TABLE `zones`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -747,7 +870,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `fake_calls`
 --
 ALTER TABLE `fake_calls`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `global_zones`
@@ -759,7 +882,7 @@ ALTER TABLE `global_zones`
 -- AUTO_INCREMENT for table `incidents`
 --
 ALTER TABLE `incidents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -771,43 +894,55 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `safety_timers`
 --
 ALTER TABLE `safety_timers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sos_alerts`
 --
 ALTER TABLE `sos_alerts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `trips`
+--
+ALTER TABLE `trips`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `trusted_contacts`
 --
 ALTER TABLE `trusted_contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `voice_passwords`
 --
 ALTER TABLE `voice_passwords`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `zones`
+--
+ALTER TABLE `zones`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables

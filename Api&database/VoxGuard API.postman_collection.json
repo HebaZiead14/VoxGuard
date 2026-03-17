@@ -23,7 +23,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"first_name\": \"Sally\",\r\n    \"last_name\": \"Ziead\",\r\n    \"email\": \"sally@gmail.com\",\r\n    \"phone_number\": \"01014826189\", \r\n    \"password\": \"password1\",\r\n    \"password_confirmation\": \"password1\"\r\n}",
+              "raw": "{\r\n    \"first_name\": \"Eally\",\r\n    \"last_name\": \"Ziead\",\r\n    \"email\": \"salz@gmail.com\",\r\n    \"phone_number\": \"01014826189\", \r\n    \"password\": \"password0\",\r\n    \"password_confirmation\": \"password0\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -71,7 +71,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email_or_phone\": \"01014826189\", \r\n    \"password\": \"password1\"\r\n}\r\n\r\n",
+              "raw": "{\r\n    \"email_or_phone\": \"01014826189\", \r\n    \"password\": \"password0\"\r\n}\r\n\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -374,6 +374,38 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "social-login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"social_id\": \"109876543210123456\",\r\n    \"social_type\": \"google\",\r\n    \"email\": \"heba_test@gmail.com\",\r\n    \"first_name\": \"Heba\",\r\n    \"last_name\": \"Ziad\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/social-login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "social-login"
+              ]
+            }
+          },
+          "response": []
         }
       ],
       "auth": {
@@ -536,7 +568,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -579,7 +611,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -661,7 +693,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -715,7 +747,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "42|R8KkWeV6AhDG9zOpbGXYjZd2qvCyVoSsVP2yBTie38256645",
                   "type": "string"
                 }
               ]
@@ -764,7 +796,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "37|oMlLVyvec4CS9PN6SZlDxhRBp94sbkAYIolgBV0Zebaa32ed",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -789,7 +821,7 @@
               ]
             },
             "url": {
-              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/48/upload-audio",
+              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/52/upload-audio",
               "protocol": "https",
               "host": [
                 "lesia-danceable-nettly",
@@ -799,7 +831,7 @@
               "path": [
                 "api",
                 "sos",
-                "48",
+                "52",
                 "upload-audio"
               ]
             }
@@ -814,7 +846,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -1344,7 +1376,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "29|ykXZC2nmf2YYmctxWjyuQeRrnG8UXrvgXUnsgx3Ad406ee44",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -1416,7 +1448,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "29|ykXZC2nmf2YYmctxWjyuQeRrnG8UXrvgXUnsgx3Ad406ee44",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -1463,10 +1495,155 @@
       "name": "Zone",
       "item": [
         {
-          "name": "automatic",
+          "name": "zones",
           "request": {
-            "method": "GET",
-            "header": []
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "40|FzQLZnX4WerymB7CKRtbV4TUWcOo8V4vRAcZxBSJ35c5869f",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"My University\",\r\n    \"latitude\": 31.0421,\r\n    \"longitude\": 31.3586,\r\n    \"radius\": 500,\r\n    \"type\": \"safe\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/zones/store",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "zones",
+                "store"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Trip",
+      "item": [
+        {
+          "name": "start trip",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"destination_name\": \"نادي جزيرة الورد\",\r\n    \"destination_lat\": 31.0409,\r\n    \"destination_long\": 31.3785,\r\n    \"estimated_time\": 15,\r\n    \"trusted_contact_id\": 1,\r\n    \"safety_notes\": \"راكبة ميكروباص أبيض، رقم اللوحة 1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/trips/start",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "trips",
+                "start"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update-status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"emergency\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/trips/1/update-status",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "trips",
+                "1",
+                "update-status"
+              ]
+            }
           },
           "response": []
         }

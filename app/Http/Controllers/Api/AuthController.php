@@ -77,11 +77,11 @@ class AuthController extends Controller
     public function socialLogin(Request $request)
     {
         $request->validate([
-            'social_id'   => 'required|string',
+            'social_id' => 'required|string',
             'social_type' => 'required|in:google,facebook',
-            'email'       => 'required|email',
-            'first_name'  => 'nullable|string',
-            'last_name'   => 'nullable|string',
+            'email' => 'required|email',
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
         ]);
 
         // البحث عن المستخدم بالـ ID الخاص بجوجل أو فيسبوك
@@ -98,12 +98,12 @@ class AuthController extends Controller
             } else {
                 // لو يوزر جديد خالص، نكريه
                 $user = User::create([
-                    'first_name'   => $request->first_name,
-                    'last_name'    => $request->last_name,
-                    'email'        => $request->email,
-                    'password'     => Hash::make(Str::random(16)), // باسورد عشوائي لأنه داخل بجوجل
-                    $column        => $request->social_id,
-                    'social_type'  => $request->social_type,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'password' => Hash::make(Str::random(16)), // باسورد عشوائي لأنه داخل بجوجل
+                    $column => $request->social_id,
+                    'social_type' => $request->social_type,
                 ]);
             }
         }
@@ -120,43 +120,43 @@ class AuthController extends Controller
 
     // ---------------- 4. Forgot Password ----------------
     public function forgotPassword(Request $request)
-{
-    $request->validate(['email_or_phone' => 'required|string']);
+    {
+        $request->validate(['email_or_phone' => 'required|string']);
 
-    $user = User::where('email', $request->email_or_phone)
-        ->orWhere('phone_number', $request->email_or_phone)
-        ->first();
+        $user = User::where('email', $request->email_or_phone)
+            ->orWhere('phone_number', $request->email_or_phone)
+            ->first();
 
-    if (!$user) {
-        return response()->json(['status' => false, 'message' => 'User not found'], 404);
+        if (!$user) {
+            return response()->json(['status' => false, 'message' => 'User not found'], 404);
+        }
+
+        $otp = rand(1000, 9999);
+
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $user->email],
+            ['token' => $otp, 'created_at' => now()]
+        );
+
+        // --- الجزء الخاص بـ UltraMsg ---
+        $instance_id = "instance165616"; // حطي الـ Instance ID بتاعك هنا
+        $token = "4lymfep8kl3apijw";    // حطي الـ Token بتاعك هنا
+
+        // إرسال الرسالة للواتساب
+        Http::post("https://api.ultramsg.com/{$instance_id}/messages/chat", [
+            'token' => $token,
+            'to' => $user->phone_number,
+            'body' => "كود التحقق الخاص بك في VoxGuard هو: {$otp}\nبرجاء استخدامه لإعادة تعيين كلمة السر."
+        ]);
+
+        // ----------------------------------------------------------
+
+        return response()->json([
+            'status' => true,
+            'message' => 'OTP generated successfully and sent to WhatsApp',
+            'otp' => $otp // بنسيبه هنا عشان تقدري تجربيه في Postman برضه
+        ]);
     }
-
-    $otp = rand(1000, 9999);
-
-    DB::table('password_reset_tokens')->updateOrInsert(
-        ['email' => $user->email],
-        ['token' => $otp, 'created_at' => now()]
-    );
-
-    // --- الجزء الخاص بـ UltraMsg ---
-    $instance_id = "instanceXXXX"; // حطي الـ Instance ID بتاعك هنا
-    $token = "your_token_here";    // حطي الـ Token بتاعك هنا
-    
-    // إرسال الرسالة للواتساب
-    Http::post("https://api.ultramsg.com/{$instance_id}/messages/chat", [
-        'token' => $token,
-        'to'    => $user->phone_number, 
-        'body'  => "كود التحقق الخاص بك في VoxGuard هو: {$otp}\nبرجاء استخدامه لإعادة تعيين كلمة السر."
-    ]);
-
-    // ----------------------------------------------------------
-
-    return response()->json([
-        'status' => true,
-        'message' => 'OTP generated successfully and sent to WhatsApp',
-        'otp' => $otp // بنسيبه هنا عشان تقدري تجربيه في Postman برضه
-    ]);
-}
     // ---------------- 5. Reset Password ----------------
     public function resetPassword(Request $request)
     {
@@ -223,18 +223,18 @@ class AuthController extends Controller
     }
 
 
-public function sendWhatsApp($phone, $message) 
-{
-    $params = array(
-        'token' => 'رقم_التوكن_بتاعك',
-        'instance_id' => 'رقم_الانستانس_بتاعك',
-        'to' => $phone,
-        'body' => $message
-    );
+    public function sendWhatsApp($phone, $message)
+    {
+        $params = array(
+            'token' => '4lymfep8kl3apijw',
+            'instance_id' => 'instance165616',
+            'to' => $phone,
+            'body' => $message
+        );
 
-    // إرسال الطلب لـ UltraMsg
-    $response = Http::post("https://api.ultramsg.com/{$params['instance_id']}/messages/chat", $params);
+        // إرسال الطلب لـ UltraMsg
+        $response = Http::post("https://api.ultramsg.com/{$params['instance_id']}/messages/chat", $params);
 
-    return $response->successful();
-}
+        return $response->successful();
+    }
 }
