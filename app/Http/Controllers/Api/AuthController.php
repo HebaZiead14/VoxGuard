@@ -8,9 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite; // إضافة المكتبة الجديدة
-use Illuminate\Support\Facades\Http; // لازم تضيفي السطر ده فوق خالص
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -73,7 +72,7 @@ class AuthController extends Controller
         ]);
     }
 
-    // ---------------- 3. Social Login (جديد: جوجل وفيسبوك) ----------------
+    // ---------------- 3. Social Login (جوجل وفيسبوك) ----------------
     public function socialLogin(Request $request)
     {
         $request->validate([
@@ -84,24 +83,20 @@ class AuthController extends Controller
             'last_name' => 'nullable|string',
         ]);
 
-        // البحث عن المستخدم بالـ ID الخاص بجوجل أو فيسبوك
         $column = $request->social_type == 'google' ? 'google_id' : 'facebook_id';
         $user = User::where($column, $request->social_id)->first();
 
         if (!$user) {
-            // لو مش موجود بالـ ID، ندور بالإيميل (ممكن تكون سجلت عادي قبل كدة)
             $user = User::where('email', $request->email)->first();
 
             if ($user) {
-                // نحدث بياناته بالـ ID الجديد للربط
                 $user->update([$column => $request->social_id]);
             } else {
-                // لو يوزر جديد خالص، نكريه
                 $user = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'email' => $request->email,
-                    'password' => Hash::make(Str::random(16)), // باسورد عشوائي لأنه داخل بجوجل
+                    'password' => Hash::make(Str::random(16)), 
                     $column => $request->social_id,
                     'social_type' => $request->social_type,
                 ]);
@@ -123,7 +118,7 @@ class AuthController extends Controller
     {
         $request->validate(['email_or_phone' => 'required|string']);
 
-        $user = \App\Models\User::where('email', $request->email_or_phone)
+        $user = User::where('email', $request->email_or_phone)
             ->orWhere('phone_number', $request->email_or_phone)
             ->first();
 
@@ -133,32 +128,30 @@ class AuthController extends Controller
 
         $otp = rand(1000, 9999);
 
-        \Illuminate\Support\Facades\DB::table('password_reset_tokens')->updateOrInsert(
+        DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
             ['token' => $otp, 'created_at' => now()]
         );
 
         if (filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL)) {
             try {
-                \Illuminate\Support\Facades\Mail::raw("كود التحقق الخاص بك هو: {$otp}", function ($message) use ($user) {
-                    $message->to($user->email)->subject('إعادة تعيين كلمة المرور');
+                Mail::raw("كود التحقق الخاص بك هو: {$otp}", function ($message) use ($user) {
+                    $message->to($user->email)->subject('إعادة تعيين كلمة المرور - VoxGuard');
                 });
                 $status_message = 'OTP sent to your email successfully';
             } catch (\Exception $e) {
-                return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+                return response()->json(['status' => false, 'message' => 'Email Error: ' . $e->getMessage()], 500);
             }
         } else {
             try {
-                $instance_id = "instance165616";
-                $token = "4lymfep8kl3apijw";
-                \Illuminate\Support\Facades\Http::post("https://api.ultramsg.com/{$instance_id}/messages/chat", [
-                    'token' => $token,
-                    'to' => $user->phone_number,
-                    'body' => "كود التحقق الخاص بك هو: {$otp}"
-                ]);
-                $status_message = 'OTP sent to your WhatsApp successfully';
+                $sent = $this->sendWhatsApp($user->phone_number, "كود التحقق الخاص بك هو: {$otp}");
+                if($sent) {
+                    $status_message = 'OTP sent to your WhatsApp successfully';
+                } else {
+                    throw new \Exception("UltraMsg Service Error");
+                }
             } catch (\Exception $e) {
-                return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+                return response()->json(['status' => false, 'message' => 'WhatsApp Error: ' . $e->getMessage()], 500);
             }
         }
 
@@ -168,6 +161,7 @@ class AuthController extends Controller
             'otp' => $otp
         ]);
     }
+
     // ---------------- 5. Reset Password ----------------
     public function resetPassword(Request $request)
     {
@@ -184,11 +178,13 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-        $user->update(['password' => Hash::make($request->password)]);
+        if ($user) {
+            $user->update(['password' => Hash::make($request->password)]);
+            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            return response()->json(['status' => true, 'message' => 'Password reset successfully']);
+        }
 
-        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-
-        return response()->json(['status' => true, 'message' => 'Password reset successfully']);
+        return response()->json(['status' => false, 'message' => 'User not found'], 404);
     }
 
     // ---------------- 6. Logout ----------------
@@ -207,11 +203,11 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => true,
-            'user' => $request->user()
+            'user' => Auth::user()
         ], 200);
     }
 
-    // ---------------- 8. updateEmergencyInfo ----------------
+    // ---------------- 8. Update Emergency Info ----------------
     public function updateEmergencyInfo(Request $request)
     {
         $request->validate([
@@ -233,17 +229,16 @@ class AuthController extends Controller
         ]);
     }
 
-
-    public function sendWhatsApp($phone, $message)
+    // ---------------- مساعد إرسال واتساب ----------------
+    private function sendWhatsApp($phone, $message)
     {
-        $params = array(
+        $params = [
             'token' => '4lymfep8kl3apijw',
             'instance_id' => 'instance165616',
             'to' => $phone,
             'body' => $message
-        );
+        ];
 
-        // إرسال الطلب لـ UltraMsg
         $response = Http::post("https://api.ultramsg.com/{$params['instance_id']}/messages/chat", $params);
 
         return $response->successful();
