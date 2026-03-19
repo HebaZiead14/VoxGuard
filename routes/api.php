@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/store', [TrustedContactController::class, 'store']);
         Route::post('/send-location', [TrustedContactController::class, 'sendLocation']);
         Route::delete('/{id}', [TrustedContactController::class, 'destroy']);
+        Route::post('/upload-sos-audio', [TrustedContactController::class, 'uploadSosAudio']);
     });
 
     // --- جهات اتصال الطوارئ (الأهل والمنقذين) ---

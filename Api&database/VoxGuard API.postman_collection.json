@@ -23,7 +23,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"first_name\": \"Eally\",\r\n    \"last_name\": \"Ziead\",\r\n    \"email\": \"salz@gmail.com\",\r\n    \"phone_number\": \"01014826189\", \r\n    \"password\": \"password0\",\r\n    \"password_confirmation\": \"password0\"\r\n}",
+              "raw": "{\r\n    \"first_name\": \"Aya\",\r\n    \"last_name\": \"Ziead\",\r\n    \"email\": \"hebaziead6@gmail.com\",\r\n    \"phone_number\": \"01272289429\", \r\n    \"password\": \"password010\",\r\n    \"password_confirmation\": \"password010\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -104,7 +104,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "33|aqVKw6Rfpbm2tf5a99gbKhL3jcHwx9hHTKXHrmw37b9da4e2",
+                  "value": "53|2UZS5vp8GuC7K7dbiAwYWoFReKHZyC92P4DrGWPE3b7adcd6",
                   "type": "string"
                 }
               ]
@@ -113,7 +113,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email_or_phone\": \"01272289088\"\r\n}",
+              "raw": "{\r\n    \"email_or_phone\": \"hebaziead6@gmail.com\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1219,7 +1219,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "37|oMlLVyvec4CS9PN6SZlDxhRBp94sbkAYIolgBV0Zebaa32ed",
+                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
                   "type": "string"
                 }
               ]
@@ -1233,13 +1233,33 @@
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Mohamed Adel\",\r\n    \"phone\": \"201551761045\",\r\n    \"relation\": \"Sister\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Mohamed Adel",
+                  "type": "text",
+                  "uuid": "3b6720b7-7cfc-4b02-b160-71d5bef3495f"
+                },
+                {
+                  "key": "phone",
+                  "value": "201551761045",
+                  "type": "text",
+                  "uuid": "c210873f-3059-411f-8633-415f364a19d5"
+                },
+                {
+                  "key": "relation",
+                  "value": "Brother",
+                  "type": "text",
+                  "uuid": "e1178e84-8dc7-4998-8274-73bf293245f9"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "005474d8-166c-4f65-bfc6-a2b6b97a4c36",
+                  "src": "/C:/Users/Heba Ziead/Pictures/صورة واتساب بتاريخ 2024-11-04 في 01.25.14_4f5f5a43.jpg"
                 }
-              }
+              ]
             },
             "url": {
               "raw": "http://127.0.0.1:8000/api/trusted-contacts/store",

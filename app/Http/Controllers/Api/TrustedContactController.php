@@ -7,63 +7,92 @@ use App\Models\TrustedContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http; // مكتبة إرسال طلبات الـ API
 
 class TrustedContactController extends Controller
 {
     /**
      * 1. عرض قائمة جهات الاتصال (Trusted Contacts List)
-     * مطابقة تماماً لشاشة "Trusted" في الصورة
+     * تجلب الأرقام الخاصة بالمستخدم المسجل حالياً فقط
      */
+    // تعديل بسيط في عرض البيانات عشان الصورة تظهر برابط كامل
     public function index()
     {
-        // جلب جهات الاتصال الخاصة بالمستخدم الحالي
-        $contacts = TrustedContact::where('user_id', Auth::id())->get();
-        
-        return response()->json([
-            'status' => true,
-            'contacts' => $contacts
-        ], 200);
+        $contacts = TrustedContact::where('user_id', Auth::id())->get()->map(function ($contact) {
+            if ($contact->image) {
+                // ده بيخلي المسار: http://127.0.0.1:8000/storage/contacts/img.jpg
+                $contact->image = asset('storage/' . $contact->image);
+            }
+            return $contact;
+        });
+
+        return response()->json(['status' => true, 'contacts' => $contacts], 200);
     }
 
     /**
      * 2. إضافة جهة اتصال جديدة (Add Contact)
-     * مطابقة لشاشة الإضافة: الاسم الأول، الأخير، العلاقة، والرقم
+     * تشمل: حفظ البيانات + رفع الصورة + إرسال ترحيب واتساب
      */
     public function store(Request $request)
     {
-        // ملاحظة: التصميم يفصل الاسم الأول والأخير، لكننا سنخزنهم معاً كما في الـ Postman
         $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:100', // الاسم بالكامل
-            'phone'    => 'required|string|max:20',  // رقم الموبايل
-            'relation' => 'required|string|max:50',  // صلة القرابة (Relationship)
+            'name' => 'required|string|max:100',
+            'phone' => 'required|string|max:20',
+            'relation' => 'required|string|max:50',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // التحقق من الصورة
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => false, 
+                'status' => false,
                 'errors' => $validator->errors()
             ], 422);
         }
 
+        // --- معالجة رفع الصورة ---
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('contacts', 'public');
+        }
+
         $contact = TrustedContact::create([
-            'user_id'   => Auth::id(), 
-            'name'      => $request->name,
-            'phone'     => $request->phone,
-            'relation'  => $request->relation,
-            'is_online' => false, // القيمة الافتراضية
-            'status'    => 'offline', // الحالة التي تظهر في التصميم
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'relation' => $request->relation,
+            'image' => $imagePath,
+            'is_online' => false,
+            'status' => 'offline',
         ]);
+
+        // --- إرسال رسالة ترحيب للأهل عبر الواتساب (UltraMsg) ---
+        try {
+            $userName = Auth::user()->first_name ?? 'إحدى المستخدمات';
+            $targetPhone = $contact->phone;
+
+            // التأكد من إضافة الكود الدولي لمصر (+2) للرقم
+            if (!str_starts_with($targetPhone, '+')) {
+                $targetPhone = '+2' . $targetPhone;
+            }
+
+            Http::post("https://api.ultramsg.com/instance165616/messages/chat", [
+                'token' => '4lymfep8kl3apijw',
+                'to' => $targetPhone,
+                'body' => "مرحباً، تم إضافتك كجهة اتصال طوارئ لـ ($userName) في تطبيق VoxGuard للحماية. ستصلك رسائلنا في حالة طلب الاستغاثة."
+            ]);
+        } catch (\Exception $e) {
+            // في حالة فشل الإرسال (مثلاً لا يوجد إنترنت) يستمر الكود ولا يعطي خطأ
+        }
 
         return response()->json([
             'status' => true,
-            'message' => 'Trusted Contact Added Successfully!',
+            'message' => 'Trusted Contact Added Successfully and Notified!',
             'contact' => $contact
         ], 201);
     }
 
     /**
      * 3. إرسال الموقع المباشر (SOS Live Location)
-     * ترسل رابط الخريطة كـ Live Location وقت الخطر
      */
     public function sendLocation(Request $request)
     {
@@ -72,7 +101,7 @@ class TrustedContactController extends Controller
             'lng' => 'required|numeric',
         ]);
 
-        // توليد رابط جوجل ماب ليكون "Live Location"
+        // الرابط الصحيح الذي يفتح خرائط جوجل مباشرة عند الضغط عليه
         $mapUrl = "https://www.google.com/maps?q={$request->lat},{$request->lng}";
 
         return response()->json([
@@ -99,9 +128,12 @@ class TrustedContactController extends Controller
 
     /**
      * 5. رفع وسائط الـ SOS (فيديو أو أوديو)
-     * يتم استخدامه لتسجيل الدليل وقت وقوع حادثة
      */
-    public function uploadSosMedia(Request $request)
+    /**
+     * رفع تسجيل الـ SOS الصوتي (Evidence Audio)
+     * يتم استخدامه لتسجيل ما يحدث حول البنت كدليل صوتي
+     */
+      public function uploadSosMedia(Request $request)
     {
         // التأكد من وجود فيديو أو أوديو
         $request->validate([
@@ -122,4 +154,5 @@ class TrustedContactController extends Controller
 
         return response()->json(['status' => false, 'message' => 'No media uploaded']);
     }
+
 }

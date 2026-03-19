@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite; // إضافة المكتبة الجديدة
 use Illuminate\Support\Facades\Http; // لازم تضيفي السطر ده فوق خالص
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -123,7 +123,7 @@ class AuthController extends Controller
     {
         $request->validate(['email_or_phone' => 'required|string']);
 
-        $user = User::where('email', $request->email_or_phone)
+        $user = \App\Models\User::where('email', $request->email_or_phone)
             ->orWhere('phone_number', $request->email_or_phone)
             ->first();
 
@@ -133,28 +133,39 @@ class AuthController extends Controller
 
         $otp = rand(1000, 9999);
 
-        DB::table('password_reset_tokens')->updateOrInsert(
+        \Illuminate\Support\Facades\DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
             ['token' => $otp, 'created_at' => now()]
         );
 
-        // --- الجزء الخاص بـ UltraMsg ---
-        $instance_id = "instance165616"; // حطي الـ Instance ID بتاعك هنا
-        $token = "4lymfep8kl3apijw";    // حطي الـ Token بتاعك هنا
-
-        // إرسال الرسالة للواتساب
-        Http::post("https://api.ultramsg.com/{$instance_id}/messages/chat", [
-            'token' => $token,
-            'to' => $user->phone_number,
-            'body' => "كود التحقق الخاص بك في VoxGuard هو: {$otp}\nبرجاء استخدامه لإعادة تعيين كلمة السر."
-        ]);
-
-        // ----------------------------------------------------------
+        if (filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL)) {
+            try {
+                \Illuminate\Support\Facades\Mail::raw("كود التحقق الخاص بك هو: {$otp}", function ($message) use ($user) {
+                    $message->to($user->email)->subject('إعادة تعيين كلمة المرور');
+                });
+                $status_message = 'OTP sent to your email successfully';
+            } catch (\Exception $e) {
+                return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+            }
+        } else {
+            try {
+                $instance_id = "instance165616";
+                $token = "4lymfep8kl3apijw";
+                \Illuminate\Support\Facades\Http::post("https://api.ultramsg.com/{$instance_id}/messages/chat", [
+                    'token' => $token,
+                    'to' => $user->phone_number,
+                    'body' => "كود التحقق الخاص بك هو: {$otp}"
+                ]);
+                $status_message = 'OTP sent to your WhatsApp successfully';
+            } catch (\Exception $e) {
+                return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+            }
+        }
 
         return response()->json([
             'status' => true,
-            'message' => 'OTP generated successfully and sent to WhatsApp',
-            'otp' => $otp // بنسيبه هنا عشان تقدري تجربيه في Postman برضه
+            'message' => $status_message,
+            'otp' => $otp
         ]);
     }
     // ---------------- 5. Reset Password ----------------

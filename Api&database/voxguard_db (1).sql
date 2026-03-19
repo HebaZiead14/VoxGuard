@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2026 at 05:27 AM
+-- Generation Time: Mar 19, 2026 at 08:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -276,7 +276,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2026_02_05_082422_add_location_to_trusted_contacts_table', 8),
 (12, '2026_02_05_214455_add_heart_rate_monitoring_to_users', 9),
 (13, '2026_02_24_222643_create_global_zones_table', 10),
-(14, '2026_03_14_050638_add_social_ids_to_users_table', 11);
+(14, '2026_03_14_050638_add_social_ids_to_users_table', 11),
+(15, '2026_03_19_052207_add_image_to_trusted_contacts_table', 12);
 
 -- --------------------------------------------------------
 
@@ -296,6 +297,7 @@ CREATE TABLE `password_reset_tokens` (
 
 INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
 ('Aya@gmail.com', '7869', '2026-03-14 23:48:37'),
+('hebaziead6@gmail.com', '8335', '2026-03-19 06:54:15'),
 ('salz@gmail.com', '3515', '2026-03-14 23:38:14');
 
 -- --------------------------------------------------------
@@ -338,7 +340,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (27, 'App\\Models\\User', 9, 'api-token', 'c1d28f80385670080b5be79d842ded2427e1ca1bd0f135beed59aafc4687d3c2', '[\"*\"]', NULL, NULL, '2026-02-24 23:57:00', '2026-02-24 23:57:00'),
 (29, 'App\\Models\\User', 9, 'api-token', '85dbc38e007a69c316e15ccc9885266972d8107188a67e02636ce64e8dd95189', '[\"*\"]', '2026-02-25 01:23:23', NULL, '2026-02-25 00:02:31', '2026-02-25 01:23:23'),
 (30, 'App\\Models\\User', 10, 'api-token', '796f0b83e734ec7d9de04117774b2dddf7fa6861cb7fe9d9e99565168d280d30', '[\"*\"]', NULL, NULL, '2026-02-25 01:24:31', '2026-02-25 01:24:31'),
-(31, 'App\\Models\\User', 9, 'api-token', '655ae4de5daef8af5f21f0d2cfb04f7db9f15b293614a95e49990fd9f9198503', '[\"*\"]', '2026-02-25 01:26:30', NULL, '2026-02-25 01:24:43', '2026-02-25 01:26:30'),
+(31, 'App\\Models\\User', 9, 'api-token', '655ae4de5daef8af5f21f0d2cfb04f7db9f15b293614a95e49990fd9f9198503', '[\"*\"]', '2026-03-19 04:37:27', NULL, '2026-02-25 01:24:43', '2026-03-19 04:37:27'),
 (32, 'App\\Models\\User', 11, 'api-token', '917f76f4b400bd56c20664ed898ee72deb764a3524619aa7a088c0a033ae91f5', '[\"*\"]', NULL, NULL, '2026-03-01 12:33:46', '2026-03-01 12:33:46'),
 (33, 'App\\Models\\User', 11, 'api-token', '319a280737740ad59f7fae97c8ac3dbf6ad5bbb143726459eda7a06196a9f87d', '[\"*\"]', '2026-03-01 12:44:42', NULL, '2026-03-01 12:34:43', '2026-03-01 12:44:42'),
 (34, 'App\\Models\\User', 11, 'api-token', 'd1d2360ce9e5450f6ccce4b9a3662fbbea4ad8067c243cecc1d3e1eac116d815', '[\"*\"]', '2026-03-03 01:07:17', NULL, '2026-03-03 00:29:57', '2026-03-03 01:07:17'),
@@ -355,11 +357,12 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (45, 'App\\Models\\User', 15, 'api-token', 'cfe7ab59950868e9877e61c47a4cc6e7e67fe0dd8ed91f6e077349284f233034', '[\"*\"]', '2026-03-05 19:55:43', NULL, '2026-03-05 19:55:25', '2026-03-05 19:55:43'),
 (46, 'App\\Models\\User', 15, 'api-token', '6364989694dc4fa4c3bea97acb2ecc8a565665ac1ad30932857221f1f52ea8bc', '[\"*\"]', NULL, NULL, '2026-03-05 20:12:13', '2026-03-05 20:12:13'),
 (47, 'App\\Models\\User', 16, 'api-token', '16f9e3f2cb2000769df63828584a7d91632144e95b8ad8faa9a02e3f90a90d79', '[\"*\"]', NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08'),
-(48, 'App\\Models\\User', 16, 'api-token', '4c937bb659dbafc4d49fc416ca60a3297ca70df4909c6b1fb0d2a847764a35ff', '[\"*\"]', '2026-03-06 00:45:45', NULL, '2026-03-05 20:13:29', '2026-03-06 00:45:45'),
+(48, 'App\\Models\\User', 16, 'api-token', '4c937bb659dbafc4d49fc416ca60a3297ca70df4909c6b1fb0d2a847764a35ff', '[\"*\"]', '2026-03-19 04:24:32', NULL, '2026-03-05 20:13:29', '2026-03-19 04:24:32'),
 (49, 'App\\Models\\User', 17, 'api-token', 'b4c891fc8fd1eb9cf4c8aedc0e16179c5761be9f44f3878a863434e1b75661a5', '[\"*\"]', NULL, NULL, '2026-03-14 03:29:31', '2026-03-14 03:29:31'),
 (50, 'App\\Models\\User', 16, 'api-token', '83374defdc869cb924626ec47a8d03ae3144bf6fd16273b5d8c665760f26ce7b', '[\"*\"]', NULL, NULL, '2026-03-14 03:42:52', '2026-03-14 03:42:52'),
 (51, 'App\\Models\\User', 18, 'api-token', '9c1f3750d153a26fb02035d45f0195ae891401d7ce530285d5739875fc92039e', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:30', '2026-03-14 23:42:30'),
-(52, 'App\\Models\\User', 18, 'api-token', 'c4e42c98cb6021372ccfbf654dbcc5cb462c1092c53898d975ddbb38b7d34e60', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:49', '2026-03-14 23:42:49');
+(52, 'App\\Models\\User', 18, 'api-token', 'c4e42c98cb6021372ccfbf654dbcc5cb462c1092c53898d975ddbb38b7d34e60', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:49', '2026-03-14 23:42:49'),
+(53, 'App\\Models\\User', 19, 'api-token', '4994ec0d3a8c8ea3da0588cf6b1c1e2dcd8dece37a5ab0584934cb13d2a8e505', '[\"*\"]', NULL, NULL, '2026-03-19 06:05:28', '2026-03-19 06:05:28');
 
 -- --------------------------------------------------------
 
@@ -542,6 +545,7 @@ CREATE TABLE `trusted_contacts` (
   `lat` decimal(10,8) DEFAULT NULL,
   `lng` decimal(11,8) DEFAULT NULL,
   `relation` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `is_online` tinyint(1) NOT NULL DEFAULT 0,
   `status` varchar(255) NOT NULL DEFAULT 'Nearby',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -552,35 +556,38 @@ CREATE TABLE `trusted_contacts` (
 -- Dumping data for table `trusted_contacts`
 --
 
-INSERT INTO `trusted_contacts` (`id`, `user_id`, `name`, `phone`, `lat`, `lng`, `relation`, `is_online`, `status`, `created_at`, `updated_at`) VALUES
-(1, 4, 'Mohamed Adel', '01551471747', NULL, NULL, 'Brother', 0, 'Nearby', '2026-02-05 06:15:25', '2026-02-05 06:15:25'),
-(2, 4, 'Mohamed Adel', '01551471747', NULL, NULL, 'Brother', 1, 'Nearby', '2026-02-05 06:16:08', '2026-02-05 06:16:08'),
-(3, 4, 'Mohamed Adel', '01551471747', NULL, NULL, 'Brother', 1, 'Nearby', '2026-02-05 06:29:46', '2026-02-05 06:29:46'),
-(4, 4, 'Mohamed Adel', '01551471747', 30.04440000, 31.23570000, 'Brother', 1, 'Nearby', '2026-02-05 09:33:09', '2026-02-05 09:33:09'),
-(5, 4, 'Mohamed Adel', '01551471747', 30.04440000, 31.23570000, 'Brother', 0, 'Nearby', '2026-02-05 09:36:12', '2026-02-05 09:36:12'),
-(6, 4, 'Mohamed Adel', '01551471747', 30.04440000, 31.23570000, 'Brother', 0, 'Nearby', '2026-02-05 23:36:52', '2026-02-05 23:36:52'),
-(7, 4, 'Mohamed Adel', '201551471747', 30.04440000, 31.23570000, 'Brother', 0, 'Nearby', '2026-02-05 23:45:01', '2026-02-05 23:45:01'),
-(8, 5, 'Mohamed Adel', '201551471747', 30.04440000, 31.23570000, 'Brother', 0, 'Nearby', '2026-02-06 15:13:24', '2026-02-06 15:13:24'),
-(9, 6, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-06 18:23:39', '2026-02-06 18:23:39'),
-(10, 6, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-06 19:35:25', '2026-02-06 19:35:25'),
-(11, 7, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-10 19:46:17', '2026-02-10 19:46:17'),
-(12, 7, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-10 20:27:14', '2026-02-10 20:27:14'),
-(13, 8, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-24 23:50:59', '2026-02-24 23:50:59'),
-(14, 9, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-25 00:34:08', '2026-02-25 00:34:08'),
-(15, 9, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', 0, 'offline', '2026-02-25 01:26:20', '2026-02-25 01:26:20'),
-(17, 11, 'Heba Ziead', '201272289429', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 00:58:29', '2026-03-03 00:58:29'),
-(18, 12, 'Heba Ziead', '201272289429', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 01:13:57', '2026-03-03 01:13:57'),
-(19, 12, 'Heba Ziead', '201272289429', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 01:36:37', '2026-03-03 01:36:37'),
-(20, 12, 'mama', '201222503727', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:08:50', '2026-03-03 05:08:50'),
-(21, 12, 'shahd', '201141503945', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:12:41', '2026-03-03 05:12:41'),
-(22, 12, 'Mohamed gamal', '201275858680', NULL, NULL, 'Brother', 0, 'offline', '2026-03-03 05:15:29', '2026-03-03 05:15:29'),
-(23, 13, 'Amira', '201092773039', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:19:04', '2026-03-03 05:19:04'),
-(24, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-03 05:23:04', '2026-03-03 05:23:04'),
-(25, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 18:35:28', '2026-03-05 18:35:28'),
-(26, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 18:46:49', '2026-03-05 18:46:49'),
-(27, 15, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 19:11:34', '2026-03-05 19:11:34'),
-(28, 15, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 19:15:42', '2026-03-05 19:15:42'),
-(29, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', 0, 'offline', '2026-03-05 20:14:51', '2026-03-05 20:14:51');
+INSERT INTO `trusted_contacts` (`id`, `user_id`, `name`, `phone`, `lat`, `lng`, `relation`, `image`, `is_online`, `status`, `created_at`, `updated_at`) VALUES
+(1, 4, 'Mohamed Adel', '01551471747', NULL, NULL, 'Brother', NULL, 0, 'Nearby', '2026-02-05 06:15:25', '2026-02-05 06:15:25'),
+(2, 4, 'Mohamed Adel', '01551471747', NULL, NULL, 'Brother', NULL, 1, 'Nearby', '2026-02-05 06:16:08', '2026-02-05 06:16:08'),
+(3, 4, 'Mohamed Adel', '01551471747', NULL, NULL, 'Brother', NULL, 1, 'Nearby', '2026-02-05 06:29:46', '2026-02-05 06:29:46'),
+(4, 4, 'Mohamed Adel', '01551471747', 30.04440000, 31.23570000, 'Brother', NULL, 1, 'Nearby', '2026-02-05 09:33:09', '2026-02-05 09:33:09'),
+(5, 4, 'Mohamed Adel', '01551471747', 30.04440000, 31.23570000, 'Brother', NULL, 0, 'Nearby', '2026-02-05 09:36:12', '2026-02-05 09:36:12'),
+(6, 4, 'Mohamed Adel', '01551471747', 30.04440000, 31.23570000, 'Brother', NULL, 0, 'Nearby', '2026-02-05 23:36:52', '2026-02-05 23:36:52'),
+(7, 4, 'Mohamed Adel', '201551471747', 30.04440000, 31.23570000, 'Brother', NULL, 0, 'Nearby', '2026-02-05 23:45:01', '2026-02-05 23:45:01'),
+(8, 5, 'Mohamed Adel', '201551471747', 30.04440000, 31.23570000, 'Brother', NULL, 0, 'Nearby', '2026-02-06 15:13:24', '2026-02-06 15:13:24'),
+(9, 6, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-06 18:23:39', '2026-02-06 18:23:39'),
+(10, 6, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-06 19:35:25', '2026-02-06 19:35:25'),
+(11, 7, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-10 19:46:17', '2026-02-10 19:46:17'),
+(12, 7, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-10 20:27:14', '2026-02-10 20:27:14'),
+(13, 8, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-24 23:50:59', '2026-02-24 23:50:59'),
+(14, 9, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-25 00:34:08', '2026-02-25 00:34:08'),
+(15, 9, 'Mohamed Adel', '201551471747', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-02-25 01:26:20', '2026-02-25 01:26:20'),
+(17, 11, 'Heba Ziead', '201272289429', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 00:58:29', '2026-03-03 00:58:29'),
+(18, 12, 'Heba Ziead', '201272289429', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 01:13:57', '2026-03-03 01:13:57'),
+(19, 12, 'Heba Ziead', '201272289429', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 01:36:37', '2026-03-03 01:36:37'),
+(20, 12, 'mama', '201222503727', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 05:08:50', '2026-03-03 05:08:50'),
+(21, 12, 'shahd', '201141503945', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 05:12:41', '2026-03-03 05:12:41'),
+(22, 12, 'Mohamed gamal', '201275858680', NULL, NULL, 'Brother', NULL, 0, 'offline', '2026-03-03 05:15:29', '2026-03-03 05:15:29'),
+(23, 13, 'Amira', '201092773039', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 05:19:04', '2026-03-03 05:19:04'),
+(24, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-03 05:23:04', '2026-03-03 05:23:04'),
+(25, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-05 18:35:28', '2026-03-05 18:35:28'),
+(26, 13, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-05 18:46:49', '2026-03-05 18:46:49'),
+(27, 15, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-05 19:11:34', '2026-03-05 19:11:34'),
+(28, 15, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-05 19:15:42', '2026-03-05 19:15:42'),
+(29, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-05 20:14:51', '2026-03-05 20:14:51'),
+(30, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-19 04:12:46', '2026-03-19 04:12:46'),
+(31, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/w1NlUfo4pid71kO7QndnYEVwQFwd1LFv0KJTRlFr.jpg', 0, 'offline', '2026-03-19 04:14:58', '2026-03-19 04:14:58'),
+(32, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/FF3faYdEU93RcrAkosmFEyAOroYqHDXQODjt1Mjt.jpg', 0, 'offline', '2026-03-19 04:24:32', '2026-03-19 04:24:32');
 
 -- --------------------------------------------------------
 
@@ -632,7 +639,7 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_numbe
 (15, 'Sally', 'Ziead', 'sallyz@gmail.com', '01014826185', NULL, '$2y$12$0YXGE0bBrDzbtjWfNEt/QOqhdjQpL0QswZq/Xfmg603t53tFzXyBW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
 (16, 'Eally', 'Ziead', 'salz@gmail.com', '01014826189', NULL, '$2y$12$3hF.e3Kc7eF3IMzcyRM8JO6ZUBU605ocuw.CCqCjyPAIuLY7F99X2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
 (17, 'Heba', 'Ziad', 'heba_test@gmail.com', NULL, NULL, '$2y$12$an9im9bJiSo614Edl4jaPO4lcaWuL5iAXVn0WjyTxkIJR5iYyxoba', '109876543210123456', NULL, 'google', NULL, NULL, NULL, NULL, '2026-03-14 03:29:31', '2026-03-14 03:29:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(18, 'Aya', 'Ziead', 'Aya@gmail.com', '01272289429', NULL, '$2y$12$DbE.wYS5gmk1e5SH8I7qlutD5QMmAhu8MhM2xg98LCxZzwnxA5eES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-14 23:42:30', '2026-03-14 23:42:30', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120);
+(19, 'Aya', 'Ziead', 'hebaziead6@gmail.com', '01272289429', NULL, '$2y$12$loL2PHcMIFO.WCLINqV4fuoSCU0tl7G5sAXD/PLCeJ4Eu7WX0p.UG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-19 06:05:28', '2026-03-19 06:05:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120);
 
 -- --------------------------------------------------------
 
@@ -894,13 +901,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `safety_timers`
@@ -924,13 +931,13 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `trusted_contacts`
 --
 ALTER TABLE `trusted_contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `voice_passwords`

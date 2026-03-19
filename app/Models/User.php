@@ -23,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number', 
+        'phone', // إضافة هذا الحقل لأنه مستخدم في الـ AuthController
+        'otp',   // إضافة هذا الحقل ليتمكن الـ Laravel من حفظ كود التحقق
         'first_name',
         'last_name',
         'profile_image',
