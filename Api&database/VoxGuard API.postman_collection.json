@@ -1219,7 +1219,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "62|u5C8GMh4UR7Y34ylqeJ14VOwYnDiZxT944j3OuoA52ba5d07",
                   "type": "string"
                 }
               ]
@@ -1237,26 +1237,26 @@
               "formdata": [
                 {
                   "key": "name",
-                  "value": "Mohamed Adel",
+                  "value": "heba ziead",
                   "type": "text",
-                  "uuid": "3b6720b7-7cfc-4b02-b160-71d5bef3495f"
+                  "uuid": "ec41a50d-79da-44d8-a7c9-88bd50ad9509"
                 },
                 {
                   "key": "phone",
-                  "value": "201551761045",
+                  "value": "01000000000",
                   "type": "text",
-                  "uuid": "c210873f-3059-411f-8633-415f364a19d5"
+                  "uuid": "90bd6fae-b7ea-41a7-8eae-fba9d0ee3679"
                 },
                 {
                   "key": "relation",
-                  "value": "Brother",
+                  "value": "sister",
                   "type": "text",
-                  "uuid": "e1178e84-8dc7-4998-8274-73bf293245f9"
+                  "uuid": "7d031234-2051-4e8f-acb1-e1304daa3849"
                 },
                 {
                   "key": "image",
                   "type": "file",
-                  "uuid": "005474d8-166c-4f65-bfc6-a2b6b97a4c36",
+                  "uuid": "de88500f-a5ca-48f9-9ac5-1248680e3a2d",
                   "src": "/C:/Users/Heba Ziead/Pictures/صورة واتساب بتاريخ 2024-11-04 في 01.25.14_4f5f5a43.jpg"
                 }
               ]
@@ -1288,7 +1288,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "31|JoSEJEtIVKwdyKfZUMbkERne2fregz811CkuDuFD0b5f85de",
+                  "value": "54|c43rEnvvYCWhFqUJwFAA5XPH66RZ915sQ3g5Wh3Bf8ecf2c8",
                   "type": "string"
                 }
               ]
@@ -1324,6 +1324,113 @@
                 "api",
                 "trusted-contacts",
                 "send-location"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update-live-location",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "54|c43rEnvvYCWhFqUJwFAA5XPH66RZ915sQ3g5Wh3Bf8ecf2c8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"latitude\": 30.0444,\r\n  \"longitude\": 31.2357\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/trusted-contacts/update-live-location",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "trusted-contacts",
+                "update-live-location"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "trust",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "62|u5C8GMh4UR7Y34ylqeJ14VOwYnDiZxT944j3OuoA52ba5d07",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/trusted-contacts/index",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "trusted-contacts",
+                "index"
               ]
             }
           },

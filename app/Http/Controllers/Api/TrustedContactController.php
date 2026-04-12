@@ -11,23 +11,84 @@ use Illuminate\Support\Facades\Http; // مكتبة إرسال طلبات الـ 
 
 class TrustedContactController extends Controller
 {
-    /**
-     * 1. عرض قائمة جهات الاتصال (Trusted Contacts List)
-     * تجلب الأرقام الخاصة بالمستخدم المسجل حالياً فقط
-     */
-    // تعديل بسيط في عرض البيانات عشان الصورة تظهر برابط كامل
+
     public function index()
     {
-        $contacts = TrustedContact::where('user_id', Auth::id())->get()->map(function ($contact) {
+        // 1. جلب الـ ID الخاص بالمستخدم الحالي من التوكن
+        $userId = auth('sanctum')->id();
+
+        if (!$userId) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+
+        // 2. جلب جهات الاتصال المرتبطة باليوزر ده
+        $contacts = TrustedContact::where('user_id', $userId)->get()->map(function ($contact) use ($userId) {
+
+            $user = auth('sanctum')->user();
+
+            // تعديل السطر ده: حذفنا البحث عن 'phone' وسيبنا 'phone_number' فقط
+            $registeredUser = \App\Models\User::where('phone_number', $contact->phone)->first();
+
+            $contact->status = 'offline';
+            $contact->is_nearby = false;
+
+            if ($registeredUser) {
+                $contact->name = $registeredUser->first_name . ' ' . $registeredUser->last_name;
+
+                $isOnline = $registeredUser->last_seen && \Carbon\Carbon::parse($registeredUser->last_seen)->diffInMinutes(now()) < 5;
+                if ($isOnline) {
+                    $contact->status = 'online';
+                }
+
+                if ($user && $user->latitude && $user->longitude && $registeredUser->latitude && $registeredUser->longitude) {
+                    $distance = $this->calculateDistance(
+                        $user->latitude,
+                        $user->longitude,
+                        $registeredUser->latitude,
+                        $registeredUser->longitude
+                    );
+
+                    if ($distance < 1) {
+                        $contact->status = 'Nearby';
+                        $contact->is_nearby = true;
+                    }
+                }
+            }
+
             if ($contact->image) {
-                // ده بيخلي المسار: http://127.0.0.1:8000/storage/contacts/img.jpg
                 $contact->image = asset('storage/' . $contact->image);
             }
+
             return $contact;
         });
 
-        return response()->json(['status' => true, 'contacts' => $contacts], 200);
+        return response()->json([
+            'status' => true,
+            'contacts' => $contacts
+        ], 200);
     }
+    /**
+     * دالة مساعدة لحساب المسافة الجغرافية
+     */
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371; // بالكيلومترات
+
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($dLon / 2) * sin($dLon / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        return $earthRadius * $c;
+    }
+    // دالة حساب المسافة (المعادلة الرياضية)
 
     /**
      * 2. إضافة جهة اتصال جديدة (Add Contact)
@@ -133,7 +194,7 @@ class TrustedContactController extends Controller
      * رفع تسجيل الـ SOS الصوتي (Evidence Audio)
      * يتم استخدامه لتسجيل ما يحدث حول البنت كدليل صوتي
      */
-      public function uploadSosMedia(Request $request)
+    public function uploadSosMedia(Request $request)
     {
         // التأكد من وجود فيديو أو أوديو
         $request->validate([

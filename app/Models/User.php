@@ -19,33 +19,36 @@ class User extends Authenticatable
      * الحقول المسموح بتعديلها (Mass Assignable)
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone_number', 
-        'phone', // إضافة هذا الحقل لأنه مستخدم في الـ AuthController
-        'otp',   // إضافة هذا الحقل ليتمكن الـ Laravel من حفظ كود التحقق
-        'first_name',
-        'last_name',
-        'profile_image',
-        'blood_type',
-        'allergies',
-        'medical_conditions',
-        'language',
-        'fake_call_enabled',
-        'panic_button_enabled',
-        'notifications_enabled',
-        'wearable_device_name', 
-        'wearable_device_id', 
-        'wearable_active',
-        'current_heart_rate',
-        'current_motion',
-        // --- حقول تسجيل الدخول الاجتماعي المضافة ---
-        'google_id',
-        'facebook_id',
-        'social_type'
-    ];
-
+    'name',
+    'email',
+    'password',
+    'phone_number', 
+    'phone', // إضافة هذا الحقل لأنه مستخدم في الـ AuthController
+    'otp',   // إضافة هذا الحقل ليتمكن الـ Laravel من حفظ كود التحقق
+    'first_name',
+    'last_name',
+    'profile_image',
+    'blood_type',
+    'allergies',
+    'medical_conditions',
+    'language',
+    'fake_call_enabled',
+    'panic_button_enabled',
+    'notifications_enabled',
+    'wearable_device_name', 
+    'wearable_device_id', 
+    'wearable_active',
+    'current_heart_rate',
+    'current_motion',
+    // --- حقول تسجيل الدخول الاجتماعي المضافة ---
+    'google_id',
+    'facebook_id',
+    'social_type',
+    // --- حقول الحالة والموقع الحية (إضافة للمناقشة والربط الذكي) ---
+    'last_seen',
+    'latitude',
+    'longitude'
+];
     /**
      * الحقول المخفية من الاستعلامات
      */

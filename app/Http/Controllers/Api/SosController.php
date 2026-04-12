@@ -11,69 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class SosController extends Controller
 {
-    /**
-     * 1. دالة بداية الاستغاثة (SOS Start)
-     */
-    // public function start(Request $request)
-    // {
-    //     $request->validate([
-    //         'latitude' => 'required',
-    //         'longitude' => 'required',
-    //         'trigger_type' => 'required|in:manual,ai_voice,voice_password'
-    //     ]);
-
-    //     $user = Auth::user();
-
-    //     if ($request->trigger_type == 'voice_password' && !$user->voice_password_enabled) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => 'خاصية كلمة السر الصوتية معطلة من الإعدادات'
-    //         ], 403);
-    //     }
-
-    //     $sos = SosAlert::create([
-    //         'user_id' => $user->user_id,
-    //         'latitude' => $request->latitude,
-    //         'longitude' => $request->longitude,
-    //         'trigger_type' => $request->trigger_type,
-    //         'status' => 'active'
-    //     ]);
-
-    //     // تجهيز رابط الخريطة (استخدام رابط جوجل ماب الحقيقي)
-    //     $mapLink = "https://www.google.com/maps?q={$request->latitude},{$request->longitude}";
-
-    //     // حجز رابط الصوت مسبقاً بناءً على ID الاستغاثة مع تحويله لرابط Ngrok
-    //     $assetUrl = asset("storage/recordings/sos_{$sos->id}.mp3");
-    //     $audioLink = str_replace('http://127.0.0.1:8000', 'https://lesia-danceable-nettly.ngrok-free.dev', $assetUrl);
-
-    //     // إضافة باراميتر لتخطي صفحة تحذير Ngrok لضمان فتح الملف مباشرة عند الأهل
-    //     $audioLink .= "?ngrok-skip-browser-warning=1";
-
-    //     $triggerText = ($request->trigger_type == 'ai_voice') ? "🚨 تم رصد خطر عبر تحليل الصوت (AI)" :
-    //         (($request->trigger_type == 'voice_password') ? " تم التفعيل عبر كلمة السر الصوتية" : " ضغط يدوي");
-
-    //     // بناء الرسالة الشاملة
-    //     $message = "🚨 *تنبيه خطر من VoxGuard* 🚨\n\n";
-    //     $message .= "المستخدمة: *{$user->name}*\n";
-    //     $message .= "السبب: *{$triggerText}*\n";
-
-    //     $message .= "\n🏥 *المعلومات الطبية للمصابة*:\n";
-    //     $message .= "فصيلة الدم: *" . ($user->blood_type ?? 'O+') . "*\n";
-    //     $message .= "حساسية من: *" . ($user->allergies ?? 'None') . "*\n";
-    //     $message .= "حالة طبية: *" . ($user->medical_conditions ?? 'Healthy') . "*\n";
-
-    //     $message .= "\n📍 *الموقع الحالي*:\n{$mapLink}\n";
-    //     $message .= "\n🎙️ *رابط التسجيل المباشر*:\n{$audioLink}";
-
-    //     // إرسال الرسالة لكافة جهات الاتصال الموثوقة
-    //     $this->broadcastToAll($user, $message);
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'message' => 'تم تفعيل الاستغاثة وإرسال كافة البيانات للأهل بنجاح',
-    //         'sos_id' => $sos->id
-    //     ]);
-    // }
+    
     public function start(Request $request)
     {
         $request->validate([

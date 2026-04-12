@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2026 at 08:00 AM
+-- Generation Time: Apr 12, 2026 at 09:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -277,7 +277,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2026_02_05_214455_add_heart_rate_monitoring_to_users', 9),
 (13, '2026_02_24_222643_create_global_zones_table', 10),
 (14, '2026_03_14_050638_add_social_ids_to_users_table', 11),
-(15, '2026_03_19_052207_add_image_to_trusted_contacts_table', 12);
+(15, '2026_03_19_052207_add_image_to_trusted_contacts_table', 12),
+(16, '2026_03_30_230501_add_status_and_location_to_users_table', 13);
 
 -- --------------------------------------------------------
 
@@ -297,7 +298,7 @@ CREATE TABLE `password_reset_tokens` (
 
 INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
 ('Aya@gmail.com', '7869', '2026-03-14 23:48:37'),
-('hebaziead6@gmail.com', '8335', '2026-03-19 06:54:15'),
+('hebaziead6@gmail.com', '6630', '2026-04-12 15:28:06'),
 ('salz@gmail.com', '3515', '2026-03-14 23:38:14');
 
 -- --------------------------------------------------------
@@ -357,12 +358,21 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (45, 'App\\Models\\User', 15, 'api-token', 'cfe7ab59950868e9877e61c47a4cc6e7e67fe0dd8ed91f6e077349284f233034', '[\"*\"]', '2026-03-05 19:55:43', NULL, '2026-03-05 19:55:25', '2026-03-05 19:55:43'),
 (46, 'App\\Models\\User', 15, 'api-token', '6364989694dc4fa4c3bea97acb2ecc8a565665ac1ad30932857221f1f52ea8bc', '[\"*\"]', NULL, NULL, '2026-03-05 20:12:13', '2026-03-05 20:12:13'),
 (47, 'App\\Models\\User', 16, 'api-token', '16f9e3f2cb2000769df63828584a7d91632144e95b8ad8faa9a02e3f90a90d79', '[\"*\"]', NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08'),
-(48, 'App\\Models\\User', 16, 'api-token', '4c937bb659dbafc4d49fc416ca60a3297ca70df4909c6b1fb0d2a847764a35ff', '[\"*\"]', '2026-03-19 04:24:32', NULL, '2026-03-05 20:13:29', '2026-03-19 04:24:32'),
+(48, 'App\\Models\\User', 16, 'api-token', '4c937bb659dbafc4d49fc416ca60a3297ca70df4909c6b1fb0d2a847764a35ff', '[\"*\"]', '2026-03-30 21:48:17', NULL, '2026-03-05 20:13:29', '2026-03-30 21:48:17'),
 (49, 'App\\Models\\User', 17, 'api-token', 'b4c891fc8fd1eb9cf4c8aedc0e16179c5761be9f44f3878a863434e1b75661a5', '[\"*\"]', NULL, NULL, '2026-03-14 03:29:31', '2026-03-14 03:29:31'),
 (50, 'App\\Models\\User', 16, 'api-token', '83374defdc869cb924626ec47a8d03ae3144bf6fd16273b5d8c665760f26ce7b', '[\"*\"]', NULL, NULL, '2026-03-14 03:42:52', '2026-03-14 03:42:52'),
 (51, 'App\\Models\\User', 18, 'api-token', '9c1f3750d153a26fb02035d45f0195ae891401d7ce530285d5739875fc92039e', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:30', '2026-03-14 23:42:30'),
 (52, 'App\\Models\\User', 18, 'api-token', 'c4e42c98cb6021372ccfbf654dbcc5cb462c1092c53898d975ddbb38b7d34e60', '[\"*\"]', NULL, NULL, '2026-03-14 23:42:49', '2026-03-14 23:42:49'),
-(53, 'App\\Models\\User', 19, 'api-token', '4994ec0d3a8c8ea3da0588cf6b1c1e2dcd8dece37a5ab0584934cb13d2a8e505', '[\"*\"]', NULL, NULL, '2026-03-19 06:05:28', '2026-03-19 06:05:28');
+(53, 'App\\Models\\User', 19, 'api-token', '4994ec0d3a8c8ea3da0588cf6b1c1e2dcd8dece37a5ab0584934cb13d2a8e505', '[\"*\"]', NULL, NULL, '2026-03-19 06:05:28', '2026-03-19 06:05:28'),
+(54, 'App\\Models\\User', 20, 'api-token', 'a31b3da1c90512fa296638c2773c70f07b8183f93fd785535364c8f249af9c1c', '[\"*\"]', '2026-04-12 15:48:00', NULL, '2026-03-30 21:32:20', '2026-04-12 15:48:00'),
+(55, 'App\\Models\\User', 21, 'api-token', 'f32af5e5e4f88bfc25a1a627b9d9702f141f1a2f9da5775beaed860cfdca66cb', '[\"*\"]', '2026-03-30 22:14:47', NULL, '2026-03-30 21:54:50', '2026-03-30 22:14:47'),
+(56, 'App\\Models\\User', 21, 'api-token', '6739efc3079916b4c58cc6f24434b514cca60fddaa5f7962be42e95eee45ba4b', '[\"*\"]', '2026-04-12 15:47:53', NULL, '2026-03-30 21:58:31', '2026-04-12 15:47:53'),
+(57, 'App\\Models\\User', 22, 'api-token', '084b6f970eeedfc21404b8c31f12183e816dbf4060d11385a7dadaa06df9644b', '[\"*\"]', NULL, NULL, '2026-04-12 12:43:18', '2026-04-12 12:43:18'),
+(58, 'App\\Models\\User', 22, 'api-token', '645cdd15b61fcd3351c4207c01cbe41c16b2cce0faf6499b1b4f71de81fce1d1', '[\"*\"]', '2026-04-12 16:47:45', NULL, '2026-04-12 12:43:42', '2026-04-12 16:47:45'),
+(59, 'App\\Models\\User', 22, 'api-token', '8fd710fcf68f07cfcd025d8906984db5535b6255337adc6a28401069d2fe2829', '[\"*\"]', '2026-04-12 14:57:39', NULL, '2026-04-12 14:53:11', '2026-04-12 14:57:39'),
+(60, 'App\\Models\\User', 23, 'api-token', '8266e2a4a432c14f17854f2bea49d172f0d3413ddf9cfc959ef830d45efa4a3a', '[\"*\"]', '2026-04-12 16:33:20', NULL, '2026-04-12 15:51:19', '2026-04-12 16:33:20'),
+(61, 'App\\Models\\User', 24, 'api-token', '85ee687f3a3137b26c2ba589b80a4287088a62002f63cabaa712fd8c2b356311', '[\"*\"]', '2026-04-12 18:02:33', NULL, '2026-04-12 16:12:18', '2026-04-12 18:02:33'),
+(62, 'App\\Models\\User', 23, 'api-token', '6ddb6a884277a47497b9c50648a10acb6a197458dc72f3371828e0b273b119a4', '[\"*\"]', '2026-04-12 18:26:55', NULL, '2026-04-12 17:20:05', '2026-04-12 18:26:55');
 
 -- --------------------------------------------------------
 
@@ -587,7 +597,27 @@ INSERT INTO `trusted_contacts` (`id`, `user_id`, `name`, `phone`, `lat`, `lng`, 
 (29, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-05 20:14:51', '2026-03-05 20:14:51'),
 (30, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Sister', NULL, 0, 'offline', '2026-03-19 04:12:46', '2026-03-19 04:12:46'),
 (31, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/w1NlUfo4pid71kO7QndnYEVwQFwd1LFv0KJTRlFr.jpg', 0, 'offline', '2026-03-19 04:14:58', '2026-03-19 04:14:58'),
-(32, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/FF3faYdEU93RcrAkosmFEyAOroYqHDXQODjt1Mjt.jpg', 0, 'offline', '2026-03-19 04:24:32', '2026-03-19 04:24:32');
+(32, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/FF3faYdEU93RcrAkosmFEyAOroYqHDXQODjt1Mjt.jpg', 0, 'offline', '2026-03-19 04:24:32', '2026-03-19 04:24:32'),
+(33, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/pWSGib6jw1kKfwbgQVDm3HM88PlwjfXShIStvw5R.jpg', 0, 'offline', '2026-03-30 21:30:06', '2026-03-30 21:30:06'),
+(34, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/Rn6V4gmhgXk3D4izdvIwG6aJnpGb9u8VUxw1d0Hc.jpg', 0, 'offline', '2026-03-30 21:32:31', '2026-03-30 21:32:31'),
+(35, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/KZIIVhWVgyHLbxDWuy3pfqd8rLOBErkcuDqEYFJZ.jpg', 0, 'offline', '2026-03-30 21:44:09', '2026-03-30 21:44:09'),
+(36, 16, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/xjKYE9rSBfoMDM6RBk5L4EG6u5EalAkKqlguELaA.jpg', 0, 'offline', '2026-03-30 21:48:17', '2026-03-30 21:48:17'),
+(37, 21, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/h1yLcauUmfqhb56hakKHll9ndWt3law8SDda5kx6.jpg', 0, 'offline', '2026-03-30 21:57:25', '2026-03-30 21:57:25'),
+(38, 21, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/dLS5J0SDedRqDqg9UaLt4yUuuj8zXhKCnx7GCP9H.jpg', 0, 'offline', '2026-03-30 21:58:51', '2026-03-30 21:58:51'),
+(39, 21, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/ORhhdwAFCaTum9d8Vlebli5XELQMoW1cocCHjnMV.jpg', 0, 'offline', '2026-03-30 22:10:04', '2026-03-30 22:10:04'),
+(40, 21, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/JmdytY1PbEboVRQ4wJiHTOXkW605T04o5RAEe6E6.jpg', 0, 'offline', '2026-03-30 22:14:37', '2026-03-30 22:14:37'),
+(41, 21, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/M0J4TWlJKlD07cCtT8W8IoABwQfVPuUOBkmR4zt2.jpg', 0, 'offline', '2026-03-30 22:16:05', '2026-03-30 22:16:05'),
+(42, 21, 'Mohamed Adel', '201551761045', NULL, NULL, 'Brother', 'contacts/Xo1sPJLSHXLH7UnJwVI9m6y4MnC7Zr32kzLQ0JUT.jpg', 0, 'offline', '2026-03-30 22:48:46', '2026-03-30 22:48:46'),
+(43, 21, 'heba ziead', '01272289429', NULL, NULL, 'sister', NULL, 0, 'offline', '2026-04-12 14:41:33', '2026-04-12 14:41:33'),
+(44, 22, 'heba ziead', '01272289429', NULL, NULL, 'sister', NULL, 0, 'offline', '2026-04-12 14:41:55', '2026-04-12 14:41:55'),
+(45, 22, 'heba ziead', '01272289429', NULL, NULL, 'sister', 'contacts/YHVZlDjkC0863c05i4E3T0cwW2F7T8ux580sMTO4.jpg', 0, 'offline', '2026-04-12 14:42:29', '2026-04-12 14:42:29'),
+(46, 22, 'heba ziead', '01272289429', NULL, NULL, 'sister', 'contacts/Chbx5tX9aqCLCkbaoyvELQKF1i5i0VaC1J7WBpjC.jpg', 0, 'offline', '2026-04-12 14:55:11', '2026-04-12 14:55:11'),
+(47, 23, 'heba ziead', '01272289429', NULL, NULL, 'sister', 'contacts/qv2QtjylPmoUfnq1VJDrEDjTE7baM9dTqfekWTkd.jpg', 0, 'offline', '2026-04-12 15:53:55', '2026-04-12 15:53:55'),
+(48, 23, 'heba ziead', '01272289429', NULL, NULL, 'sister', 'contacts/H70c4Azsnuqzo6hieeTLK00PsLmEQcas1Nkq1Pmt.jpg', 0, 'offline', '2026-04-12 15:57:14', '2026-04-12 15:57:14'),
+(49, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/qxKvpzT0YPP5HY7jPnp3BPIvw5Fv5C5aafDjZydA.jpg', 0, 'offline', '2026-04-12 16:13:09', '2026-04-12 16:13:09'),
+(50, 24, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/QXNSq2etPcuWx48E0So5jspqyxDaXDfIRjpSbfZL.jpg', 0, 'offline', '2026-04-12 16:35:19', '2026-04-12 16:35:19'),
+(51, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/FkIjFZMgOsPppz5he1K3oSOIkEsaXcOldFmivIFm.jpg', 0, 'offline', '2026-04-12 17:20:29', '2026-04-12 17:20:29'),
+(52, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/2ECJ3tbd24QmulGqtTam5xaEhmwUj5GcLFQWGrVE.jpg', 0, 'offline', '2026-04-12 18:26:45', '2026-04-12 18:26:45');
 
 -- --------------------------------------------------------
 
@@ -620,26 +650,32 @@ CREATE TABLE `users` (
   `voice_password_enabled` tinyint(4) NOT NULL DEFAULT 1,
   `current_heart_rate` int(11) DEFAULT NULL,
   `current_motion` varchar(255) DEFAULT NULL,
-  `emergency_threshold` int(11) NOT NULL DEFAULT 120
+  `emergency_threshold` int(11) NOT NULL DEFAULT 120,
+  `last_seen` timestamp NULL DEFAULT NULL,
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `longitude` decimal(11,8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_number`, `profile_image`, `password`, `google_id`, `facebook_id`, `social_type`, `blood_type`, `allergies`, `medical_conditions`, `remember_token`, `created_at`, `updated_at`, `language`, `fake_call_enabled`, `panic_button_enabled`, `notifications_enabled`, `phone_numder`, `voice_password_enabled`, `current_heart_rate`, `current_motion`, `emergency_threshold`) VALUES
-(1, 'Heba', 'Ziad', 'heba@voxguard.com', NULL, NULL, '$2y$12$Eqtvjus6zhXg0ROIQhun6.gNGoHpD73zt.i/bDKuNZTzlURReekIO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-01-29 23:48:08', '2026-01-30 00:05:43', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(3, 'Heba', 'Ziad', 'final.success@gmail.com', NULL, NULL, '$2y$12$vzt081ztR/S1DDG5z847F.xru8kHIUSrFSuN5huhwy8KzfmEL.6Ia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-05 04:43:56', '2026-02-05 04:43:56', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(4, 'Heba', 'Ziad', 'final@gmail.com', '+201551471741', NULL, '$2y$12$IAKNV4tf3Ai8YIE.cVrY4ueSRPaRZbx1aM2VfTFz6yqCgS1Djgohy', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-05 04:54:42', '2026-02-05 23:31:09', 'Egypt', 1, 1, 0, NULL, 1, 135, 'Still', 120),
-(6, 'Heba', 'Ziad', 'mero@gmail.com', '+201551471741', NULL, '$2y$12$.YoQ4s/OZMal0WuC7im5DeAhebItLz.48MbKcQFw.VIkeg9R628gq', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-06 15:35:03', '2026-02-06 19:09:59', 'Egypt', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(7, 'Heba', 'Ziad', 'heba@gmail.com', '+201551471741', NULL, '$2y$12$s1Wop9YkLs1sNsFg6e/kvOOyhn3qKXGtWaNTnkGfryGJUaUucgXYC', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-10 19:40:38', '2026-02-10 20:33:11', 'Egypt', 0, 1, 1, NULL, 1, 135, 'Still', 120),
-(9, 'Heba', 'Ziad', 'sara@gmail.com', '+201551471741', NULL, '$2y$12$nu3gcIzhuGbLqrOlSMvij.pYkRgVEL97GNMXd1bx6VHDhzPVyf9Lm', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-24 23:57:00', '2026-02-25 01:25:49', 'en', 0, 1, 1, NULL, 1, 135, 'Still', 120),
-(10, 'may', 'Mohamed', 'MAY@gmail.com', '01272289099', NULL, '$2y$12$cj6eGjeO3LFHtNXyyeBFaOPWXk2UHISU0TAmSKfGULoL8aEaupVKO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-25 01:24:31', '2026-02-25 01:24:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(13, 'Roaa', 'ELmetwaly', 'sally@gmail.com', '+201551471741', NULL, '$2y$12$RxGvOeVymAIka64J8QMZue104GDlus.xqyPzZRK7gO0mJQgoLLbhS', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-03-03 05:17:10', '2026-03-03 06:12:30', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(15, 'Sally', 'Ziead', 'sallyz@gmail.com', '01014826185', NULL, '$2y$12$0YXGE0bBrDzbtjWfNEt/QOqhdjQpL0QswZq/Xfmg603t53tFzXyBW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(16, 'Eally', 'Ziead', 'salz@gmail.com', '01014826189', NULL, '$2y$12$3hF.e3Kc7eF3IMzcyRM8JO6ZUBU605ocuw.CCqCjyPAIuLY7F99X2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(17, 'Heba', 'Ziad', 'heba_test@gmail.com', NULL, NULL, '$2y$12$an9im9bJiSo614Edl4jaPO4lcaWuL5iAXVn0WjyTxkIJR5iYyxoba', '109876543210123456', NULL, 'google', NULL, NULL, NULL, NULL, '2026-03-14 03:29:31', '2026-03-14 03:29:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120),
-(19, 'Aya', 'Ziead', 'hebaziead6@gmail.com', '01272289429', NULL, '$2y$12$loL2PHcMIFO.WCLINqV4fuoSCU0tl7G5sAXD/PLCeJ4Eu7WX0p.UG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-19 06:05:28', '2026-03-19 06:05:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_number`, `profile_image`, `password`, `google_id`, `facebook_id`, `social_type`, `blood_type`, `allergies`, `medical_conditions`, `remember_token`, `created_at`, `updated_at`, `language`, `fake_call_enabled`, `panic_button_enabled`, `notifications_enabled`, `phone_numder`, `voice_password_enabled`, `current_heart_rate`, `current_motion`, `emergency_threshold`, `last_seen`, `latitude`, `longitude`) VALUES
+(1, 'Heba', 'Ziad', 'heba@voxguard.com', NULL, NULL, '$2y$12$Eqtvjus6zhXg0ROIQhun6.gNGoHpD73zt.i/bDKuNZTzlURReekIO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-01-29 23:48:08', '2026-01-30 00:05:43', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(3, 'Heba', 'Ziad', 'final.success@gmail.com', NULL, NULL, '$2y$12$vzt081ztR/S1DDG5z847F.xru8kHIUSrFSuN5huhwy8KzfmEL.6Ia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-05 04:43:56', '2026-02-05 04:43:56', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(4, 'Heba', 'Ziad', 'final@gmail.com', '+201551471741', NULL, '$2y$12$IAKNV4tf3Ai8YIE.cVrY4ueSRPaRZbx1aM2VfTFz6yqCgS1Djgohy', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-05 04:54:42', '2026-02-05 23:31:09', 'Egypt', 1, 1, 0, NULL, 1, 135, 'Still', 120, NULL, NULL, NULL),
+(6, 'Heba', 'Ziad', 'mero@gmail.com', '+201551471741', NULL, '$2y$12$.YoQ4s/OZMal0WuC7im5DeAhebItLz.48MbKcQFw.VIkeg9R628gq', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-06 15:35:03', '2026-02-06 19:09:59', 'Egypt', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(7, 'Heba', 'Ziad', 'heba@gmail.com', '+201551471741', NULL, '$2y$12$s1Wop9YkLs1sNsFg6e/kvOOyhn3qKXGtWaNTnkGfryGJUaUucgXYC', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-10 19:40:38', '2026-02-10 20:33:11', 'Egypt', 0, 1, 1, NULL, 1, 135, 'Still', 120, NULL, NULL, NULL),
+(9, 'Heba', 'Ziad', 'sara@gmail.com', '+201551471741', NULL, '$2y$12$nu3gcIzhuGbLqrOlSMvij.pYkRgVEL97GNMXd1bx6VHDhzPVyf9Lm', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-02-24 23:57:00', '2026-02-25 01:25:49', 'en', 0, 1, 1, NULL, 1, 135, 'Still', 120, NULL, NULL, NULL),
+(10, 'may', 'Mohamed', 'MAY@gmail.com', '01272289099', NULL, '$2y$12$cj6eGjeO3LFHtNXyyeBFaOPWXk2UHISU0TAmSKfGULoL8aEaupVKO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-25 01:24:31', '2026-02-25 01:24:31', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(13, 'Roaa', 'ELmetwaly', 'sally@gmail.com', '+201551471741', NULL, '$2y$12$RxGvOeVymAIka64J8QMZue104GDlus.xqyPzZRK7gO0mJQgoLLbhS', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-03-03 05:17:10', '2026-03-03 06:12:30', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(15, 'Sally', 'Ziead', 'sallyz@gmail.com', '01014826185', NULL, '$2y$12$0YXGE0bBrDzbtjWfNEt/QOqhdjQpL0QswZq/Xfmg603t53tFzXyBW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(16, 'Eally', 'Ziead', 'salz@gmail.com', '01014826189', NULL, '$2y$12$3hF.e3Kc7eF3IMzcyRM8JO6ZUBU605ocuw.CCqCjyPAIuLY7F99X2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-05 20:13:08', '2026-03-05 20:13:08', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(20, 'Mohamed', 'Adel', 'MohamedAdel@gmail.com', '201551761045', NULL, '$2y$12$MhllAHtuFp7ZTVCHTlXR.O9lC7HILstjemu7geZZ6KRhVgrsHARfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-30 21:32:20', '2026-03-30 21:43:14', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, '2026-03-30 21:43:14', 30.04440000, 31.23570000),
+(21, 'ema', 'Adel', 'ema@gmail.com', '01272289867', NULL, '$2y$12$7TWE2GbI7JtKfJ7ASOXVpu6OtPBcd2FGDFjnPGZDxmtkhvEOcGzXC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-30 21:54:50', '2026-04-12 15:47:53', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, '2026-04-12 15:47:53', 30.04440000, 31.23570000),
+(22, 'heba', 'ziead', 'hebaziead6@gmail.com', '01272289429', NULL, '$2y$12$GhlJsH.Xix4qDsq3qAtOTe8MQdrqREpWIxRZ3fnT5mFi1LiGL0mLC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 12:43:17', '2026-04-12 12:43:17', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, '2026-04-12 18:25:55', NULL, NULL),
+(23, 'hanna', 'Elmansouray', 'hanna@gmail.com', '01222503727', NULL, '$2y$12$r7g7hPZsDYtBshxVc2i6KehW1tFjnSKna6ktDHFnzy.OT77Gh3.kC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 15:51:19', '2026-04-12 15:51:19', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(24, 'test', 'Elmansouray', 'test@gmail.com', '01000000000', NULL, '$2y$12$pUXdy/1t.CFjejjMz/AfRu7ofN3CEavvy7ctHbO3I3hzLG/rAqLCu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 16:12:18', '2026-04-12 16:12:18', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -901,13 +937,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `safety_timers`
@@ -931,13 +967,13 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `trusted_contacts`
 --
 ALTER TABLE `trusted_contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `voice_passwords`

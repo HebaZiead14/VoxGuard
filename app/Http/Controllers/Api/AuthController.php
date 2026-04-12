@@ -229,6 +229,27 @@ class AuthController extends Controller
         ]);
     }
 
+    //-------------------------------------------------------
+    public function updateLiveLocation(Request $request)
+{
+    // فلاتر بيبعت الأرقام دي من الـ GPS بتاع الموبايل
+    $request->validate([
+        'latitude' => 'required|numeric',
+        'longitude' => 'required|numeric',
+    ]);
+
+    $user = Auth::user();
+    $user->update([
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
+        'last_seen' => now() // تحديث الوقت لـ "الآن"
+    ]);
+
+    return response()->json([
+        'status' => true, 
+        'message' => 'Your location and status are now live.'
+    ]);
+}
     // ---------------- مساعد إرسال واتساب ----------------
     private function sendWhatsApp($phone, $message)
     {
@@ -244,3 +265,6 @@ class AuthController extends Controller
         return $response->successful();
     }
 }
+
+ //------------------------------------------------------------------
+ 
