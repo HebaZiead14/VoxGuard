@@ -96,7 +96,7 @@ class AuthController extends Controller
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'email' => $request->email,
-                    'password' => Hash::make(Str::random(16)), 
+                    'password' => Hash::make(Str::random(16)),
                     $column => $request->social_id,
                     'social_type' => $request->social_type,
                 ]);
@@ -145,7 +145,7 @@ class AuthController extends Controller
         } else {
             try {
                 $sent = $this->sendWhatsApp($user->phone_number, "كود التحقق الخاص بك هو: {$otp}");
-                if($sent) {
+                if ($sent) {
                     $status_message = 'OTP sent to your WhatsApp successfully';
                 } else {
                     throw new \Exception("UltraMsg Service Error");
@@ -231,31 +231,31 @@ class AuthController extends Controller
 
     //-------------------------------------------------------
     public function updateLiveLocation(Request $request)
-{
-    // فلاتر بيبعت الأرقام دي من الـ GPS بتاع الموبايل
-    $request->validate([
-        'latitude' => 'required|numeric',
-        'longitude' => 'required|numeric',
-    ]);
+    {
+        // فلاتر بيبعت الأرقام دي من الـ GPS بتاع الموبايل
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
 
-    $user = Auth::user();
-    $user->update([
-        'latitude' => $request->latitude,
-        'longitude' => $request->longitude,
-        'last_seen' => now() // تحديث الوقت لـ "الآن"
-    ]);
+        $user = Auth::user();
+        $user->update([
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'last_seen' => now() // تحديث الوقت لـ "الآن"
+        ]);
 
-    return response()->json([
-        'status' => true, 
-        'message' => 'Your location and status are now live.'
-    ]);
-}
+        return response()->json([
+            'status' => true,
+            'message' => 'Your location and status are now live.'
+        ]);
+    }
     // ---------------- مساعد إرسال واتساب ----------------
     private function sendWhatsApp($phone, $message)
     {
         $params = [
-            'token' => '4lymfep8kl3apijw',
-            'instance_id' => 'instance165616',
+            'token' => 'clmaa8iqdbnvk2q5',
+            'instance_id' => 'instance170972',
             'to' => $phone,
             'body' => $message
         ];
@@ -266,5 +266,4 @@ class AuthController extends Controller
     }
 }
 
- //------------------------------------------------------------------
- 
+//------------------------------------------------------------------
