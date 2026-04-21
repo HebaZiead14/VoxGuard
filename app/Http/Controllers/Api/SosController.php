@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class SosController extends Controller
 {
-    
+    /**
+     * 1. بدء الاستغاثة
+     */
     public function start(Request $request)
     {
         $request->validate([
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'latitude' => 'nullable', // خليناها nullable عشان لو البنت قافلة مشاركة الموقع
+            'longitude' => 'nullable',
             'trigger_type' => 'required|in:manual,ai_voice,voice_password'
         ]);
 
@@ -32,12 +34,13 @@ class SosController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'تم بدء الاستغاثة، جاري رفع التسجيل الصوتي...',
+            'message' => 'تم بدء الاستغاثة، جاري معالجة البيانات...',
             'sos_id' => $sos->id
         ]);
     }
+
     /**
-     * 2. دالة تحديث الموقع وفحص المناطق التلقائية
+     * 2. تحديث الموقع الحي (Live Update)
      */
     public function updateLocation(Request $request, $id)
     {
@@ -54,120 +57,75 @@ class SosController extends Controller
             'longitude' => $request->longitude
         ]);
 
-        $automaticZones = \App\Models\GlobalZone::all();
-        foreach ($automaticZones as $zone) {
-            $distance = $this->calculateDistance($request->latitude, $request->longitude, $zone->latitude, $zone->longitude);
+        // --- إضافة: إرسال واتساب فوراً باللوكيشن حتى لو مفيش صوت ---
+        if ($sos->status == 'active') {
+            $liveTrackingUrl = url("/sos/track/{$id}");
+            $message = "🚨 *تنبيه موقع VoxGuard* 🚨\n\n";
+            $message .= "👤 المستغيثة: *{$user->first_name}*\n";
+            $message .= "📍 *رابط التتبع الحي*:\n🔗 {$liveTrackingUrl}";
 
-            if ($zone->type == 'danger' && $distance <= $zone->radius) {
-                $alertMessage = "⚠️ *تنبيه تلقائي من VoxGuard* ⚠️\n\n";
-                $alertMessage .= "بنتكم دخلت الآن منطقة مصنفة (خطيرة): *{$zone->name}*";
+            // بنبعت الرسالة
+            $this->broadcastToAll($user, $message);
 
-                $this->broadcastToAll($user, $alertMessage);
-                break;
-            }
+            // بنغير الحالة لـ processing عشان ما يبعتش واتساب مع كل خطوة (زحمة)
+            $sos->update(['status' => 'notified']);
         }
 
-        return response()->json(['status' => true, 'message' => 'تم تحديث الموقع وفحص المناطق التلقائية']);
+        return response()->json(['status' => true, 'message' => 'تم تحديث الموقع وإرسال التنبيه']);
     }
 
     /**
-     * 3. دالة رفع الصوت (تم إعادتها للعمل لإنهاء خطأ 500)
+     * 3. رفع الصوت وإرسال الرسالة الشاملة (تدعم تفعيل/تعطيل الميزات)
      */
-    // public function uploadAudio(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'audio_file' => 'required|file|max:20480',
-    //     ]);
-
-    //     $sos = SosAlert::findOrFail($id);
-    //     $user = Auth::user();
-
-    //     if ($request->hasFile('audio_file')) {
-    //         // حفظ الملف بالاسم المحجوز مسبقاً في دالة start
-    //         $path = $request->file('audio_file')->storeAs('recordings', "sos_{$id}.mp3", 'public');
-    //         $audioUrl = asset(Storage::url($path));
-
-    //         $sos->update(['audio_url' => $audioUrl]);
-
-    //         $message = "🎤 *VoxGuard - تم رفع التسجيل الصوتي بنجاح*:\n";
-    //         $message .= "للاستماع: {$audioUrl}";
-
-    //         $this->broadcastToAll($user, $message);
-
-    //         return response()->json(['status' => true, 'audio_url' => $audioUrl]);
-    //     }
-    // }
     public function uploadAudio(Request $request, $id)
     {
-        $request->validate([
-            'audio_file' => 'required|mimes:mp3,mp4,wav,aac,m4a|max:10000',
-        ]);
+        // 1. التأكد من وجود ملف (اختياري حسب رغبة اليوزر)
+        if ($request->hasFile('audio_file')) {
+            $request->validate([
+                'audio_file' => 'mimes:mp3,mp4,wav,aac,m4a|max:10000',
+            ]);
+        }
 
         $sos = SosAlert::findOrFail($id);
         $user = Auth::user();
 
+        $audioUrl = null;
         if ($request->hasFile('audio_file')) {
-            // حفظ الملف باسم الاستغاثة
             $path = $request->file('audio_file')->storeAs('recordings', "sos_{$id}.mp3", 'public');
-
-            // تجهيز الرابط النهائي
-            $audioUrl = "https://lesia-danceable-nettly.ngrok-free.dev/storage/recordings/sos_{$id}.mp3?ngrok-skip-browser-warning=1";
-            $mapLink = "https://www.google.com/maps?q={$sos->latitude},{$sos->longitude}";
-
-            $triggerText = ($sos->trigger_type == 'ai_voice') ? "🚨 خطر (تحليل صوتي)" :
-                (($sos->trigger_type == 'voice_password') ? "كلمة سر صوتية" : "ضغط يدوي");
-
-            // بناء الرسالة الشاملة "الواحدة"
-            $message = "🚨 *تنبيه استغاثة VoxGuard* 🚨\n\n";
-            $message .= " المستغيثة: *{$user->name}*\n";
-            $message .= " السبب: *{$triggerText}*\n";
-
-            $message .= "\n🏥 *الملف الطبي*:\n";
-            $message .= "• فصيلة الدم: *" . ($user->blood_type ?? 'O+') . "*\n";
-            $message .= "• الحساسية: *" . ($user->allergies ?? 'لا يوجد') . "*\n";
-            $message .= "• أمراض مزمنة: *" . ($user->medical_conditions ?? 'سليمة') . "*\n";
-
-            $message .= "\n📍 *الموقع الحالي*:\n{$mapLink}\n";
-            $message .= "\n🎙️ *استمع للتسجيل الصوتي المباشر*:\n{$audioUrl}";
-
-            // إرسال الرسالة الشاملة الآن
-            $this->broadcastToAll($user, $message);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'تم رفع التسجيل وإرسال الاستغاثة الشاملة للأهل',
-                'audio_url' => $audioUrl
-            ]);
+            $audioUrl = url(\Storage::url($path)) . "?ngrok-skip-browser-warning=1";
+            $sos->update(['audio_path' => $path]); // حفظ المسار في الداتا بيز
         }
+
+        $liveTrackingUrl = url("/sos/track/{$id}");
+
+        // 2. بناء الرسالة (بتاخد المتاح حالياً)
+        $message = "🚨 *تنبيه استغاثة VoxGuard* 🚨\n\n";
+        $message .= "👤 المستغيثة: *{$user->first_name} {$user->last_name}*\n";
+
+        // لو فيه لوكيشن مبعوث قبل كدة أو دلوقتي
+        if ($sos->latitude && $sos->longitude) {
+            $message .= "\n📍 *رابط التتبع الحي*:\n🔗 {$liveTrackingUrl}\n";
+        }
+
+        // لو فيه صوت ارفع دلوقتي
+        if ($audioUrl) {
+            $message .= "\n🎙️ *التسجيل الصوتي*:\n🔗 {$audioUrl}";
+        }
+
+        // 3. إرسال الواتساب
+        $this->broadcastToAll($user, $message);
+
+        // تحديث الحالة عشان السيستم يعرف إننا بلغنا الأهل خلاص
+        $sos->update(['status' => 'notified']);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'تم رفع الصوت وإرسال التنبيه بنجاح',
+            'audio_url' => $audioUrl
+        ]);
     }
-
     /**
-     * 4. دالة رفع الفيديو
-     */
-    // public function uploadVideo(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime|max:51200',
-    //     ]);
-
-    //     $sos = SosAlert::findOrFail($id);
-    //     $user = Auth::user();
-
-    //     if ($request->hasFile('video_file')) {
-    //         $path = $request->file('video_file')->store('videos', 'public');
-    //         $videoUrl = asset(Storage::url($path));
-
-    //         $message = "🎥 *VoxGuard - تسجيل فيديو مباشر من الموقع*:\n";
-    //         $message .= "اضغط للمشاهدة: {$videoUrl}";
-
-    //         $this->broadcastToAll($user, $message);
-
-    //         return response()->json(['status' => true, 'video_url' => $videoUrl]);
-    //     }
-    // }
-
-    /**
-     * 5. دالة إيقاف الاستغاثة
+     * 4. إنهاء الاستغاثة
      */
     public function stop(Request $request, $id)
     {
@@ -177,7 +135,7 @@ class SosController extends Controller
         $sos->update(['status' => 'resolved']);
 
         $message = "✅ *VoxGuard - إشارة أمان* ✅\n\n";
-        $message .= "المستخدمة *{$user->name}* بخير الآن وتم إنهاء حالة الطوارئ.";
+        $message .= "المستخدمة *{$user->first_name}* بخير الآن وتم إنهاء حالة الطوارئ.";
 
         $this->broadcastToAll($user, $message);
 
@@ -185,8 +143,14 @@ class SosController extends Controller
     }
 
     /**
-     * 6. دالة البث الجماعي
+     * 5. عرض صفحة الخريطة للأهل
      */
+    public function showMap($id)
+    {
+        $sos = SosAlert::with('user')->findOrFail($id);
+        return view('track', compact('sos'));
+    }
+
     private function broadcastToAll($user, $message)
     {
         $emergencyPhones = $user->emergencyContacts ? $user->emergencyContacts->pluck('phone') : collect();
@@ -199,13 +163,10 @@ class SosController extends Controller
         }
     }
 
-    /**
-     * 7. دالة إرسال واتساب عبر UltraMsg
-     */
     private function sendWhatsApp($phone, $message)
     {
-        $instanceId = "163774";
-        $token = "sgb4t90qrh0wm9qo";
+        $instanceId = "171200";
+        $token = "1bajiprv1swk00sy";
         $url = "https://api.ultramsg.com/instance" . $instanceId . "/messages/chat";
 
         $params = [
@@ -225,13 +186,9 @@ class SosController extends Controller
 
         $response = curl_exec($curl);
         curl_close($curl);
-
-        echo "\n --- UltraMsg Response for ($phone): " . $response . " ---\n";
+        error_log("\n --- UltraMsg Response: " . $response);
     }
 
-    /**
-     * 8. دالة حساب المسافة للمناطق التلقائية
-     */
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)
     {
         $earthRadius = 6371000;

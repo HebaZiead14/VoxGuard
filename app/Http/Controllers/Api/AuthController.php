@@ -250,17 +250,34 @@ class AuthController extends Controller
             'message' => 'Your location and status are now live.'
         ]);
     }
-    // ---------------- مساعد إرسال واتساب ----------------
+    //     // ---------------- مساعد إرسال واتساب ----------------
+//     private function sendWhatsApp($phone, $message)
+//     {
+//         $params = [
+//             'token' => '1bajiprv1swk00sy',
+//             'instance_id' => 'instance171200',
+//             'to' => $phone,
+//             'body' => $message
+//         ];
+//         $response = Http::post("https://api.ultramsg.com/instance171200//messages/chat", $params);
+
+
+
+    //         return $response->successful();
+//     }
+// }
+
+
     private function sendWhatsApp($phone, $message)
     {
         $params = [
-            'token' => 'clmaa8iqdbnvk2q5',
-            'instance_id' => 'instance170972',
+            'token' => '1bajiprv1swk00sy',
             'to' => $phone,
             'body' => $message
         ];
 
-        $response = Http::post("https://api.ultramsg.com/{$params['instance_id']}/messages/chat", $params);
+        // الرابط المظبوط لخدمة UltraMsg
+        $response = Http::post("https://api.ultramsg.com/instance171200/messages/chat", $params);
 
         return $response->successful();
     }

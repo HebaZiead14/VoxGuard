@@ -96,6 +96,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{id}/update-location', [SosController::class, 'updateLocation']);
         Route::post('/{id}/upload-audio', [SosController::class, 'uploadAudio']);
         Route::post('/{id}/stop', [SosController::class, 'stop']);
+        Route::get('/sos/track/{id}', [SosController::class, 'showMap']);
+        Route::get('/sos/status/{id}', function ($id) {
+            return \App\Models\SosAlert::find($id);
+        });
     });
 
     // --- نظام التوقيت الآمن والمكالمة الوهمية (Timer & Fake Call) ---
