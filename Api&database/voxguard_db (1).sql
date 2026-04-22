@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2026 at 09:21 PM
+-- Generation Time: Apr 22, 2026 at 02:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -298,7 +298,9 @@ CREATE TABLE `password_reset_tokens` (
 
 INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
 ('Aya@gmail.com', '7869', '2026-03-14 23:48:37'),
-('hebaziead6@gmail.com', '6630', '2026-04-12 15:28:06'),
+('hebaziead6@gmail.com', '3693', '2026-04-20 20:08:56'),
+('mohammedgamal0@gmail.com', '4011', '2026-04-21 15:53:51'),
+('mohammedgamal9160@gmail.com', '2752', '2026-04-20 20:34:49'),
 ('salz@gmail.com', '3515', '2026-03-14 23:38:14');
 
 -- --------------------------------------------------------
@@ -352,7 +354,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (39, 'App\\Models\\User', 14, 'api-token', '1587fc1c43aa6885fb45f2113acd6e934d2ba1afdd1bc1f0a55ccdcb42867fcb', '[\"*\"]', NULL, NULL, '2026-03-05 17:53:21', '2026-03-05 17:53:21'),
 (40, 'App\\Models\\User', 14, 'api-token', 'fd951456c0a06e4c8e033acd01aac44785e50eef3e82c8302e47bb94e5315522', '[\"*\"]', '2026-03-05 18:57:24', NULL, '2026-03-05 17:53:43', '2026-03-05 18:57:24'),
 (41, 'App\\Models\\User', 15, 'api-token', 'cd04e966458fefdf6fb631362a1e17bb606d9ef6f882c17bfa6c2551b27c4376', '[\"*\"]', NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41'),
-(42, 'App\\Models\\User', 15, 'api-token', '20a4fbd5ec177e1775c34bbaceaa656db2cff28a51bd63de26ef3664d50f74ef', '[\"*\"]', '2026-03-06 00:35:09', NULL, '2026-03-05 19:00:57', '2026-03-06 00:35:09'),
+(42, 'App\\Models\\User', 15, 'api-token', '20a4fbd5ec177e1775c34bbaceaa656db2cff28a51bd63de26ef3664d50f74ef', '[\"*\"]', '2026-04-19 21:06:40', NULL, '2026-03-05 19:00:57', '2026-04-19 21:06:40'),
 (43, 'App\\Models\\User', 15, 'api-token', '48cbd50bac86602b4af2ae280bd8960e0d92fa0d03841613a7ee4c82a71f1ddc', '[\"*\"]', '2026-03-05 19:15:49', NULL, '2026-03-05 19:15:20', '2026-03-05 19:15:49'),
 (44, 'App\\Models\\User', 15, 'api-token', '1d1a8a1a28ffe1a6c3dc81327cb09acbb4c282f78ce4a6567093ea3a3260b8f4', '[\"*\"]', '2026-03-05 19:54:50', NULL, '2026-03-05 19:17:08', '2026-03-05 19:54:50'),
 (45, 'App\\Models\\User', 15, 'api-token', 'cfe7ab59950868e9877e61c47a4cc6e7e67fe0dd8ed91f6e077349284f233034', '[\"*\"]', '2026-03-05 19:55:43', NULL, '2026-03-05 19:55:25', '2026-03-05 19:55:43'),
@@ -372,7 +374,15 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (59, 'App\\Models\\User', 22, 'api-token', '8fd710fcf68f07cfcd025d8906984db5535b6255337adc6a28401069d2fe2829', '[\"*\"]', '2026-04-12 14:57:39', NULL, '2026-04-12 14:53:11', '2026-04-12 14:57:39'),
 (60, 'App\\Models\\User', 23, 'api-token', '8266e2a4a432c14f17854f2bea49d172f0d3413ddf9cfc959ef830d45efa4a3a', '[\"*\"]', '2026-04-12 16:33:20', NULL, '2026-04-12 15:51:19', '2026-04-12 16:33:20'),
 (61, 'App\\Models\\User', 24, 'api-token', '85ee687f3a3137b26c2ba589b80a4287088a62002f63cabaa712fd8c2b356311', '[\"*\"]', '2026-04-12 18:02:33', NULL, '2026-04-12 16:12:18', '2026-04-12 18:02:33'),
-(62, 'App\\Models\\User', 23, 'api-token', '6ddb6a884277a47497b9c50648a10acb6a197458dc72f3371828e0b273b119a4', '[\"*\"]', '2026-04-12 18:26:55', NULL, '2026-04-12 17:20:05', '2026-04-12 18:26:55');
+(62, 'App\\Models\\User', 23, 'api-token', '6ddb6a884277a47497b9c50648a10acb6a197458dc72f3371828e0b273b119a4', '[\"*\"]', '2026-04-12 18:26:55', NULL, '2026-04-12 17:20:05', '2026-04-12 18:26:55'),
+(63, 'App\\Models\\User', 23, 'api-token', 'd9b78868cec95ab1c99219f8224de10dcecc27a66059064731d985eb2a1021d7', '[\"*\"]', '2026-04-19 21:10:03', NULL, '2026-04-19 21:07:51', '2026-04-19 21:10:03'),
+(64, 'App\\Models\\User', 25, 'api-token', 'c7e56de4ee04d03471400cf953b4fe87467a37b9d97857396734de02951eca05', '[\"*\"]', NULL, NULL, '2026-04-20 20:11:29', '2026-04-20 20:11:29'),
+(65, 'App\\Models\\User', 25, 'api-token', '8e8297c3e5d181e2daac8c8ae53eeb90ab686c244d03376f83b1064ae4d63ed8', '[\"*\"]', NULL, NULL, '2026-04-20 20:12:02', '2026-04-20 20:12:02'),
+(66, 'App\\Models\\User', 26, 'api-token', 'bf18d50207d7e8341e5cf0358d71c0764afda9a6a6801dc2b6c71a8415b65e0b', '[\"*\"]', NULL, NULL, '2026-04-20 20:55:19', '2026-04-20 20:55:19'),
+(67, 'App\\Models\\User', 26, 'api-token', 'dd910418216a8abf276d960d751bf893cead453d157490b0810fc363646584ef', '[\"*\"]', NULL, NULL, '2026-04-20 20:55:55', '2026-04-20 20:55:55'),
+(68, 'App\\Models\\User', 27, 'api-token', 'cbf221cced99a4f3692327a503664b4433b6f93c68166fbdfb77b3a86da8d480', '[\"*\"]', NULL, NULL, '2026-04-21 15:52:02', '2026-04-21 15:52:02'),
+(69, 'App\\Models\\User', 27, 'api-token', '2996cde3fe25443e12d5e9890b9904e2d681815ff04d8c53ee5a172ef2bf94eb', '[\"*\"]', '2026-04-21 16:38:25', NULL, '2026-04-21 15:52:19', '2026-04-21 16:38:25'),
+(70, 'App\\Models\\User', 27, 'api-token', 'ff1f6420700cd7fbb049228903e0c01c1a4e72ee2f939c91f52877de3ecbb995', '[\"*\"]', '2026-04-21 23:32:49', NULL, '2026-04-21 16:38:45', '2026-04-21 23:32:49');
 
 -- --------------------------------------------------------
 
@@ -420,23 +430,11 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('51qJvvxMd20BIziQOK9MhWRsKiqM1bVU6uUztR8M', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWDBZb214NW5seThHVWQ5WktkY0hyMXhpcHMxWFZPZk1ZQVNhQmhvQSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772524734),
-('5jAjGgGZMhDP2exWCUBVYaujfkqLyFBwj3WmHixW', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOWRubWtqaE9sNjl3ekdBU0Y1VmtuY0lVSVRJckx1N01JemNVM3JQWCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1769745343),
-('6zcXeAVdJ4m95bHRaY92kFb2oWR1HINF2gADBLnb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiampidFp3YUx0dWR4bW5DTTBPZ3dTbWh5THlkaUoxaG1rTFFvU09KWCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770752416),
-('AHvfYyGWsOZHrm4qAwHM4V1WvjcnB9xxoy2I1IsB', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYk55ak1LaDJtenRVUWZmd1h3MEZiZm0xZFdSMjdnTlRDYTdGV2xxTSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1771599114),
-('aWqAnpG98UFyCxcrXJU815GuKZUqyC4hjEMK0325', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSzBGMEdPN2g0aWVURFpHTDY1MFBOQWgxOE4xMkk0NUp5bU10Rm9GYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1771973146),
-('bznoXOB5SiZ9xMzYDeQVMZTCjpAonLngjGbUg26S', NULL, '127.0.0.1', 'WhatsApp/2.2587.10 W', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoialhKRG1nUGNoMWUwOFlNbHRkaUxVQjVtaWZBd2pYRk9HRE5udnc0QSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2IjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1770275099),
-('C0njXTIEwQvGIk7ZwjXOn5JBE4cymARXAf5MJqgm', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoib1U4dFBYYm1tVm5GM1J1aTNkanJwdVdyeFFQS2hId2FZQktoczJlNiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770120629),
-('cKgZR6H6T7141GZRmu1uGBhL1LSi4wUYt2so9Kbl', NULL, '127.0.0.1', 'WhatsApp/2.23.20.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMW80UHVnbHNFT3ZncFJVMXoxYjBJc3Y4TGhhV3J5MWhVd2JEYkRiMCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2IjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1770179816),
-('DnZQGVrAcAGpxkurGQs2stBSqU3HwwCKTCbAEWYZ', NULL, '127.0.0.1', 'PostmanRuntime/7.51.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiM0R6M2VhWnluYkxlclFjd214eFI1TEZDa3l6UkhvRzF5UmdrTlVvaCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770392411),
-('GC82KRTGYXPlON5mwFgwf7qWxPs86vGBCTeV3Tgn', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU1NpeVVyTGZYZ0lyRmlDSk13empRM0JiYW9LNEIyTzdHY083Z2UyQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770169859),
-('gNbLicMM3AIhViPmzdpwnDgezLG48ytj6vf9gz9X', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiS3h6SjE5Q3ROOUxtU1dER2hTNE1hcjBWbjVOb1JwM0N4S3lseWRiUSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772733010),
-('Ij5ZPMbUW4GMIK5V2VHrx6dugyXIr1CTK6cQYv3y', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWmxmQnB2aFJPRjN1MkVsS3VUUWYyR2tsTHpqSHc5UUVST1FORnM2cCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772497689),
-('kqohBFYNoUFoR1SvxuZpTCPyEwaI6mfNPxqfLqjd', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidU9UTmVaYkFPaENEaFdYNzNHc1BhOTdrRTgwcFIzV0Q5dTQwcVVPUiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770387682),
-('s7cBLwX00oPGtm2F3zBnyFLaJ1EF5crmhoGA90Nj', NULL, '127.0.0.1', 'PostmanRuntime/7.51.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUDNkeWw5YVMxUmlrSXRScVRmZkIwOFB2eUtncHJQdnlxNkxmWTFJNyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770166614),
-('v8pF2dFJS3iQGMHxV2mMvWAr4Ewi3caJPdKREogk', NULL, '127.0.0.1', 'WhatsApp/2.2587.9 W', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYW41d1l0SFBwNm5VdUtPZ2dzcGZlQkoyN2tqMFphRXN3c2dSZ0ZLOSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2IjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1770179776),
-('VAnag3IuAEoAqlf1In3nibYZt3S9stMxJrlc0yAM', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZWo4a2FvSzRRMFZrOTlMVmZjMXQ1ZjRaV3gzN21CNDFWSlV0bTF2ayI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1772368345),
-('vqbOW5MVP1ZKtUBr5dkxnNnd2oDJtCo8HCtZH9Sg', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSlhHUWNYb051eGlEamgxVlYzNERGNVRtY0VSaVlZUXJDUWk2QnBuTiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1770260739);
+('jATTWvwZXLmm3yEZIGepQX6NWnV8jfD89HZSvK0h', NULL, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3 Mobile/15E148 Safari/604.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTlRqcG51OGNvN0dhQjdpRFBWM1F6NUdTRHozNE5CMmdyTG5HZGZpQSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2L3Nvcy90cmFjay82MSI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776814095),
+('uSjMVjvwgutONgllxbTwaPp5SOKrMv3gyrai73uD', NULL, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3 Mobile/15E148 Safari/604.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZjAxR1pjUXh0MzdxeGZFMkVsdGk0c1F5OWFKVlFnT3JSOEhOeWRmayI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2L3Nvcy90cmFjay82MCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776808474),
+('xMhD6mJTiJaXNls5LUU9wGNwo2g8qcQ1rU1EdNiq', NULL, '127.0.0.1', 'WhatsApp/2.2613.101 W', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSk10OW5SM0lGa09tTFY4WVhEMjhKUGVoZDNqY0hPZFRVSnp4bURKcSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2L3Nvcy90cmFjay82MSI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776810568),
+('yfJUI9CltdmjQghzUGc5PAhf9n4CS0XidRXc82nv', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMFMwMm1YNG1YRWxyYW1CUUZYdU5lVU9wazFoR3Z6SlJ1bk9mUHZUOCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2L3Nvcy90cmFjay82MSI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776810555),
+('YgAoMNyxRZOlX8RXPfC6llpt0o7Qy30AyspXXBSm', NULL, '127.0.0.1', 'WhatsApp/2.2613.101 W', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiT2x6Mlc0S2FhcG1Ra3NpeHBXSmRGUEJQVHhscjg2cUh0RDBuM05qUiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTc6Imh0dHA6Ly9sZXNpYS1kYW5jZWFibGUtbmV0dGx5Lm5ncm9rLWZyZWUuZGV2L3Nvcy90cmFjay82MSI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776810649);
 
 -- --------------------------------------------------------
 
@@ -512,7 +510,17 @@ INSERT INTO `sos_alerts` (`id`, `user_id`, `status`, `latitude`, `longitude`, `t
 (49, 13, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-03 06:15:27', '2026-03-03 06:15:27'),
 (50, 14, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-05 18:56:00', '2026-03-05 18:56:00'),
 (51, 15, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-03-05 19:01:21', '2026-03-05 19:01:21'),
-(52, 16, 'active', 31.04090000, 31.37850000, 'manual', NULL, '2026-03-06 00:34:29', '2026-03-06 00:34:29');
+(52, 16, 'active', 31.04090000, 31.37850000, 'manual', NULL, '2026-03-06 00:34:29', '2026-03-06 00:34:29'),
+(53, 15, 'active', 30.04440000, 31.23570000, 'manual', NULL, '2026-04-19 21:06:41', '2026-04-19 21:06:41'),
+(54, 23, 'active', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-19 21:08:09', '2026-04-19 21:08:29'),
+(55, 23, 'active', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-19 21:09:52', '2026-04-21 17:40:25'),
+(56, 27, 'resolved', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-21 17:39:06', '2026-04-21 17:40:40'),
+(57, 27, 'active', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-21 21:02:44', '2026-04-21 21:04:20'),
+(58, 27, 'active', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-21 21:05:13', '2026-04-21 21:22:32'),
+(59, 27, 'active', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-21 21:23:10', '2026-04-21 21:53:15'),
+(60, 27, 'active', 30.05000000, 31.25000000, 'manual', NULL, '2026-04-21 21:53:26', '2026-04-21 21:56:37'),
+(61, 27, 'notified', 30.05000000, 31.25000000, 'manual', 'recordings/sos_61.mp3', '2026-04-21 22:00:14', '2026-04-21 23:27:59'),
+(62, 27, 'notified', 30.04440000, 31.23570000, 'manual', 'recordings/sos_62.mp3', '2026-04-21 23:30:18', '2026-04-21 23:30:32');
 
 -- --------------------------------------------------------
 
@@ -617,7 +625,10 @@ INSERT INTO `trusted_contacts` (`id`, `user_id`, `name`, `phone`, `lat`, `lng`, 
 (49, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/qxKvpzT0YPP5HY7jPnp3BPIvw5Fv5C5aafDjZydA.jpg', 0, 'offline', '2026-04-12 16:13:09', '2026-04-12 16:13:09'),
 (50, 24, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/QXNSq2etPcuWx48E0So5jspqyxDaXDfIRjpSbfZL.jpg', 0, 'offline', '2026-04-12 16:35:19', '2026-04-12 16:35:19'),
 (51, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/FkIjFZMgOsPppz5he1K3oSOIkEsaXcOldFmivIFm.jpg', 0, 'offline', '2026-04-12 17:20:29', '2026-04-12 17:20:29'),
-(52, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/2ECJ3tbd24QmulGqtTam5xaEhmwUj5GcLFQWGrVE.jpg', 0, 'offline', '2026-04-12 18:26:45', '2026-04-12 18:26:45');
+(52, 23, 'heba ziead', '01000000000', NULL, NULL, 'sister', 'contacts/2ECJ3tbd24QmulGqtTam5xaEhmwUj5GcLFQWGrVE.jpg', 0, 'offline', '2026-04-12 18:26:45', '2026-04-12 18:26:45'),
+(53, 23, 'heba ziead', '01272289429', NULL, NULL, 'sister', NULL, 0, 'offline', '2026-04-19 21:09:35', '2026-04-19 21:09:35'),
+(54, 27, 'heba ziead', '01272289429', NULL, NULL, 'sister', NULL, 0, 'offline', '2026-04-21 21:05:01', '2026-04-21 21:05:01'),
+(55, 27, 'heba ziead', '201272289429', NULL, NULL, 'sister', NULL, 0, 'offline', '2026-04-21 21:23:00', '2026-04-21 21:23:00');
 
 -- --------------------------------------------------------
 
@@ -675,7 +686,9 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_numbe
 (21, 'ema', 'Adel', 'ema@gmail.com', '01272289867', NULL, '$2y$12$7TWE2GbI7JtKfJ7ASOXVpu6OtPBcd2FGDFjnPGZDxmtkhvEOcGzXC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-03-30 21:54:50', '2026-04-12 15:47:53', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, '2026-04-12 15:47:53', 30.04440000, 31.23570000),
 (22, 'heba', 'ziead', 'hebaziead6@gmail.com', '01272289429', NULL, '$2y$12$GhlJsH.Xix4qDsq3qAtOTe8MQdrqREpWIxRZ3fnT5mFi1LiGL0mLC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 12:43:17', '2026-04-12 12:43:17', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, '2026-04-12 18:25:55', NULL, NULL),
 (23, 'hanna', 'Elmansouray', 'hanna@gmail.com', '01222503727', NULL, '$2y$12$r7g7hPZsDYtBshxVc2i6KehW1tFjnSKna6ktDHFnzy.OT77Gh3.kC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 15:51:19', '2026-04-12 15:51:19', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
-(24, 'test', 'Elmansouray', 'test@gmail.com', '01000000000', NULL, '$2y$12$pUXdy/1t.CFjejjMz/AfRu7ofN3CEavvy7ctHbO3I3hzLG/rAqLCu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 16:12:18', '2026-04-12 16:12:18', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL);
+(24, 'test', 'Elmansouray', 'test@gmail.com', '01000000000', NULL, '$2y$12$pUXdy/1t.CFjejjMz/AfRu7ofN3CEavvy7ctHbO3I3hzLG/rAqLCu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 16:12:18', '2026-04-12 16:12:18', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(25, 'Mohamed', 'Elmansouray', 'mohammedgamal9160@gmail.com', '01275858680', NULL, '$2y$12$QuTopzWCZFGK9GfUuuIFGOBwY/oLmdlDustJP491zDLnv9Ro2Tonm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-20 20:11:28', '2026-04-20 20:11:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(27, 'Roaa', 'ELmetwaly', 'roaa@example.com', '201551471741', 'http://127.0.0.1:8000/storage/profiles/pZTEJhu9vt3l91Zdjp0Iv85se0gpyfdcMxXv5qwe.jpg', '$2y$12$NHTb7X6U2/KGoJSnDkt1KujzD38cl2iHl6TnldU7tzA0pPDrlXI3i', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-04-21 15:52:02', '2026-04-21 17:03:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -943,7 +956,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `safety_timers`
@@ -955,7 +968,7 @@ ALTER TABLE `safety_timers`
 -- AUTO_INCREMENT for table `sos_alerts`
 --
 ALTER TABLE `sos_alerts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `trips`
@@ -967,13 +980,13 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `trusted_contacts`
 --
 ALTER TABLE `trusted_contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `voice_passwords`

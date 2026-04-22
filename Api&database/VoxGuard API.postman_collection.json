@@ -23,7 +23,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"first_name\": \"Aya\",\r\n    \"last_name\": \"Ziead\",\r\n    \"email\": \"hebaziead6@gmail.com\",\r\n    \"phone_number\": \"01272289429\", \r\n    \"password\": \"password010\",\r\n    \"password_confirmation\": \"password010\"\r\n}",
+              "raw": "{\r\n    \"first_name\": \"Mohamed\",\r\n    \"last_name\": \" Elmansouray\",\r\n    \"email\": \"mohammedgamal0@gmail.com\",\r\n    \"phone_number\": \"201011956615\", \r\n    \"password\": \"password1133\",\r\n    \"password_confirmation\": \"password1133\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -56,7 +56,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "37|oMlLVyvec4CS9PN6SZlDxhRBp94sbkAYIolgBV0Zebaa32ed",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -71,7 +71,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email_or_phone\": \"01014826189\", \r\n    \"password\": \"password0\"\r\n}\r\n\r\n",
+              "raw": "{\r\n    \"email_or_phone\": \"201011956615\", \r\n    \"password\": \"password1133\"\r\n}\r\n\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -104,7 +104,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "53|2UZS5vp8GuC7K7dbiAwYWoFReKHZyC92P4DrGWPE3b7adcd6",
+                  "value": "69|tKh9rgqbDVe6xMQmSDI4Oy2WLqjNvsVUA774l8qpdc48c33c",
                   "type": "string"
                 }
               ]
@@ -113,7 +113,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email_or_phone\": \"hebaziead6@gmail.com\"\r\n}",
+              "raw": "{\r\n    \"email_or_phone\": \"mohammedgamal0@gmail.com\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -243,7 +243,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
                   "type": "string"
                 }
               ]
@@ -257,13 +257,27 @@
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"first_name\": \"Roaa\",\r\n    \"last_name\": \"ELmetwaly\",\r\n    \"phone_number\": \"+201551471741\",\r\n    \"blood_type\": \"O Positive\",\r\n    \"allergies\": \"Peanuts\",\r\n    \"medical_conditions\": \"None\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "profile_image",
+                  "type": "file",
+                  "uuid": "55403e1b-0fd0-4a45-ad91-d8c41bf56f0f",
+                  "src": "/C:/Users/Heba Ziead/Pictures/heba.jpg"
+                },
+                {
+                  "key": "first_name",
+                  "value": "Roaa",
+                  "type": "text",
+                  "uuid": "151d1a59-82e9-4455-a855-13cdd56a3dd3"
+                },
+                {
+                  "key": "last_name\n",
+                  "value": "ELmetwaly",
+                  "type": "text",
+                  "uuid": "1de69270-47f6-45a4-8e18-355530e640f6"
                 }
-              }
+              ]
             },
             "url": {
               "raw": "http://127.0.0.1:8000 /api/profile/update",
@@ -747,7 +761,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "42|R8KkWeV6AhDG9zOpbGXYjZd2qvCyVoSsVP2yBTie38256645",
+                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
                   "type": "string"
                 }
               ]
@@ -796,7 +810,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
                   "type": "string"
                 }
               ]
@@ -821,7 +835,7 @@
               ]
             },
             "url": {
-              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/52/upload-audio",
+              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/62/upload-audio",
               "protocol": "https",
               "host": [
                 "lesia-danceable-nettly",
@@ -831,7 +845,7 @@
               "path": [
                 "api",
                 "sos",
-                "52",
+                "62",
                 "upload-audio"
               ]
             }
@@ -846,7 +860,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
                   "type": "string"
                 }
               ]
@@ -863,7 +877,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/sos/7/stop",
+              "raw": "http://127.0.0.1:8000/api/sos/56/stop",
               "protocol": "http",
               "host": [
                 "127",
@@ -875,7 +889,7 @@
               "path": [
                 "api",
                 "sos",
-                "7",
+                "56",
                 "stop"
               ]
             }
@@ -890,7 +904,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "36|fSACE08Oaptmo9aNxWcGhtqoHw09qd32hc60U1Ku08bc2ce7",
+                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
                   "type": "string"
                 }
               ]
@@ -907,19 +921,17 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/sos/12/update-location",
-              "protocol": "http",
+              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/61/update-location",
+              "protocol": "https",
               "host": [
-                "127",
-                "0",
-                "0",
-                "1"
+                "lesia-danceable-nettly",
+                "ngrok-free",
+                "dev"
               ],
-              "port": "8000",
               "path": [
                 "api",
                 "sos",
-                "12",
+                "61",
                 "update-location"
               ]
             }
@@ -1219,7 +1231,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "62|u5C8GMh4UR7Y34ylqeJ14VOwYnDiZxT944j3OuoA52ba5d07",
+                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
                   "type": "string"
                 }
               ]
@@ -1243,7 +1255,7 @@
                 },
                 {
                   "key": "phone",
-                  "value": "01000000000",
+                  "value": "201272289429",
                   "type": "text",
                   "uuid": "90bd6fae-b7ea-41a7-8eae-fba9d0ee3679"
                 },
