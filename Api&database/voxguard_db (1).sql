@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2026 at 02:08 AM
+-- Generation Time: Apr 23, 2026 at 03:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -133,29 +133,34 @@ CREATE TABLE `fake_calls` (
   `status` varchar(255) NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `voice_script` varchar(255) DEFAULT 'general'
+  `voice_script` varchar(255) DEFAULT 'general',
+  `audio_path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fake_calls`
 --
 
-INSERT INTO `fake_calls` (`id`, `user_id`, `caller_name`, `scheduled_at`, `ringtone`, `status`, `created_at`, `updated_at`, `voice_script`) VALUES
-(1, 2, 'Mom', '2026-02-04 01:23:05', 'Default Ringtone', 'pending', '2026-02-03 23:13:05', '2026-02-03 23:13:05', 'general'),
-(2, 2, 'Mom', '2026-02-04 04:01:05', 'Default Ringtone', 'pending', '2026-02-04 01:51:05', '2026-02-04 01:51:05', 'general'),
-(3, 2, 'Police', '2026-02-04 03:59:53', 'Urgent', 'pending', '2026-02-04 01:57:53', '2026-02-04 01:57:53', 'general'),
-(4, 2, 'Police', '2026-02-04 04:07:14', 'Urgent', 'pending', '2026-02-04 02:05:14', '2026-02-04 02:05:14', 'security_check'),
-(5, 4, 'Emergency Security', '2026-02-05 07:27:07', 'Default Ringtone', 'pending', '2026-02-05 05:27:02', '2026-02-05 05:27:02', 'general'),
-(6, 4, 'Police', '2026-02-05 07:31:11', 'Urgent', 'pending', '2026-02-05 05:29:11', '2026-02-05 05:29:11', 'security_check'),
-(7, 6, 'Emergency Security', '2026-02-10 21:48:10', 'Default Ringtone', 'pending', '2026-02-06 15:38:57', '2026-02-10 19:48:05', 'security_check'),
-(8, 7, 'Emergency Security', '2026-02-10 21:48:24', 'Default Ringtone', 'pending', '2026-02-10 19:48:19', '2026-02-10 19:48:19', 'general'),
-(9, 6, 'Police', '2026-02-10 21:53:10', 'Urgent', 'pending', '2026-02-10 19:51:10', '2026-02-10 19:51:10', 'security_check'),
-(10, 7, 'Police', '2026-02-10 21:53:24', 'Urgent', 'pending', '2026-02-10 19:51:24', '2026-02-10 19:51:24', 'security_check'),
-(11, 8, 'Emergency Security', '2026-02-25 01:47:42', 'Default Ringtone', 'pending', '2026-02-24 23:47:37', '2026-02-24 23:47:37', 'general'),
-(12, 8, 'Police', '2026-02-25 01:54:35', 'Urgent', 'pending', '2026-02-24 23:52:35', '2026-02-24 23:52:35', 'security_check'),
-(13, 13, 'Emergency Security', '2026-03-03 08:13:51', 'Default Ringtone', 'pending', '2026-03-03 06:13:46', '2026-03-03 06:13:46', 'general'),
-(14, 13, 'Police', '2026-03-03 08:17:07', 'Urgent', 'pending', '2026-03-03 06:15:07', '2026-03-03 06:15:07', 'security_check'),
-(15, 16, 'Police', '2026-03-06 02:46:58', 'Urgent', 'pending', '2026-03-06 00:44:58', '2026-03-06 00:44:58', 'security_check');
+INSERT INTO `fake_calls` (`id`, `user_id`, `caller_name`, `scheduled_at`, `ringtone`, `status`, `created_at`, `updated_at`, `voice_script`, `audio_path`) VALUES
+(1, 2, 'Mom', '2026-02-04 01:23:05', 'Default Ringtone', 'pending', '2026-02-03 23:13:05', '2026-02-03 23:13:05', 'general', NULL),
+(2, 2, 'Mom', '2026-02-04 04:01:05', 'Default Ringtone', 'pending', '2026-02-04 01:51:05', '2026-02-04 01:51:05', 'general', NULL),
+(3, 2, 'Police', '2026-02-04 03:59:53', 'Urgent', 'pending', '2026-02-04 01:57:53', '2026-02-04 01:57:53', 'general', NULL),
+(4, 2, 'Police', '2026-02-04 04:07:14', 'Urgent', 'pending', '2026-02-04 02:05:14', '2026-02-04 02:05:14', 'security_check', NULL),
+(5, 4, 'Emergency Security', '2026-02-05 07:27:07', 'Default Ringtone', 'pending', '2026-02-05 05:27:02', '2026-02-05 05:27:02', 'general', NULL),
+(6, 4, 'Police', '2026-02-05 07:31:11', 'Urgent', 'pending', '2026-02-05 05:29:11', '2026-02-05 05:29:11', 'security_check', NULL),
+(7, 6, 'Emergency Security', '2026-02-10 21:48:10', 'Default Ringtone', 'pending', '2026-02-06 15:38:57', '2026-02-10 19:48:05', 'security_check', NULL),
+(8, 7, 'Emergency Security', '2026-02-10 21:48:24', 'Default Ringtone', 'pending', '2026-02-10 19:48:19', '2026-02-10 19:48:19', 'general', NULL),
+(9, 6, 'Police', '2026-02-10 21:53:10', 'Urgent', 'pending', '2026-02-10 19:51:10', '2026-02-10 19:51:10', 'security_check', NULL),
+(10, 7, 'Police', '2026-02-10 21:53:24', 'Urgent', 'pending', '2026-02-10 19:51:24', '2026-02-10 19:51:24', 'security_check', NULL),
+(11, 8, 'Emergency Security', '2026-02-25 01:47:42', 'Default Ringtone', 'pending', '2026-02-24 23:47:37', '2026-02-24 23:47:37', 'general', NULL),
+(12, 8, 'Police', '2026-02-25 01:54:35', 'Urgent', 'pending', '2026-02-24 23:52:35', '2026-02-24 23:52:35', 'security_check', NULL),
+(13, 13, 'Emergency Security', '2026-03-03 08:13:51', 'Default Ringtone', 'pending', '2026-03-03 06:13:46', '2026-03-03 06:13:46', 'general', NULL),
+(14, 13, 'Police', '2026-03-03 08:17:07', 'Urgent', 'pending', '2026-03-03 06:15:07', '2026-03-03 06:15:07', 'security_check', NULL),
+(15, 16, 'Police', '2026-03-06 02:46:58', 'Urgent', 'pending', '2026-03-06 00:44:58', '2026-03-06 00:44:58', 'security_check', NULL),
+(16, 28, 'Police', '2026-04-23 03:34:26', 'Urgent', 'pending', '2026-04-23 01:32:26', '2026-04-23 01:32:26', 'security_check', NULL),
+(17, 28, 'Police', '2026-04-23 03:39:06', 'Urgent', 'pending', '2026-04-23 01:37:06', '2026-04-23 01:37:06', 'security_check', 'general_script.mp3'),
+(18, 28, 'Police', '2026-04-23 03:43:36', 'Urgent', 'pending', '2026-04-23 01:41:36', '2026-04-23 01:41:36', 'security_check', 'general_script.mp3'),
+(19, 28, 'Police', '2026-04-23 03:45:12', 'Urgent', 'pending', '2026-04-23 01:43:12', '2026-04-23 01:43:12', 'police', 'police_call.mp3');
 
 -- --------------------------------------------------------
 
@@ -278,7 +283,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2026_02_24_222643_create_global_zones_table', 10),
 (14, '2026_03_14_050638_add_social_ids_to_users_table', 11),
 (15, '2026_03_19_052207_add_image_to_trusted_contacts_table', 12),
-(16, '2026_03_30_230501_add_status_and_location_to_users_table', 13);
+(16, '2026_03_30_230501_add_status_and_location_to_users_table', 13),
+(17, '2026_04_23_025245_add_audio_path_to_fake_calls_table', 14);
 
 -- --------------------------------------------------------
 
@@ -382,7 +388,9 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (67, 'App\\Models\\User', 26, 'api-token', 'dd910418216a8abf276d960d751bf893cead453d157490b0810fc363646584ef', '[\"*\"]', NULL, NULL, '2026-04-20 20:55:55', '2026-04-20 20:55:55'),
 (68, 'App\\Models\\User', 27, 'api-token', 'cbf221cced99a4f3692327a503664b4433b6f93c68166fbdfb77b3a86da8d480', '[\"*\"]', NULL, NULL, '2026-04-21 15:52:02', '2026-04-21 15:52:02'),
 (69, 'App\\Models\\User', 27, 'api-token', '2996cde3fe25443e12d5e9890b9904e2d681815ff04d8c53ee5a172ef2bf94eb', '[\"*\"]', '2026-04-21 16:38:25', NULL, '2026-04-21 15:52:19', '2026-04-21 16:38:25'),
-(70, 'App\\Models\\User', 27, 'api-token', 'ff1f6420700cd7fbb049228903e0c01c1a4e72ee2f939c91f52877de3ecbb995', '[\"*\"]', '2026-04-21 23:32:49', NULL, '2026-04-21 16:38:45', '2026-04-21 23:32:49');
+(70, 'App\\Models\\User', 27, 'api-token', 'ff1f6420700cd7fbb049228903e0c01c1a4e72ee2f939c91f52877de3ecbb995', '[\"*\"]', '2026-04-21 23:32:49', NULL, '2026-04-21 16:38:45', '2026-04-21 23:32:49'),
+(71, 'App\\Models\\User', 28, 'api-token', '5fc6d9bff116fa5adc72dd44202dd059bc2de8816936825cfc17d7aa40d28775', '[\"*\"]', NULL, NULL, '2026-04-23 01:31:01', '2026-04-23 01:31:01'),
+(72, 'App\\Models\\User', 28, 'api-token', 'c4988fbf116b2eece372092ea33862eb707d076f1e6992acd3213bd95901262f', '[\"*\"]', '2026-04-23 01:43:12', NULL, '2026-04-23 01:31:38', '2026-04-23 01:43:12');
 
 -- --------------------------------------------------------
 
@@ -688,7 +696,8 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `phone_numbe
 (23, 'hanna', 'Elmansouray', 'hanna@gmail.com', '01222503727', NULL, '$2y$12$r7g7hPZsDYtBshxVc2i6KehW1tFjnSKna6ktDHFnzy.OT77Gh3.kC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 15:51:19', '2026-04-12 15:51:19', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
 (24, 'test', 'Elmansouray', 'test@gmail.com', '01000000000', NULL, '$2y$12$pUXdy/1t.CFjejjMz/AfRu7ofN3CEavvy7ctHbO3I3hzLG/rAqLCu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-12 16:12:18', '2026-04-12 16:12:18', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
 (25, 'Mohamed', 'Elmansouray', 'mohammedgamal9160@gmail.com', '01275858680', NULL, '$2y$12$QuTopzWCZFGK9GfUuuIFGOBwY/oLmdlDustJP491zDLnv9Ro2Tonm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-20 20:11:28', '2026-04-20 20:11:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
-(27, 'Roaa', 'ELmetwaly', 'roaa@example.com', '201551471741', 'http://127.0.0.1:8000/storage/profiles/pZTEJhu9vt3l91Zdjp0Iv85se0gpyfdcMxXv5qwe.jpg', '$2y$12$NHTb7X6U2/KGoJSnDkt1KujzD38cl2iHl6TnldU7tzA0pPDrlXI3i', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-04-21 15:52:02', '2026-04-21 17:03:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL);
+(27, 'Roaa', 'ELmetwaly', 'roaa@example.com', '201551471741', 'http://127.0.0.1:8000/storage/profiles/pZTEJhu9vt3l91Zdjp0Iv85se0gpyfdcMxXv5qwe.jpg', '$2y$12$NHTb7X6U2/KGoJSnDkt1KujzD38cl2iHl6TnldU7tzA0pPDrlXI3i', NULL, NULL, NULL, 'O Positive', 'Peanuts', 'None', NULL, '2026-04-21 15:52:02', '2026-04-21 17:03:28', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL),
+(28, 'mamy', 'Elmansouray', 'mamy@gmail.com', '201011956677', NULL, '$2y$12$xFvpNlY9BeeTCoYJm2K/J.eIZSC3JLFadHjDzGzBHEWf2we.5uzDy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-04-23 01:31:01', '2026-04-23 01:31:01', 'en', 0, 1, 1, NULL, 1, NULL, NULL, 120, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -926,7 +935,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `fake_calls`
 --
 ALTER TABLE `fake_calls`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `global_zones`
@@ -950,13 +959,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `safety_timers`
@@ -986,7 +995,7 @@ ALTER TABLE `trusted_contacts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `voice_passwords`
