@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SosAlert;
 use App\Models\TrustedContact;
-use App\Models\Zone; 
+use App\Models\Zone;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +19,7 @@ class SosController extends Controller
     public function start(Request $request)
     {
         $request->validate([
-            'latitude' => 'nullable', 
+            'latitude' => 'nullable',
             'longitude' => 'nullable',
             // أضفنا sentiment_analysis كنوع محفز جديد
             'trigger_type' => 'required|in:manual,ai_voice,voice_password,sentiment_analysis',
@@ -32,11 +32,12 @@ class SosController extends Controller
         // فحص لو الموقع الحالي في منطقة خطر
         $zoneStatus = 'normal';
         if ($request->latitude && $request->longitude) {
-            $dangerZone = Zone::where('type', 'high_alert')->get()->filter(function($zone) use ($request) {
+            $dangerZone = Zone::where('type', 'high_alert')->get()->filter(function ($zone) use ($request) {
                 return $this->calculateDistance($request->latitude, $request->longitude, $zone->latitude, $zone->longitude) <= $zone->radius;
             })->first();
-            
-            if ($dangerZone) $zoneStatus = 'danger_zone';
+
+            if ($dangerZone)
+                $zoneStatus = 'danger_zone';
         }
 
         // إنشاء التنبيه مع تخزين حالة المشاعر إذا وجدت
@@ -97,10 +98,10 @@ class SosController extends Controller
         if ($request->hasFile('audio_file')) {
             // حفظ الملف في السيرفر (Path)
             $path = $request->file('audio_file')->storeAs('recordings', "sos_{$id}_evidence.mp3", 'public');
-            
+
             // إضافة معامل لتخطي تحذير ngrok كما في الكود السابق
             $audioUrl = asset('storage/' . $path) . "?ngrok-skip-browser-warning=1";
-            
+
             // تحديث المسار في قاعدة البيانات كدليل (Evidence)
             $sos->update(['audio_path' => $path]);
         }
@@ -111,7 +112,7 @@ class SosController extends Controller
         $message = "🚨 *نداء استغاثة شامل من VoxGuard* 🚨\n\n";
         $message .= "👤 الاسم: *{$user->first_name} {$user->last_name}*\n";
         $message .= "🩸 فصيلة الدم: *{$user->blood_type}*\n";
-        
+
         // إظهار حالة المشاعر في الرسالة إذا كان التنبيه ذكياً
         if ($sos->emotion_state) {
             $message .= "🧠 تحليل المشاعر: *{$sos->emotion_state}*\n";
@@ -134,7 +135,7 @@ class SosController extends Controller
         $sos->update(['status' => 'notified']);
 
         return response()->json([
-            'status' => true, 
+            'status' => true,
             'audio_url' => $audioUrl,
             'emotion' => $sos->emotion_state
         ]);
@@ -172,9 +173,9 @@ class SosController extends Controller
             'to' => $phone,
             'body' => $message
         ];
-        
+
         $url = "https://api.ultramsg.com/instance171200/messages/chat";
-        
+
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,

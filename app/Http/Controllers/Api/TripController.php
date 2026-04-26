@@ -14,57 +14,57 @@ class TripController extends Controller
     /**
      * 1. بدء الرحلة (ربطاً بسكرينة Start Trip في الفيجما)
      */
-   public function startTrip(Request $request)
-{
-    // 1. التحقق من البيانات
-    $request->validate([
-        'destination_name' => 'required|string',
-        'destination_lat' => 'required|numeric',
-        'destination_long' => 'required|numeric',
-        'estimated_time' => 'required|integer',
-        'trusted_contact_id' => 'required|integer',
-        'safety_notes' => 'nullable|string',
-    ]);
-
-    // 2. الحصول على ID المستخدم المسجل
-    $userId = auth('sanctum')->id(); 
-
-    if (!$userId) {
-        return response()->json(['status' => false, 'message' => 'User not authenticated'], 401);
-    }
-
-    // 3. التحقق من وجود جهة الاتصال
-    $contact = \App\Models\TrustedContact::find($request->trusted_contact_id);
-    if (!$contact) {
-        return response()->json([
-            'status' => false, 
-            'message' => "خطأ: رقم جهة الاتصال غير موجود في قاعدة البيانات."
-        ], 422);
-    }
-
-    try {
-        // 4. حفظ بيانات الرحلة كاملة
-        $trip = Trip::create([
-            'user_id' => $userId, // السطر ده أساسي عشان ميظهرش الخطأ اللي في الصورة
-            'destination_name' => $request->destination_name,
-            'destination_lat' => $request->destination_lat,
-            'destination_long' => $request->destination_long,
-            'estimated_time' => $request->estimated_time,
-            'trusted_contact_id' => $request->trusted_contact_id,
-            'safety_notes' => $request->safety_notes,
-            'status' => 'started',
+    public function startTrip(Request $request)
+    {
+        // 1. التحقق من البيانات
+        $request->validate([
+            'destination_name' => 'required|string',
+            'destination_lat' => 'required|numeric',
+            'destination_long' => 'required|numeric',
+            'estimated_time' => 'required|integer',
+            'trusted_contact_id' => 'required|integer',
+            'safety_notes' => 'nullable|string',
         ]);
 
-        // 5. إرسال رسالة الواتساب للأهل فوراً (الربط المطلوب)
-        $this->notifyContactAboutTrip(auth('sanctum')->user(), $trip, $contact);
+        // 2. الحصول على ID المستخدم المسجل
+        $userId = auth('sanctum')->id();
 
-        return response()->json(['status' => true, 'data' => $trip], 201);
+        if (!$userId) {
+            return response()->json(['status' => false, 'message' => 'User not authenticated'], 401);
+        }
 
-    } catch (\Exception $e) {
-        // لو حصل أي خطأ في قاعدة البيانات هيظهر هنا
-        return response()->json(['status' => false, 'message' => 'Database Error: ' . $e->getMessage()], 500);
+        // 3. التحقق من وجود جهة الاتصال
+        $contact = \App\Models\TrustedContact::find($request->trusted_contact_id);
+        if (!$contact) {
+            return response()->json([
+                'status' => false,
+                'message' => "خطأ: رقم جهة الاتصال غير موجود في قاعدة البيانات."
+            ], 422);
+        }
+
+        try {
+            // 4. حفظ بيانات الرحلة كاملة
+            $trip = Trip::create([
+                'user_id' => $userId, // السطر ده أساسي عشان ميظهرش الخطأ اللي في الصورة
+                'destination_name' => $request->destination_name,
+                'destination_lat' => $request->destination_lat,
+                'destination_long' => $request->destination_long,
+                'estimated_time' => $request->estimated_time,
+                'trusted_contact_id' => $request->trusted_contact_id,
+                'safety_notes' => $request->safety_notes,
+                'status' => 'started',
+            ]);
+
+            // 5. إرسال رسالة الواتساب للأهل فوراً (الربط المطلوب)
+            $this->notifyContactAboutTrip(auth('sanctum')->user(), $trip, $contact);
+
+            return response()->json(['status' => true, 'data' => $trip], 201);
+
+        } catch (\Exception $e) {
+            // لو حصل أي خطأ في قاعدة البيانات هيظهر هنا
+            return response()->json(['status' => false, 'message' => 'Database Error: ' . $e->getMessage()], 500);
+        }
     }
-}
     /**
      * 2. تحديث الحالة (ربطاً بسكرينة Are you okay? في الفيجما)
      */
@@ -119,11 +119,11 @@ class TripController extends Controller
 
         $message = "✅ *وصلت بالسلامة* ✅\n";
         $message .= "المستخدمة *{$user->first_name}* وصلت لوجهتها وأنهت تتبع الرحلة بنجاح.";
-        
+
         $this->sendWhatsApp($trip->trustedContact->phone, $message);
 
         return response()->json([
-            'status' => true, 
+            'status' => true,
             'message' => 'Trip ended safely!'
         ]);
     }
@@ -151,7 +151,7 @@ class TripController extends Controller
             'to' => $phone,
             'body' => $message
         ];
-        
+
         $url = "https://api.ultramsg.com/instance171200/messages/chat";
 
         $curl = curl_init();

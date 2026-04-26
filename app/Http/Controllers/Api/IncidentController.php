@@ -36,7 +36,7 @@ class IncidentController extends Controller
 
         try {
             $incident = new Incident();
-            $incident->user_id = auth()->id(); 
+            $incident->user_id = auth()->id();
             $incident->type = $request->type;
             $incident->description = $request->description;
             $incident->location_text = $request->location_text;
@@ -47,16 +47,18 @@ class IncidentController extends Controller
             if ($request->hasFile('media')) {
                 $file = $request->file('media');
                 $extension = $file->getClientOriginalExtension();
-                
+
                 // تحديد نوع الدليل آلياً (عشان يظهر في الـ History صح)
                 $evidenceType = 'photo';
-                if (in_array($extension, ['mp4', 'mov'])) $evidenceType = 'video';
-                if (in_array($extension, ['mp3', 'wav', 'm4a'])) $evidenceType = 'voice';
+                if (in_array($extension, ['mp4', 'mov']))
+                    $evidenceType = 'video';
+                if (in_array($extension, ['mp3', 'wav', 'm4a']))
+                    $evidenceType = 'voice';
 
                 $fileName = time() . '_' . $file->getClientOriginalName();
                 // الأفضل استخدام storage لسهولة التعامل مع الروابط لاحقاً
                 $path = $file->storeAs('incidents', $fileName, 'public');
-                
+
                 $incident->media_path = 'storage/' . $path;
                 $incident->evidence_type = $evidenceType; // تأكدي من إضافة هذا العمود في Migration الـ Incidents
             }
@@ -95,7 +97,7 @@ class IncidentController extends Controller
             });
 
         return response()->json([
-            'status' => true, 
+            'status' => true,
             'reports' => $reports
         ], 200);
     }

@@ -60,7 +60,7 @@ class WearableController extends Controller
 
         // شرط الطوارئ (نبض عالي أو منخفض جداً)
         if ($request->heart_rate >= 120 || $request->heart_rate <= 50) {
-            
+
             SosAlert::create([
                 'user_id' => $currentUserId,
                 'latitude' => $request->lat,

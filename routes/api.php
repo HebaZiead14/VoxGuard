@@ -121,12 +121,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // --- نظام تتبع الرحلات (Trip Tracking) - جديد ومهم جداً ---
-     Route::prefix('trips')->group(function () {
+    Route::prefix('trips')->group(function () {
         Route::post('/start', [TripController::class, 'startTrip']);
         Route::post('/{id}/update-location', [TripController::class, 'updateLocation']);
         Route::post('/{id}/update-status', [TripController::class, 'updateStatus']);
         Route::post('/{id}/end', [TripController::class, 'endTrip']);
-    
+
     });
 
 });
