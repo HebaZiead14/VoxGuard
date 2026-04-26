@@ -1,27 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api; // تعديل الـ Namespace ليتطابق مع الفولدر
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller; // استدعاء الكنترولر الأساسي
+use App\Http\Controllers\Controller;
 use App\Models\Incident;
+use App\Models\SosAlert; // استدعاء موديل الاستغاثة للربط مع الساعة
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class IncidentController extends Controller
 {
     /**
-     * إنشاء بلاغ جديد (Create Report)
+     * 1. إنشاء بلاغ جديد (Create Report) مع دعم الأدلة المتعددة
      */
     public function store(Request $request)
     {
-        // 1. التحقق من البيانات (Validation)
         $validator = Validator::make($request->all(), [
             'type' => 'required|string',
             'description' => 'required|string|min:5',
             'location_text' => 'required|string',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
-            'media' => 'nullable|file|mimes:jpg,jpeg,png,mp4,mp3,wav|max:20480',
+            // دعم صيغ أكثر للأدلة بناءً على Figma (Voice/Video/Photo)
+            'media' => 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,mp3,wav,m4a|max:20480',
         ]);
 
         if ($validator->fails()) {
@@ -44,16 +46,26 @@ class IncidentController extends Controller
 
             if ($request->hasFile('media')) {
                 $file = $request->file('media');
+                $extension = $file->getClientOriginalExtension();
+                
+                // تحديد نوع الدليل آلياً (عشان يظهر في الـ History صح)
+                $evidenceType = 'photo';
+                if (in_array($extension, ['mp4', 'mov'])) $evidenceType = 'video';
+                if (in_array($extension, ['mp3', 'wav', 'm4a'])) $evidenceType = 'voice';
+
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/incidents'), $fileName);
-                $incident->media_path = 'uploads/incidents/' . $fileName;
+                // الأفضل استخدام storage لسهولة التعامل مع الروابط لاحقاً
+                $path = $file->storeAs('incidents', $fileName, 'public');
+                
+                $incident->media_path = 'storage/' . $path;
+                $incident->evidence_type = $evidenceType; // تأكدي من إضافة هذا العمود في Migration الـ Incidents
             }
 
             $incident->save();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Incident report has been submitted successfully.',
+                'message' => 'Incident report submitted with evidence.',
                 'data' => $incident
             ], 201);
 
@@ -66,9 +78,56 @@ class IncidentController extends Controller
         }
     }
 
+    /**
+     * 2. عرض تاريخ البلاغات (History)
+     */
     public function history()
     {
-        $reports = Incident::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
-        return response()->json(['status' => true, 'reports' => $reports], 200);
+        // جلب البلاغات مع إضافة رابط كامل للملفات لتسهيل العرض في Flutter
+        $reports = Incident::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($report) {
+                if ($report->media_path) {
+                    $report->full_media_url = url($report->media_path) . "?ngrok-skip-browser-warning=1";
+                }
+                return $report;
+            });
+
+        return response()->json([
+            'status' => true, 
+            'reports' => $reports
+        ], 200);
+    }
+
+    /**
+     * 3. استقبال بيانات الساعة (Smart Watch / Pair Device)
+     * هذا الجزء يغطي طلبك بخصوص ضربات القلب وربطها بالخوف
+     */
+    public function syncWatchData(Request $request)
+    {
+        $request->validate([
+            'heart_rate' => 'required|integer',
+            'activity' => 'nullable|string' // walking, standing, etc.
+        ]);
+
+        $user = auth()->user();
+        $heartRate = $request->heart_rate;
+
+        // المنطق: لو ضربات القلب زادت عن حد معين (خطر) نفعل SOS تلقائي
+        if ($heartRate > 120) {
+            // يمكننا هنا استدعاء SosController داخلياً أو إرجاع أمر للموبايل بتفعيل الاستغاثة
+            return response()->json([
+                'status' => true,
+                'trigger_sos' => true,
+                'message' => 'High heart rate detected! Emergency protocol suggested.'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Health data synced successfully',
+            'current_heart_rate' => $heartRate
+        ]);
     }
 }

@@ -835,7 +835,7 @@
               ]
             },
             "url": {
-              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/62/upload-audio",
+              "raw": "https://lesia-danceable-nettly.ngrok-free.dev/api/sos/69/upload-audio",
               "protocol": "https",
               "host": [
                 "lesia-danceable-nettly",
@@ -845,7 +845,7 @@
               "path": [
                 "api",
                 "sos",
-                "62",
+                "69",
                 "upload-audio"
               ]
             }
@@ -1461,7 +1461,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "29|ykXZC2nmf2YYmctxWjyuQeRrnG8UXrvgXUnsgx3Ad406ee44",
+                  "value": "78|wMNFs4Z97WZVYluYYa6rhNQjgurE0XdAFcD3jrt4b4b29287",
                   "type": "string"
                 }
               ]
@@ -1471,6 +1471,11 @@
               {
                 "key": "Accept",
                 "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer 78|wMNFs4Z97WZVYluYYa6rhNQjgurE0XdAFcD3jrt4b4b29287",
                 "type": "text"
               }
             ],
@@ -1515,7 +1520,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "78|wMNFs4Z97WZVYluYYa6rhNQjgurE0XdAFcD3jrt4b4b29287",
                   "type": "string"
                 }
               ]
@@ -1553,7 +1558,7 @@
                   "key": "media",
                   "type": "file",
                   "uuid": "05e0f527-57ad-41cb-b205-9bd98f550a5f",
-                  "src": "/C:/Users/Heba Ziead/Videos/Captures/Fruit Classifier 2025-12-02 00-32-18.mp4"
+                  "src": "/C:/Users/Heba Ziead/Videos/WhatsApp Audio 2026-03-03 at 6.39.15 AM.mp4"
                 }
               ]
             },
@@ -1587,7 +1592,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "78|wMNFs4Z97WZVYluYYa6rhNQjgurE0XdAFcD3jrt4b4b29287",
                   "type": "string"
                 }
               ]
@@ -1695,7 +1700,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "76|vdfwF0XHyh34jyoa4MKjCFQX7TCZ2iKqaT2ka7Ryd9478c7d",
                   "type": "string"
                 }
               ]
@@ -1710,7 +1715,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"destination_name\": \"نادي جزيرة الورد\",\r\n    \"destination_lat\": 31.0409,\r\n    \"destination_long\": 31.3785,\r\n    \"estimated_time\": 15,\r\n    \"trusted_contact_id\": 1,\r\n    \"safety_notes\": \"راكبة ميكروباص أبيض، رقم اللوحة 1234\"\r\n}",
+              "raw": "{\r\n    \"destination_name\": \"نادي جزيرة الورد\",\r\n    \"destination_lat\": 31.0409,\r\n    \"destination_long\": 31.3785,\r\n    \"estimated_time\": 15,\r\n    \"trusted_contact_id\": 60,\r\n    \"safety_notes\": \"راكبة ميكروباص أبيض، رقم اللوحة 1234\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1744,7 +1749,62 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "48|xVvyG80tBaL0Vtpcw1st3tzAGnh5KDEQiUMzbx6R630baf3a",
+                  "value": "75|0YEYDFGUgywIlWOh0olI2SrB6bT5eOv0p8gvG2uI20a73ba8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"status\": \"reached\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/trips/2/update-status",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "trips",
+                "2",
+                "update-status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "endtrip",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "75|0YEYDFGUgywIlWOh0olI2SrB6bT5eOv0p8gvG2uI20a73ba8",
                   "type": "string"
                 }
               ]
@@ -1759,7 +1819,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"status\": \"emergency\"\r\n}",
+              "raw": "",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1767,7 +1827,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/trips/1/update-status",
+              "raw": "http://127.0.0.1:8000/api/trips/2/end",
               "protocol": "http",
               "host": [
                 "127",
@@ -1779,8 +1839,8 @@
               "path": [
                 "api",
                 "trips",
-                "1",
-                "update-status"
+                "2",
+                "end"
               ]
             }
           },

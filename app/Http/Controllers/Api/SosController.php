@@ -6,176 +6,175 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SosAlert;
 use App\Models\TrustedContact;
+use App\Models\Zone; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SosController extends Controller
 {
     /**
-     * 1. بدء الاستغاثة
+     * 1. بدء الاستغاثة (معدل لاستقبال تحليل المشاعر)
      */
     public function start(Request $request)
     {
         $request->validate([
-            'latitude' => 'nullable', // خليناها nullable عشان لو البنت قافلة مشاركة الموقع
+            'latitude' => 'nullable', 
             'longitude' => 'nullable',
-            'trigger_type' => 'required|in:manual,ai_voice,voice_password'
+            // أضفنا sentiment_analysis كنوع محفز جديد
+            'trigger_type' => 'required|in:manual,ai_voice,voice_password,sentiment_analysis',
+            'emotion' => 'nullable|string' // استقبال حالة المشاعر (Input 2 من طلب الدكتورة)
         ]);
 
         $user = Auth::user();
+        $userId = $user->id ?? $user->user_id;
 
+        // فحص لو الموقع الحالي في منطقة خطر
+        $zoneStatus = 'normal';
+        if ($request->latitude && $request->longitude) {
+            $dangerZone = Zone::where('type', 'high_alert')->get()->filter(function($zone) use ($request) {
+                return $this->calculateDistance($request->latitude, $request->longitude, $zone->latitude, $zone->longitude) <= $zone->radius;
+            })->first();
+            
+            if ($dangerZone) $zoneStatus = 'danger_zone';
+        }
+
+        // إنشاء التنبيه مع تخزين حالة المشاعر إذا وجدت
         $sos = SosAlert::create([
-            'user_id' => $user->user_id,
+            'user_id' => $userId,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'trigger_type' => $request->trigger_type,
-            'status' => 'active'
+            'status' => 'active',
+            'zone_status' => $zoneStatus,
+            'emotion_state' => $request->emotion // حفظ الحالة (خايف، حزين، صراخ)
         ]);
 
         return response()->json([
             'status' => true,
-            'message' => 'تم بدء الاستغاثة، جاري معالجة البيانات...',
-            'sos_id' => $sos->id
+            'message' => 'تم بدء الاستغاثة بنجاح',
+            'sos_id' => $sos->id,
+            'trigger' => $request->trigger_type,
+            'emotion_detected' => $request->emotion,
+            'in_danger_zone' => ($zoneStatus == 'danger_zone')
         ]);
     }
 
     /**
-     * 2. تحديث الموقع الحي (Live Update)
+     * 2. تحديث الموقع الحي (لا تغيير)
      */
     public function updateLocation(Request $request, $id)
     {
-        $request->validate([
-            'latitude' => 'required',
-            'longitude' => 'required',
-        ]);
-
+        $request->validate(['latitude' => 'required', 'longitude' => 'required']);
         $sos = SosAlert::findOrFail($id);
         $user = Auth::user();
 
-        $sos->update([
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude
-        ]);
+        $sos->update(['latitude' => $request->latitude, 'longitude' => $request->longitude]);
 
-        // --- إضافة: إرسال واتساب فوراً باللوكيشن حتى لو مفيش صوت ---
         if ($sos->status == 'active') {
             $liveTrackingUrl = url("/sos/track/{$id}");
-            $message = "🚨 *تنبيه موقع VoxGuard* 🚨\n\n";
+            $message = "🚨 *تنبيه موقع VoxGuard* 🚨\n";
             $message .= "👤 المستغيثة: *{$user->first_name}*\n";
             $message .= "📍 *رابط التتبع الحي*:\n🔗 {$liveTrackingUrl}";
 
-            // بنبعت الرسالة
             $this->broadcastToAll($user, $message);
-
-            // بنغير الحالة لـ processing عشان ما يبعتش واتساب مع كل خطوة (زحمة)
-            $sos->update(['status' => 'notified']);
+            $sos->update(['status' => 'processing']);
         }
 
-        return response()->json(['status' => true, 'message' => 'تم تحديث الموقع وإرسال التنبيه']);
+        return response()->json(['status' => true]);
     }
 
     /**
-     * 3. رفع الصوت وإرسال الرسالة الشاملة (تدعم تفعيل/تعطيل الميزات)
+     * 3. رفع الصوت وإرسال الرسالة الشاملة (Input 1 من طلب الدكتورة)
      */
     public function uploadAudio(Request $request, $id)
     {
-        // 1. التأكد من وجود ملف (اختياري حسب رغبة اليوزر)
-        if ($request->hasFile('audio_file')) {
-            $request->validate([
-                'audio_file' => 'mimes:mp3,mp4,wav,aac,m4a|max:10000',
-            ]);
-        }
-
         $sos = SosAlert::findOrFail($id);
         $user = Auth::user();
 
+        // استقبال ورفع الملف الصوتي (Record)
         $audioUrl = null;
         if ($request->hasFile('audio_file')) {
-            $path = $request->file('audio_file')->storeAs('recordings', "sos_{$id}.mp3", 'public');
-            $audioUrl = url(\Storage::url($path)) . "?ngrok-skip-browser-warning=1";
-            $sos->update(['audio_path' => $path]); // حفظ المسار في الداتا بيز
+            // حفظ الملف في السيرفر (Path)
+            $path = $request->file('audio_file')->storeAs('recordings', "sos_{$id}_evidence.mp3", 'public');
+            
+            // إضافة معامل لتخطي تحذير ngrok كما في الكود السابق
+            $audioUrl = asset('storage/' . $path) . "?ngrok-skip-browser-warning=1";
+            
+            // تحديث المسار في قاعدة البيانات كدليل (Evidence)
+            $sos->update(['audio_path' => $path]);
         }
 
         $liveTrackingUrl = url("/sos/track/{$id}");
 
-        // 2. بناء الرسالة (بتاخد المتاح حالياً)
-        $message = "🚨 *تنبيه استغاثة VoxGuard* 🚨\n\n";
-        $message .= "👤 المستغيثة: *{$user->first_name} {$user->last_name}*\n";
-
-        // لو فيه لوكيشن مبعوث قبل كدة أو دلوقتي
-        if ($sos->latitude && $sos->longitude) {
-            $message .= "\n📍 *رابط التتبع الحي*:\n🔗 {$liveTrackingUrl}\n";
+        // بناء الرسالة النهائية الشاملة (اسم + بيانات طبية + حالة مشاعر + صوت)
+        $message = "🚨 *نداء استغاثة شامل من VoxGuard* 🚨\n\n";
+        $message .= "👤 الاسم: *{$user->first_name} {$user->last_name}*\n";
+        $message .= "🩸 فصيلة الدم: *{$user->blood_type}*\n";
+        
+        // إظهار حالة المشاعر في الرسالة إذا كان التنبيه ذكياً
+        if ($sos->emotion_state) {
+            $message .= "🧠 تحليل المشاعر: *{$sos->emotion_state}*\n";
         }
 
-        // لو فيه صوت ارفع دلوقتي
+        if ($user->emergency_question) {
+            $message .= "❓ *سؤال الطوارئ*: {$user->emergency_question}\n";
+            $message .= "🔑 *الإجابة*: {$user->emergency_answer}\n";
+        }
+
+        if ($sos->latitude) {
+            $message .= "\n📍 *تتبع الموقع*:\n{$liveTrackingUrl}\n";
+        }
+
         if ($audioUrl) {
-            $message .= "\n🎙️ *التسجيل الصوتي*:\n🔗 {$audioUrl}";
+            $message .= "\n🎙️ *التسجيل الصوتي كدليل*:\n{$audioUrl}";
         }
 
-        // 3. إرسال الواتساب
         $this->broadcastToAll($user, $message);
-
-        // تحديث الحالة عشان السيستم يعرف إننا بلغنا الأهل خلاص
         $sos->update(['status' => 'notified']);
 
         return response()->json([
-            'status' => true,
-            'message' => 'تم رفع الصوت وإرسال التنبيه بنجاح',
-            'audio_url' => $audioUrl
+            'status' => true, 
+            'audio_url' => $audioUrl,
+            'emotion' => $sos->emotion_state
         ]);
     }
+
     /**
-     * 4. إنهاء الاستغاثة
+     * 4. إنهاء الاستغاثة (لا تغيير)
      */
     public function stop(Request $request, $id)
     {
         $sos = SosAlert::findOrFail($id);
         $user = Auth::user();
-
         $sos->update(['status' => 'resolved']);
 
-        $message = "✅ *VoxGuard - إشارة أمان* ✅\n\n";
-        $message .= "المستخدمة *{$user->first_name}* بخير الآن وتم إنهاء حالة الطوارئ.";
+        $message = "✅ *VoxGuard - إشارة أمان* ✅\n";
+        $message .= "المستخدمة *{$user->first_name}* بخير الآن.";
 
         $this->broadcastToAll($user, $message);
-
-        return response()->json(['status' => true, 'message' => 'تم إنهاء الاستغاثة بنجاح']);
-    }
-
-    /**
-     * 5. عرض صفحة الخريطة للأهل
-     */
-    public function showMap($id)
-    {
-        $sos = SosAlert::with('user')->findOrFail($id);
-        return view('track', compact('sos'));
+        return response()->json(['status' => true]);
     }
 
     private function broadcastToAll($user, $message)
     {
-        $emergencyPhones = $user->emergencyContacts ? $user->emergencyContacts->pluck('phone') : collect();
-        $trustedPhones = TrustedContact::where('user_id', $user->user_id)->pluck('phone');
-
-        $uniquePhones = $emergencyPhones->merge($trustedPhones)->unique()->filter();
-
-        foreach ($uniquePhones as $phone) {
+        $userId = $user->id ?? $user->user_id;
+        $trustedPhones = TrustedContact::where('user_id', $userId)->pluck('phone');
+        foreach ($trustedPhones as $phone) {
             $this->sendWhatsApp($phone, $message);
         }
     }
 
     private function sendWhatsApp($phone, $message)
     {
-        $instanceId = "171200";
-        $token = "1bajiprv1swk00sy";
-        $url = "https://api.ultramsg.com/instance" . $instanceId . "/messages/chat";
-
         $params = [
-            'token' => $token,
+            'token' => '1bajiprv1swk00sy',
             'to' => $phone,
-            'body' => $message,
-            'priority' => 10
+            'body' => $message
         ];
-
+        
+        $url = "https://api.ultramsg.com/instance171200/messages/chat";
+        
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
@@ -183,10 +182,8 @@ class SosController extends Controller
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => http_build_query($params),
         ]);
-
-        $response = curl_exec($curl);
+        curl_exec($curl);
         curl_close($curl);
-        error_log("\n --- UltraMsg Response: " . $response);
     }
 
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)

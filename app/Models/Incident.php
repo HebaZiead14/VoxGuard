@@ -14,15 +14,16 @@ class Incident extends Model
      * دي اللي الـ Controller بيستخدمها عشان يسيف الداتا
      */
     protected $fillable = [
-        'user_id',
-        'type',
-        'description',
-        'location_text',
-        'latitude',
-        'longitude',
-        'media_path',
-        'status',
-    ];
+    'user_id',
+    'type',
+    'description',
+    'location_text',
+    'latitude',
+    'longitude',
+    'media_path',     // مسار الملف الصوتي أو الصورة
+    'evidence_type',  // نوع الدليل (voice, photo, video)
+    'status'
+];
 
     /**
      * علاقة البلاغ بالمستخدم (User)

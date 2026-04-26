@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class SosAlert extends Model
 {
     protected $fillable = [
-        'user_id', 
-        'latitude', 
-        'longitude', 
-        'status', 
-        'trigger_type', 
-        'audio_path'
-    ];
+    'user_id',
+    'latitude',
+    'longitude',
+    'status',
+    'trigger_type',
+    'audio_path',
+    'emotion_state' // لازم تضيفي السطر ده هنا ضروري جداً
+];
 
     /**
      * العلاقة بين الاستغاثة والمستخدم

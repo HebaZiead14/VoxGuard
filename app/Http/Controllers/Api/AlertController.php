@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TrustedContact;
-use App\Models\AlertLog; // استدعاء موديل السجل
+use App\Models\AlertLog; 
 use Illuminate\Support\Facades\Auth;
 
 class AlertController extends Controller
 {
     /**
-     * إرسال استغاثة لجميع المنقذين وتسجيلها في السجل
-     * هذا الروت يتم مناداته بعد انتهاء مؤقت الـ 5 ثواني (سواء من AI أو Panic Button)
-     * يرسل رسالة واتساب واحدة تحتوي على رابط المتابعة الحية
+     * إرسال استغاثة شاملة (Panic Button / AI / Sensors)
      */
     public function sendAlert(Request $request)
     {
@@ -23,73 +21,71 @@ class AlertController extends Controller
             return response()->json(['status' => false, 'message' => 'Unauthenticated'], 401);
         }
 
-        // 1. التحقق من تفعيل ميزة الـ Panic Button من الإعدادات قبل التنفيذ
+        // 1. التعديل الأول: ضمان الـ ID الصحيح (عشان الـ Null Error اللي واجهناه)
+        $userId = $user->id ?? $user->user_id;
+
+        // 2. التعديل الثاني: استقبال نوع المحفز (Trigger Type) 
+        // عشان الـ Log يوضح هل الخطر من (Manual, Sentiment, Voice, or Trip)
+        $triggerType = $request->trigger_type ?? 'Panic Button';
+
         if (isset($user->panic_button_enabled) && !$user->panic_button_enabled) {
             return response()->json([
                 'status' => false,
-                'message' => 'Alert could not be sent because Panic Button is disabled in settings.'
+                'message' => 'Alert could not be sent because Panic Button is disabled.'
             ], 403);
         }
 
-        // 2. استقبال اللوكيشن وتجهيز رابط المتابعة الحية (Live Location)
+        // 3. الموقع الجغرافي
         $lat = $request->lat ?? $request->latitude;
         $lng = $request->long ?? $request->longitude;
-
-        // الرابط التجريبي لجوجل ماب (Static) - يمكن استبداله بالرابط الحي لاحقاً
         $liveLocationUrl = "https://www.google.com/maps?q={$lat},{$lng}";
 
-        // 3. جلب المنقذين المرتبطين باليوزر (Emergency + Trusted)
-        $contacts = TrustedContact::where('user_id', $user->user_id)->get()->unique('phone');
+        // 4. جلب المنقذين بدقة
+        $contacts = TrustedContact::where('user_id', $userId)->get()->unique('phone');
 
         if ($contacts->isEmpty()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'No emergency contacts found.'
-            ], 404);
+            return response()->json(['status' => false, 'message' => 'No emergency contacts found.'], 404);
         }
 
-        // 4. تحضير رسالة الاستغاثة الموحدة
-        $messageBody = "🚨 *VoxGuard Live Alert!* 🚨\n";
-        $messageBody .= "Emergency from: *{$user->name}*!\n";
-        $messageBody .= "I am in danger, track my location here:\n" . $liveLocationUrl;
+        // 5. رسالة احترافية تحتوي على المصدر (Source) والبيانات الطبية
+        $messageBody = "🚨 *VoxGuard Emergency Alert!* 🚨\n\n";
+        $messageBody .= "👤 User: *{$user->first_name} {$user->last_name}*\n";
+        $messageBody .= "⚠️ Source: *{$triggerType}*\n";
+        $messageBody .= "🩸 Blood Type: *{$user->blood_type}*\n";
+        $messageBody .= "📍 Track Location: {$liveLocationUrl}";
 
-        // 5. الإرسال لجميع الجهات المسجلة عبر WhatsApp
+        // 6. الإرسال الفعلي
         foreach ($contacts as $contact) {
             $this->sendWhatsAppViaUltraMsg($contact->phone, $messageBody);
-
-            // رابط الإرسال اليدوي كخطة بديلة
-            $encodedMessage = urlencode($messageBody);
-            $contact->whatsapp_manual_link = "https://wa.me/" . str_replace(['+', ' '], '', $contact->phone) . "?text={$encodedMessage}";
         }
 
-        // 6. تحديث حالة المستخدم في السيرفر ليكون "In Danger" لتفعيل الـ SOS والـ AI
+        // 7. تحديث حالة المستخدم وتسجيل اللوج
         $user->update(['is_in_danger' => true]);
 
-        // 7. تسجيل الاستغاثة في الـ Alert Logs (History)
         AlertLog::create([
-            'user_id' => $user->user_id,
+            'user_id' => $userId,
             'lat' => $lat,
             'long' => $lng,
-            'status' => 'Live Alert Triggered via Panic Button'
+            'status' => "Emergency triggered via {$triggerType}"
         ]);
 
         return response()->json([
             'status' => true,
             'message' => 'Emergency mode activated. Alert sent to contacts.',
-            'live_tracking_url' => $liveLocationUrl,
-            'sos_status' => 'Active',
-            'data' => $contacts
+            'source' => $triggerType,
+            'sos_status' => 'Active'
         ], 200);
     }
 
     /**
-     * عرض سجل الاستغاثات الخاص بالمستخدم (Alert History)
+     * عرض سجل الاستغاثات (Alert History)
      */
     public function history()
     {
         $user = Auth::user();
+        $userId = $user->id ?? $user->user_id;
 
-        $history = AlertLog::where('user_id', $user->user_id)
+        $history = AlertLog::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
@@ -101,37 +97,13 @@ class AlertController extends Controller
     }
 
     /**
-     * دالة مساعدة للإرسال عبر UltraMsg
+     * دالة الإرسال الموحدة (استخدمنا الـ Instance والـ Token بتوعك)
      */
-    //     private function sendWhatsAppViaUltraMsg($phone, $message)
-//     {
-//         $instanceId = "163774";
-//         $token = "sgb4t90qrh0wm9qo";
-//        $url = "https://api.ultramsg.com/instance" . $instanceId . "/messages/chat";
-//         $params = [
-//             'token' => $token,
-//             'to' => $phone,
-//             'body' => $message,
-//             'priority' => 10
-//         ];
-
-    //         $curl = curl_init();
-//         curl_setopt_array($curl, [
-//             CURLOPT_URL => $url,
-//             CURLOPT_RETURNTRANSFER => true,
-//             CURLOPT_POST => true,
-//             CURLOPT_POSTFIELDS => http_build_query($params),
-//         ]);
-//         curl_exec($curl);
-//         curl_close($curl);
-//     }
-// }
-
     private function sendWhatsAppViaUltraMsg($phone, $message)
     {
-        $instanceId = "163774";
-        $token = "sgb4t90qrh0wm9qo";
-        $url = "https://api.ultramsg.com/instance" . $instanceId . "/messages/chat";
+        $instanceId = "instance171200"; 
+        $token = "1bajiprv1swk00sy"; 
+        $url = "https://api.ultramsg.com/{$instanceId}/messages/chat";
 
         $params = [
             'token' => $token,
@@ -150,8 +122,7 @@ class AlertController extends Controller
 
         $response = curl_exec($curl);
         curl_close($curl);
-
-        // السطر ده هو اللي هيعرفنا الغلط فين
-        echo "\n --- UltraMsg Response for ($phone): " . $response . " ---\n";
+        
+        return $response;
     }
 }
