@@ -7,14 +7,13 @@ use App\Models\TrustedContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http; // مكتبة إرسال طلبات الـ API
+use Illuminate\Support\Facades\Http; 
 
 class TrustedContactController extends Controller
 {
 
     public function index()
     {
-        // 1. جلب الـ ID الخاص بالمستخدم الحالي من التوكن
         $userId = auth('sanctum')->id();
 
         if (!$userId) {
@@ -134,7 +133,7 @@ class TrustedContactController extends Controller
                 'body' => "مرحباً، تم إضافتك كجهة اتصال طوارئ لـ ($userName) في تطبيق VoxGuard للحماية. ستصلك رسائلنا في حالة طلب الاستغاثة."
             ]);
         } catch (\Exception $e) {
-            // استمرار الكود في حالة فشل الإرسال
+           
         }
 
         return response()->json([
@@ -163,7 +162,6 @@ class TrustedContactController extends Controller
     }
 
     /**
-     * حذف جهة اتصال (دعم ميزة السحب للحذف)
      */
     public function destroy($id)
     {

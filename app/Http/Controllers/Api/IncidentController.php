@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 class IncidentController extends Controller
 {
     /**
-     * 1. إنشاء بلاغ جديد (Create Report)
      */
     public function store(Request $request)
     {
@@ -60,7 +59,6 @@ class IncidentController extends Controller
 
             $incident->save();
 
-            // إضافة الرابط الكامل هنا أيضاً لراحة بتوع فلاتر
             if ($incident->media_path) {
                 $incident->full_media_url = url($incident->media_path) . "?ngrok-skip-browser-warning=1";
             }
@@ -81,7 +79,6 @@ class IncidentController extends Controller
     }
 
     /**
-     * 2. عرض تاريخ البلاغات (History)
      */
     public function history()
     {
@@ -102,7 +99,6 @@ class IncidentController extends Controller
     }
 
     /**
-     * 3. استقبال بيانات الساعة (Smart Watch)
      */
     public function syncWatchData(Request $request)
     {
