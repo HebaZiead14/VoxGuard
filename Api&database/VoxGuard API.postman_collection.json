@@ -1231,7 +1231,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "70|2XuqqnFQPaIWEGI13hMY4KhhhWwG9892WLYKEmqM126331dc",
+                  "value": "79|x2EmUwPCeI8f9da2EAdufeo2dt7I1VtYU00rGoAa0ddcbfdc",
                   "type": "string"
                 }
               ]
@@ -1447,6 +1447,40 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "79|x2EmUwPCeI8f9da2EAdufeo2dt7I1VtYU00rGoAa0ddcbfdc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/trusted-contacts/62",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "trusted-contacts",
+                "62"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -1559,6 +1593,12 @@
                   "type": "file",
                   "uuid": "05e0f527-57ad-41cb-b205-9bd98f550a5f",
                   "src": "/C:/Users/Heba Ziead/Videos/WhatsApp Audio 2026-03-03 at 6.39.15 AM.mp4"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "1218a911-b143-4e6d-8bb0-54f45c8a91e0",
+                  "src": "/C:/Users/Heba Ziead/Pictures/صورة واتساب بتاريخ 2024-11-04 في 01.25.14_4f5f5a43.jpg"
                 }
               ]
             },

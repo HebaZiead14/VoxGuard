@@ -24,12 +24,10 @@ class TrustedContactController extends Controller
             ], 401);
         }
 
-        // 2. جلب جهات الاتصال المرتبطة باليوزر ده
         $contacts = TrustedContact::where('user_id', $userId)->get()->map(function ($contact) use ($userId) {
 
             $user = auth('sanctum')->user();
 
-            // تعديل السطر ده: حذفنا البحث عن 'phone' وسيبنا 'phone_number' فقط
             $registeredUser = \App\Models\User::where('phone_number', $contact->phone)->first();
 
             $contact->status = 'offline';
@@ -70,8 +68,8 @@ class TrustedContactController extends Controller
             'contacts' => $contacts
         ], 200);
     }
+
     /**
-     * دالة مساعدة لحساب المسافة الجغرافية
      */
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)
     {
@@ -88,11 +86,8 @@ class TrustedContactController extends Controller
 
         return $earthRadius * $c;
     }
-    // دالة حساب المسافة (المعادلة الرياضية)
 
     /**
-     * 2. إضافة جهة اتصال جديدة (Add Contact)
-     * تشمل: حفظ البيانات + رفع الصورة + إرسال ترحيب واتساب
      */
     public function store(Request $request)
     {
@@ -100,7 +95,7 @@ class TrustedContactController extends Controller
             'name' => 'required|string|max:100',
             'phone' => 'required|string|max:20',
             'relation' => 'required|string|max:50',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // التحقق من الصورة
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
 
         if ($validator->fails()) {
@@ -110,7 +105,6 @@ class TrustedContactController extends Controller
             ], 422);
         }
 
-        // --- معالجة رفع الصورة ---
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('contacts', 'public');
@@ -126,12 +120,10 @@ class TrustedContactController extends Controller
             'status' => 'offline',
         ]);
 
-        // --- إرسال رسالة ترحيب للأهل عبر الواتساب (UltraMsg) ---
         try {
             $userName = Auth::user()->first_name ?? 'إحدى المستخدمات';
             $targetPhone = $contact->phone;
 
-            // التأكد من إضافة الكود الدولي لمصر (+2) للرقم
             if (!str_starts_with($targetPhone, '+')) {
                 $targetPhone = '+2' . $targetPhone;
             }
@@ -142,7 +134,7 @@ class TrustedContactController extends Controller
                 'body' => "مرحباً، تم إضافتك كجهة اتصال طوارئ لـ ($userName) في تطبيق VoxGuard للحماية. ستصلك رسائلنا في حالة طلب الاستغاثة."
             ]);
         } catch (\Exception $e) {
-            // في حالة فشل الإرسال (مثلاً لا يوجد إنترنت) يستمر الكود ولا يعطي خطأ
+            // استمرار الكود في حالة فشل الإرسال
         }
 
         return response()->json([
@@ -153,7 +145,6 @@ class TrustedContactController extends Controller
     }
 
     /**
-     * 3. إرسال الموقع المباشر (SOS Live Location)
      */
     public function sendLocation(Request $request)
     {
@@ -162,7 +153,6 @@ class TrustedContactController extends Controller
             'lng' => 'required|numeric',
         ]);
 
-        // الرابط الصحيح الذي يفتح خرائط جوجل مباشرة عند الضغط عليه
         $mapUrl = "https://www.google.com/maps?q={$request->lat},{$request->lng}";
 
         return response()->json([
@@ -173,36 +163,37 @@ class TrustedContactController extends Controller
     }
 
     /**
-     * 4. حذف جهة اتصال
+     * حذف جهة اتصال (دعم ميزة السحب للحذف)
      */
     public function destroy($id)
     {
+        // البحث عن جهة الاتصال والتأكد أنها تخص المستخدم الحالي فقط لزيادة الأمان
         $contact = TrustedContact::where('user_id', Auth::id())->find($id);
 
         if (!$contact) {
-            return response()->json(['status' => false, 'message' => 'Contact not found'], 404);
+            return response()->json([
+                'status' => false, 
+                'message' => 'Contact not found or unauthorized'
+            ], 404);
         }
 
         $contact->delete();
-        return response()->json(['status' => true, 'message' => 'Deleted successfully'], 200);
+
+        return response()->json([
+            'status' => true, 
+            'message' => 'Trusted contact has been removed successfully'
+        ], 200);
     }
 
     /**
-     * 5. رفع وسائط الـ SOS (فيديو أو أوديو)
-     */
-    /**
-     * رفع تسجيل الـ SOS الصوتي (Evidence Audio)
-     * يتم استخدامه لتسجيل ما يحدث حول البنت كدليل صوتي
      */
     public function uploadSosMedia(Request $request)
     {
-        // التأكد من وجود فيديو أو أوديو
         $request->validate([
             'video' => 'nullable|file|mimes:mp4,mov,avi',
             'audio' => 'nullable|file|mimes:mp3,wav',
         ]);
 
-        // كود حفظ الملفات
         if ($request->hasFile('video')) {
             $path = $request->file('video')->store('sos_videos', 'public');
             return response()->json(['status' => true, 'message' => 'Video Uploaded!', 'path' => $path]);
@@ -215,5 +206,4 @@ class TrustedContactController extends Controller
 
         return response()->json(['status' => false, 'message' => 'No media uploaded']);
     }
-
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Incident;
-use App\Models\SosAlert; // استدعاء موديل الاستغاثة للربط مع الساعة
+use App\Models\SosAlert; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class IncidentController extends Controller
 {
     /**
-     * 1. إنشاء بلاغ جديد (Create Report) مع دعم الأدلة المتعددة
+     * 1. إنشاء بلاغ جديد (Create Report)
      */
     public function store(Request $request)
     {
@@ -22,7 +22,6 @@ class IncidentController extends Controller
             'location_text' => 'required|string',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
-            // دعم صيغ أكثر للأدلة بناءً على Figma (Voice/Video/Photo)
             'media' => 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,mp3,wav,m4a|max:20480',
         ]);
 
@@ -48,22 +47,23 @@ class IncidentController extends Controller
                 $file = $request->file('media');
                 $extension = $file->getClientOriginalExtension();
 
-                // تحديد نوع الدليل آلياً (عشان يظهر في الـ History صح)
                 $evidenceType = 'photo';
-                if (in_array($extension, ['mp4', 'mov']))
-                    $evidenceType = 'video';
-                if (in_array($extension, ['mp3', 'wav', 'm4a']))
-                    $evidenceType = 'voice';
+                if (in_array($extension, ['mp4', 'mov'])) $evidenceType = 'video';
+                if (in_array($extension, ['mp3', 'wav', 'm4a'])) $evidenceType = 'voice';
 
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                // الأفضل استخدام storage لسهولة التعامل مع الروابط لاحقاً
                 $path = $file->storeAs('incidents', $fileName, 'public');
 
                 $incident->media_path = 'storage/' . $path;
-                $incident->evidence_type = $evidenceType; // تأكدي من إضافة هذا العمود في Migration الـ Incidents
+                $incident->evidence_type = $evidenceType; 
             }
 
             $incident->save();
+
+            // إضافة الرابط الكامل هنا أيضاً لراحة بتوع فلاتر
+            if ($incident->media_path) {
+                $incident->full_media_url = url($incident->media_path) . "?ngrok-skip-browser-warning=1";
+            }
 
             return response()->json([
                 'status' => true,
@@ -85,7 +85,6 @@ class IncidentController extends Controller
      */
     public function history()
     {
-        // جلب البلاغات مع إضافة رابط كامل للملفات لتسهيل العرض في Flutter
         $reports = Incident::where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')
             ->get()
@@ -103,22 +102,18 @@ class IncidentController extends Controller
     }
 
     /**
-     * 3. استقبال بيانات الساعة (Smart Watch / Pair Device)
-     * هذا الجزء يغطي طلبك بخصوص ضربات القلب وربطها بالخوف
+     * 3. استقبال بيانات الساعة (Smart Watch)
      */
     public function syncWatchData(Request $request)
     {
         $request->validate([
             'heart_rate' => 'required|integer',
-            'activity' => 'nullable|string' // walking, standing, etc.
+            'activity' => 'nullable|string'
         ]);
 
-        $user = auth()->user();
         $heartRate = $request->heart_rate;
 
-        // المنطق: لو ضربات القلب زادت عن حد معين (خطر) نفعل SOS تلقائي
         if ($heartRate > 120) {
-            // يمكننا هنا استدعاء SosController داخلياً أو إرجاع أمر للموبايل بتفعيل الاستغاثة
             return response()->json([
                 'status' => true,
                 'trigger_sos' => true,
