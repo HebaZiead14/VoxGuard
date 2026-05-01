@@ -48,13 +48,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // نظام جهات الاتصال الموثوقة (Trusted Contacts)
     Route::prefix('trusted-contacts')->group(function () {
-    Route::get('/index', [TrustedContactController::class, 'index'])->name('contacts.index');
-    Route::post('/store', [TrustedContactController::class, 'store'])->name('contacts.store');
-    Route::post('/send-location', [TrustedContactController::class, 'sendLocation'])->name('contacts.sendLocation');
-    Route::delete('/{id}', [TrustedContactController::class, 'destroy'])->name('contacts.destroy');
-    Route::post('/upload-sos-media', [TrustedContactController::class, 'uploadSosMedia'])->name('contacts.uploadMedia');
-    Route::post('/update-live-location', [AuthController::class, 'updateLiveLocation'])->name('user.updateLocation');
-});
+        Route::get('/index', [TrustedContactController::class, 'index'])->name('contacts.index');
+        Route::post('/store', [TrustedContactController::class, 'store'])->name('contacts.store');
+        Route::post('/send-location', [TrustedContactController::class, 'sendLocation'])->name('contacts.sendLocation');
+        Route::delete('/{id}', [TrustedContactController::class, 'destroy'])->name('contacts.destroy');
+        Route::post('/upload-sos-media', [TrustedContactController::class, 'uploadSosMedia'])->name('contacts.uploadMedia');
+        Route::post('/update-live-location', [AuthController::class, 'updateLiveLocation'])->name('user.updateLocation');
+    });
 
 
     // --- جهات اتصال الطوارئ (الأهل والمنقذين) ---
@@ -88,6 +88,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // --- ميزة الكلمة السرية الصوتية (Voice Password) ---
     Route::post('/voice-password/save', [VoicePasswordController::class, 'store']);
     Route::get('/voice-password', [VoicePasswordController::class, 'show']);
+    Route::post('/voice-password/verify', [VoicePasswordController::class, 'verify']);
+    Route::post('/voice-password/verify', [VoicePasswordController::class, 'verify']);
+
 
     // --- نظام الاستغاثة المستمر (SOS Mode) ---
     Route::prefix('sos')->group(function () {

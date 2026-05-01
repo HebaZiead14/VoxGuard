@@ -11,13 +11,15 @@ class VoicePassword extends Model
         'user_id',
         'phrase',
         'sensitivity',
-        'timer_duration' // لازم تضاف هنا عشان تتحفظ
+        'timer_duration', // لازم تضاف هنا عشان تتحفظ
+        'embedding' ,
 
     ];
 
-    // علاقة تربط الكلمة بالمستخدم (كل كلمة تخص يوزر واحد)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 }
+
+

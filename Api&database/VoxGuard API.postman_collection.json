@@ -508,6 +508,14 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "verify",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
         }
       ]
     },

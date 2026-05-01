@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2026 at 06:09 AM
+-- Generation Time: May 01, 2026 at 08:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -154,10 +154,10 @@ INSERT INTO `fake_calls` (`id`, `user_id`, `caller_name`, `scheduled_at`, `ringt
 (10, 7, 'Police', '2026-02-10 21:53:24', 'Urgent', 'pending', '2026-02-10 19:51:24', '2026-02-10 19:51:24', 'security_check', NULL),
 (11, 8, 'Emergency Security', '2026-02-25 01:47:42', 'Default Ringtone', 'pending', '2026-02-24 23:47:37', '2026-02-24 23:47:37', 'general', NULL),
 (12, 8, 'Police', '2026-02-25 01:54:35', 'Urgent', 'pending', '2026-02-24 23:52:35', '2026-02-24 23:52:35', 'security_check', NULL),
-(13, 13, 'Emergency Security', '2026-04-27 00:27:38', 'Default Ringtone', 'pending', '2026-03-03 06:13:46', '2026-04-26 21:27:33', 'general', NULL),
+(13, 13, 'Emergency Security', '2026-05-01 20:19:31', 'Default Ringtone', 'pending', '2026-03-03 06:13:46', '2026-05-01 17:19:26', 'general', NULL),
 (14, 13, 'Police', '2026-03-03 08:17:07', 'Urgent', 'pending', '2026-03-03 06:15:07', '2026-03-03 06:15:07', 'security_check', NULL),
 (15, 16, 'Police', '2026-03-06 02:46:58', 'Urgent', 'pending', '2026-03-06 00:44:58', '2026-03-06 00:44:58', 'security_check', NULL),
-(16, 28, 'Police', '2026-04-23 03:34:26', 'Urgent', 'pending', '2026-04-23 01:32:26', '2026-04-23 01:32:26', 'security_check', NULL),
+(16, 28, 'Emergency Security', '2026-05-01 20:20:37', 'Default Ringtone', 'pending', '2026-04-23 01:32:26', '2026-05-01 17:20:32', 'security_check', NULL),
 (17, 28, 'Police', '2026-04-23 03:39:06', 'Urgent', 'pending', '2026-04-23 01:37:06', '2026-04-23 01:37:06', 'security_check', 'general_script.mp3'),
 (18, 28, 'Police', '2026-04-23 03:43:36', 'Urgent', 'pending', '2026-04-23 01:41:36', '2026-04-23 01:41:36', 'security_check', 'general_script.mp3'),
 (19, 28, 'Police', '2026-04-23 03:45:12', 'Urgent', 'pending', '2026-04-23 01:43:12', '2026-04-23 01:43:12', 'police', 'police_call.mp3'),
@@ -292,7 +292,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2026_03_19_052207_add_image_to_trusted_contacts_table', 12),
 (16, '2026_03_30_230501_add_status_and_location_to_users_table', 13),
 (17, '2026_04_23_025245_add_audio_path_to_fake_calls_table', 14),
-(18, '2026_04_26_041240_add_sentiment_fields_to_sos_alerts_table', 15);
+(18, '2026_04_26_041240_add_sentiment_fields_to_sos_alerts_table', 15),
+(19, '2026_05_01_191200_2026_05_01_191027_add_embedding_to_voice_passwords_table', 16);
 
 -- --------------------------------------------------------
 
@@ -364,7 +365,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (35, 'App\\Models\\User', 12, 'api-token', 'bc435fcee03f547548fe61fea8a39cd8aeb4d5de381680c5d6f893513054ea70', '[\"*\"]', NULL, NULL, '2026-03-03 01:13:23', '2026-03-03 01:13:23'),
 (36, 'App\\Models\\User', 12, 'api-token', 'df7ee2e9a8be8822662429ad53283808c41ef7f1a85859bcdf61843fca40bef1', '[\"*\"]', '2026-03-03 06:11:09', NULL, '2026-03-03 01:13:35', '2026-03-03 06:11:09'),
 (37, 'App\\Models\\User', 13, 'api-token', '132aa4d47994949b4fcde2d01770eab8a2b17a9fc6187ff04556e5f8e3d1c6ac', '[\"*\"]', '2026-03-05 18:46:49', NULL, '2026-03-03 05:17:11', '2026-03-05 18:46:49'),
-(38, 'App\\Models\\User', 13, 'api-token', 'b411414becca17453bde996ae2ee16abfff48f859307612c3368bcad50bbc0d1', '[\"*\"]', '2026-04-26 21:27:32', NULL, '2026-03-03 06:09:52', '2026-04-26 21:27:32'),
+(38, 'App\\Models\\User', 13, 'api-token', 'b411414becca17453bde996ae2ee16abfff48f859307612c3368bcad50bbc0d1', '[\"*\"]', '2026-05-01 17:19:20', NULL, '2026-03-03 06:09:52', '2026-05-01 17:19:20'),
 (39, 'App\\Models\\User', 14, 'api-token', '1587fc1c43aa6885fb45f2113acd6e934d2ba1afdd1bc1f0a55ccdcb42867fcb', '[\"*\"]', NULL, NULL, '2026-03-05 17:53:21', '2026-03-05 17:53:21'),
 (40, 'App\\Models\\User', 14, 'api-token', 'fd951456c0a06e4c8e033acd01aac44785e50eef3e82c8302e47bb94e5315522', '[\"*\"]', '2026-03-05 18:57:24', NULL, '2026-03-05 17:53:43', '2026-03-05 18:57:24'),
 (41, 'App\\Models\\User', 15, 'api-token', 'cd04e966458fefdf6fb631362a1e17bb606d9ef6f882c17bfa6c2551b27c4376', '[\"*\"]', NULL, NULL, '2026-03-05 19:00:41', '2026-03-05 19:00:41'),
@@ -405,7 +406,9 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (76, 'App\\Models\\User', 28, 'api-token', '7591541b602e8384e511421b3a16ad909516b433371c29341aae247d12150aa2', '[\"*\"]', '2026-04-30 03:46:24', NULL, '2026-04-25 23:08:40', '2026-04-30 03:46:24'),
 (77, 'App\\Models\\User', 28, 'api-token', '828e642833ea1c063680af5a2273844fb4477937f69daf023d9fb7889efe04fd', '[\"*\"]', '2026-04-25 23:55:34', NULL, '2026-04-25 23:34:18', '2026-04-25 23:55:34'),
 (78, 'App\\Models\\User', 28, 'api-token', '960f3826b384584064e70eefe9949b261e0eecddc151674953e992ddfeff9203', '[\"*\"]', '2026-04-30 04:05:32', NULL, '2026-04-25 23:55:41', '2026-04-30 04:05:32'),
-(79, 'App\\Models\\User', 28, 'api-token', '9828c00b77f3c293bfc6c720ffedf050c8b08bdd6bbe9faca99344d00b235cc3', '[\"*\"]', '2026-04-30 03:51:40', NULL, '2026-04-30 03:49:41', '2026-04-30 03:51:40');
+(79, 'App\\Models\\User', 28, 'api-token', '9828c00b77f3c293bfc6c720ffedf050c8b08bdd6bbe9faca99344d00b235cc3', '[\"*\"]', '2026-04-30 03:51:40', NULL, '2026-04-30 03:49:41', '2026-04-30 03:51:40'),
+(80, 'App\\Models\\User', 28, 'api-token', '5709a86d64cb0d09f078fa67de4c3f3d999bac5ecd1353562ad622ae4612d1fb', '[\"*\"]', '2026-05-01 17:22:40', NULL, '2026-05-01 17:20:04', '2026-05-01 17:22:40'),
+(81, 'App\\Models\\User', 28, 'api-token', '539d7222e58866f9141f949c5d8e8537ed730f9f15a1d396ade07be13ef9958f', '[\"*\"]', '2026-05-01 18:17:15', NULL, '2026-05-01 17:34:42', '2026-05-01 18:17:15');
 
 -- --------------------------------------------------------
 
@@ -747,6 +750,7 @@ CREATE TABLE `voice_passwords` (
   `phrase` varchar(255) NOT NULL,
   `sensitivity` int(11) NOT NULL DEFAULT 50,
   `timer_duration` int(11) NOT NULL DEFAULT 10,
+  `embedding` longtext DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -755,13 +759,14 @@ CREATE TABLE `voice_passwords` (
 -- Dumping data for table `voice_passwords`
 --
 
-INSERT INTO `voice_passwords` (`id`, `user_id`, `phrase`, `sensitivity`, `timer_duration`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Help Me Now', 85, 5, '2026-02-03 10:22:27', '2026-02-03 11:19:50'),
-(2, 4, 'Help Me Now', 85, 5, '2026-02-05 05:27:02', '2026-02-05 05:27:02'),
-(3, 6, 'Help Me Now', 85, 5, '2026-02-06 15:39:20', '2026-02-06 15:39:20'),
-(4, 7, 'Help Me Now', 85, 5, '2026-02-10 19:48:19', '2026-02-10 19:48:19'),
-(5, 8, 'Help Me Now', 85, 5, '2026-02-24 23:47:37', '2026-02-24 23:47:37'),
-(6, 13, 'Help Me Now', 85, 5, '2026-03-03 06:13:46', '2026-03-03 06:13:46');
+INSERT INTO `voice_passwords` (`id`, `user_id`, `phrase`, `sensitivity`, `timer_duration`, `embedding`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Help Me Now', 85, 5, NULL, '2026-02-03 10:22:27', '2026-02-03 11:19:50'),
+(2, 4, 'Help Me Now', 85, 5, NULL, '2026-02-05 05:27:02', '2026-02-05 05:27:02'),
+(3, 6, 'Help Me Now', 85, 5, NULL, '2026-02-06 15:39:20', '2026-02-06 15:39:20'),
+(4, 7, 'Help Me Now', 85, 5, NULL, '2026-02-10 19:48:19', '2026-02-10 19:48:19'),
+(5, 8, 'Help Me Now', 85, 5, NULL, '2026-02-24 23:47:37', '2026-02-24 23:47:37'),
+(6, 13, 'Help Me Now', 85, 5, NULL, '2026-03-03 06:13:46', '2026-05-01 17:15:30'),
+(7, 28, 'Help Me Now', 85, 5, NULL, '2026-05-01 17:20:32', '2026-05-01 17:20:32');
 
 -- --------------------------------------------------------
 
@@ -1038,13 +1043,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `safety_timers`
@@ -1080,7 +1085,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `voice_passwords`
 --
 ALTER TABLE `voice_passwords`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `zones`
