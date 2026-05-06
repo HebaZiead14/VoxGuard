@@ -16,19 +16,19 @@ class SettingsController extends Controller
     public function updateToggles(Request $request)
     {
         $user = Auth::user();
-        
+
         // التحقق من البيانات المرسلة
         $data = $request->validate([
-            'fake_call_enabled'      => 'nullable|boolean',
-            'panic_button_enabled'   => 'nullable|boolean', // خاصية ضغطتين زر الباور
-            'notifications_enabled'  => 'nullable|boolean',
+            'fake_call_enabled' => 'nullable|boolean',
+            'panic_button_enabled' => 'nullable|boolean', // خاصية ضغطتين زر الباور
+            'notifications_enabled' => 'nullable|boolean',
             'voice_password_enabled' => 'nullable|boolean', // خاصية تفعيل كلمة السر الصوتية
         ]);
 
         $user->update($data);
-        
+
         return response()->json([
-            'status' => true, 
+            'status' => true,
             'message' => 'Security settings updated successfully'
         ]);
     }
@@ -40,11 +40,18 @@ class SettingsController extends Controller
     public function changeLanguage(Request $request)
     {
         $request->validate([
-            'language' => 'required|string|in:English,French,Portuguese,Korea,Russia,China,Egypt'
+            // هنا حددنا اللغتين اللي في الـ Figma بس
+            'language' => 'required|string|in:en,ar'
         ]);
 
-        Auth::user()->update(['language' => $request->language]);
-        return response()->json(['status' => true, 'message' => 'Language changed successfully']);
+        // تحديث لغة المستخدم المسجل حالياً
+        $user = Auth::user(); // تأكدي إن المستخدم عامل Login
+        $user->update(['language' => $request->language]);
+
+        return response()->json([
+            'status' => true,
+            'message' => $request->language == 'ar' ? 'تم تغيير اللغة بنجاح' : 'Language changed successfully'
+        ]);
     }
 
     /**

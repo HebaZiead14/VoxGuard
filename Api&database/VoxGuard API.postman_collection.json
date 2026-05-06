@@ -71,7 +71,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email_or_phone\": \"201011956615\", \r\n    \"password\": \"password1133\"\r\n}\r\n\r\n",
+              "raw": "{\r\n    \"email_or_phone\": \"201011956677\", \r\n    \"password\": \"npassword5\"\r\n}\r\n\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -468,7 +468,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "38|9ZNRGrQUpOGSx24TsvBGPiYYWvTaxcjvOJ26UYmu0dc0752c",
+                  "value": "83|mK7yO0YMke3kRtbnwr684x4qbLGXm4inGTSFwVcUa8f40799",
                   "type": "string"
                 }
               ]
@@ -479,16 +479,53 @@
                 "key": "Accept",
                 "value": "application/json",
                 "type": "text"
+              },
+              {
+                "key": "ngrok-skip-browser-warning",
+                "value": "true",
+                "type": "text"
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"phrase\": \"Help Me Now\",\r\n    \"sensitivity\": 85,\r\n    \"timer_duration\": 5\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phrase",
+                  "value": "Help Me Now",
+                  "type": "text",
+                  "uuid": "95d45f36-cdcb-4b24-9837-da42ec90a628"
+                },
+                {
+                  "key": "sensitivity",
+                  "value": "85\n",
+                  "type": "text",
+                  "uuid": "22f6bd68-a2f8-4b81-aef3-3888aca6a60e"
+                },
+                {
+                  "key": "timer_duration",
+                  "value": "5",
+                  "type": "text",
+                  "uuid": "1516759c-d8a3-4a1a-beb9-e9aff9a27fbc"
+                },
+                {
+                  "key": "voice1",
+                  "type": "file",
+                  "uuid": "f08677f4-29e7-4144-98f2-964c74b2a07e",
+                  "src": "/C:/Users/Heba Ziead/Videos/enas1.wav"
+                },
+                {
+                  "key": "voice2",
+                  "type": "file",
+                  "uuid": "41ed913e-8a82-423a-b0f8-98f33c2a737c",
+                  "src": "/C:/Users/Heba Ziead/Videos/enas1.wav"
+                },
+                {
+                  "key": "voice3",
+                  "type": "file",
+                  "uuid": "6fadd47f-cbb9-4c43-8307-ad5d72e41348",
+                  "src": "/C:/Users/Heba Ziead/Videos/enas1.wav"
                 }
-              }
+              ]
             },
             "url": {
               "raw": "http://127.0.0.1:8000/api/voice-password/save",
@@ -512,8 +549,57 @@
         {
           "name": "verify",
           "request": {
-            "method": "GET",
-            "header": []
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "83|mK7yO0YMke3kRtbnwr684x4qbLGXm4inGTSFwVcUa8f40799",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "emergency_audio",
+                  "type": "file",
+                  "uuid": "1b8f836c-5021-4472-b1a3-c4ddad481a08",
+                  "src": "/C:/Users/Heba Ziead/Videos/enas1.wav"
+                },
+                {
+                  "key": "user_id",
+                  "value": "28",
+                  "type": "text",
+                  "uuid": "634d98ea-ef87-448b-b3d7-ed6ef145bf05"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/voice-password/verify",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "voice-password",
+                "verify"
+              ]
+            }
           },
           "response": []
         }
