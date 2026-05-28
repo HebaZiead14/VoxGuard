@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\WearableController;
 use App\Http\Controllers\Api\IncidentController;
 use App\Http\Controllers\Api\ZoneController;
 use App\Http\Controllers\Api\TripController;
+use App\Http\Controllers\Api\DictionaryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +131,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{id}/update-status', [TripController::class, 'updateStatus']);
         Route::post('/{id}/end', [TripController::class, 'endTrip']);
 
+    });
+
+    Route::prefix('dictionary')->group(function () {
+        Route::post('/check', [DictionaryController::class, 'checkSpeech']); 
+        Route::post('/add-custom', [DictionaryController::class, 'addCustomWord']); 
     });
 
 });

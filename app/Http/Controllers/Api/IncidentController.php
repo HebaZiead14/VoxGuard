@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Incident;
 use App\Models\SosAlert; 
+use App\Models\EmergencyDictionary; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class IncidentController extends Controller
 {
@@ -122,5 +124,63 @@ class IncidentController extends Controller
             'message' => 'Health data synced successfully',
             'current_heart_rate' => $heartRate
         ]);
+    }
+
+    /**
+    
+     */
+    public function checkSpeech(Request $request)
+    {
+        $request->validate([
+            'text' => 'required|string',
+            'location_text' => 'nullable|string', // عشان لو لقطنا كلمة خطر نسيف مكانها عل طول
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+        ]);
+
+        $userId = Auth::id() ?? 13; 
+        $textIn = $request->text;
+
+        // جلب كلمات القاموس المصري
+        $words = EmergencyDictionary::where('is_active', true)
+            ->where(function ($query) use ($userId) {
+                $query->whereNull('user_id')
+                      ->orWhere('user_id', $userId);
+            })
+            ->pluck('word')
+            ->toArray();
+
+        $dangerWordDetected = null;
+        $isDanger = false;
+
+        // البحث عن الكلمة في النص
+        foreach ($words as $word) {
+            if (mb_strpos($textIn, $word) !== false) {
+                $isDanger = true;
+                $dangerWordDetected = $word;
+                break; 
+            }
+        }
+
+        if ($isDanger) {
+            Incident::create([
+                'user_id' => $userId,
+                'type' => 'Voice Auto Trigger', 
+                // 'description' => "تم رصد كلمة خطر تلقائياً بواسطة النظام الكلمة المسموعة: ($dangerWordDetected) داخل الجملة: ($textIn)",
+                'description' => $request->description ?? "تنبيه تلقائي: تم رصد كلمة خطر من النظام ($dangerWordDetected) داخل النص المسموع: ($textIn)",
+                'location_text' => $request->location_text ?? 'موقع تلقائي غير محدد',
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'status' => 'pending' 
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'danger_detected' => $isDanger,
+            'trigger_sos' => $isDanger, 
+            'matched_word' => $dangerWordDetected,
+            'message' => $isDanger ? 'Emergency word captured! Incident logged automatically.' : 'Clear text.'
+        ], 200);
     }
 }
