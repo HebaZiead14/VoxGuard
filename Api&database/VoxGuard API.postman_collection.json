@@ -1981,6 +1981,74 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "dictionary",
+      "item": [
+        {
+          "name": "dictionary",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "84|3e1dS5bl18ylLljE7xpfgBiHwgdao83sOgiUkuNFeac59206",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "text\n",
+                  "value": "الحمدلله انا وصلت البيت خلاص",
+                  "type": "text",
+                  "uuid": "cd549766-2a56-456e-8fbb-88a7846b8e1e"
+                },
+                {
+                  "key": "location_text",
+                  "value": "المنصوره , الماشيه",
+                  "type": "text",
+                  "uuid": "08e50ed8-711b-454a-b1c9-51f3f404d2ef"
+                },
+                {
+                  "key": "latitude",
+                  "value": "31.0412",
+                  "type": "text",
+                  "uuid": "a1c7fb61-db36-45d8-9b40-952d9c620ff0"
+                },
+                {
+                  "key": "longitude",
+                  "value": "31.3568",
+                  "type": "text",
+                  "uuid": "8ea68bfd-c7dc-4297-9cca-addae21ad75a"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/dictionary/check",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "dictionary",
+                "check"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "auth": {
